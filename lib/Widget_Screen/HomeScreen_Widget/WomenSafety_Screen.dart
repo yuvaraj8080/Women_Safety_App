@@ -42,8 +42,8 @@ class WomenSafety extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundColor: Colors.black.withOpacity(0.8),
-                      child: Image.asset('assets/images/women2.png'),
+                      backgroundColor: Colors.white.withOpacity(0.8),
+                      child: Image.asset('assets/images/logo.png',height:30,),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left:5,),

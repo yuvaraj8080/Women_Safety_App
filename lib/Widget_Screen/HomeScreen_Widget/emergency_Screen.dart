@@ -10,7 +10,8 @@ class Emergency extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width:MediaQuery.of(context).size.width,height:150,
+      width:MediaQuery.of(context).size.width,
+        height:150,
       child:ListView(
         physics:BouncingScrollPhysics(),
         scrollDirection:Axis.horizontal,

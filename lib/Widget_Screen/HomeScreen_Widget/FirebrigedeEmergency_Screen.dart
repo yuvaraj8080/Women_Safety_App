@@ -43,7 +43,7 @@ class FirebrigedeEmergency extends StatelessWidget {
                     CircleAvatar(
                       radius: 20,
                       backgroundColor: Colors.white.withOpacity(0.8),
-                      child: Image.asset('assets/images/fire.jpeg'),
+                      child: Image.asset('assets/images/flame.png',height:30),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left:5,),

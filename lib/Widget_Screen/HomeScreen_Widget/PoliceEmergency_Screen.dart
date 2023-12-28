@@ -42,7 +42,7 @@ class PoliceEmergency extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundColor: Colors.black.withOpacity(0.8),
+                      backgroundColor: Colors.white.withOpacity(0.8),
                       child: Image.asset('assets/images/alert.png'),
                     ),
                     Padding(

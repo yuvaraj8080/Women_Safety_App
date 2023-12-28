@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap:(){
           getRandomSafeText();
         },),
-              SizedBox(height:20),
+              SizedBox(height:10),
               customCarouel(),
               SizedBox(height:5),
               Row(children: [

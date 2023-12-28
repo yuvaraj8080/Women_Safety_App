@@ -23,9 +23,9 @@ class customAppBar extends StatelessWidget {
           child: Card(
             elevation:3,shadowColor:Colors.white,
             child:Padding(
-              padding: const EdgeInsets.only(left:10,top:6),
+              padding: const EdgeInsets.only(left:10,top:9),
               child: Text(safeText[safeTextIndex!],
-                  style:GoogleFonts.roboto(fontSize:20,fontWeight:FontWeight.bold,color: Colors.white)),
+                  style:GoogleFonts.roboto(fontSize:18,fontWeight:FontWeight.bold,color: Colors.white)),
             ),
           ),
         ),
