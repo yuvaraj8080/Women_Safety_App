@@ -11,7 +11,7 @@ class customCarouel extends StatelessWidget {
     return Container(
       child:CarouselSlider(options:CarouselOptions(
        aspectRatio:2.0,
-        height:170,
+        height:150,
         // autoPlay:true,
         enlargeCenterPage: true,
       ),

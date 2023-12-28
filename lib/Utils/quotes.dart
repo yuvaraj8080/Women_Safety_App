@@ -8,7 +8,7 @@ List safeText = [
 ];
 
 List<String> articleTitle = [
-  "indian women are inspiring country",
+  "new add hare",
   "We have to end Violance",
   "Be a change",
   "You are strong",

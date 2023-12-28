@@ -40,6 +40,8 @@ dependencies:
   webview_flutter: ^4.4.2
   webview_flutter_web: ^0.2.2+3
   webview_flutter_android: ^3.13.1
+  fluttertoast: ^8.2.4
+  url_launcher: ^6.2.2
   flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:

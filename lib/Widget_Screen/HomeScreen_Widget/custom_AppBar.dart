@@ -16,9 +16,9 @@ class customAppBar extends StatelessWidget {
         onTap!();
       },
       child: Padding(
-        padding: const EdgeInsets.only(left:7,right:5,top:4),
+        padding: const EdgeInsets.only(left:1,right:1,top:2),
         child: Container(
-
+          color:Colors.white30,
           height:50,width:double.infinity,
           child: Card(
             elevation:3,shadowColor:Colors.white,

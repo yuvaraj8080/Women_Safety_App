@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/Login_Screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Widget_Screen/Home_Screen.dart';
 
@@ -16,12 +17,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme:GoogleFonts.firaCodeTextTheme(Theme.of(context).textTheme),
-        brightness:Brightness.dark,primaryColor: Colors.purple,
+        // textTheme:GoogleFonts.firaCodeTextTheme(Theme.of(context).textTheme),
+        brightness:Brightness.dark,primaryColor: Colors.blueAccent.shade700,
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:HomeScreen(),
+      home:Login(),
     );
   }
 }

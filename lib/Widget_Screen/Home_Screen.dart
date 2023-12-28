@@ -7,6 +7,7 @@ import 'HomeScreen_Widget/LIvesafe_Screen.dart';
 import 'HomeScreen_Widget/custom_AppBar.dart';
 import 'HomeScreen_Widget/custom_Carouel.dart';
 import 'HomeScreen_Widget/emergency_Screen.dart';
+import 'SafeHome_Widget/SafeHome_Screen.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,20 +33,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     return  Scaffold(
-      appBar: AppBar(title:Text("I am Safe",style:GoogleFonts.lato(fontSize:20,fontWeight:FontWeight.bold)),
+      appBar: AppBar(title:Row(
+        children: [
+          Text("I'm ",style:GoogleFonts.lexend(fontSize:22,fontWeight:FontWeight.bold,color:Colors.white)),
+          Text(" Safe",style:GoogleFonts.archivoBlack(fontSize:22,fontWeight:FontWeight.bold,color:Colors.pink.shade600,)),
+        ],
+      ),
         backgroundColor: Colors.blueAccent.shade700,
         elevation:2,shadowColor:Colors.white
       ),
-      body:SafeArea(
-        child:Column(
+      body:SingleChildScrollView(
+        child: Column(
             children:[
         customAppBar(safeTextIndex:safeIndex,
           onTap:(){
           getRandomSafeText();
         },),
-              SizedBox(height:10),
+              SizedBox(height:3),
               customCarouel(),
-              SizedBox(height:5),
               Row(children: [
                   Text("   Emergency helpline",style:GoogleFonts.lato(fontSize:22,
                       fontWeight:FontWeight.bold,color:Colors.white)),
@@ -58,7 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               LiveSafe(),
-      ]),),
+              SafeHome(),
+              ]),
+      ),
     );
   }
 }
