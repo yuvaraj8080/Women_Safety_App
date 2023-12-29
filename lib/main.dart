@@ -1,11 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/Login_Screen.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'Widget_Screen/Home_Screen.dart';
 
-void main() {
+import 'DB/shere_Prefrences..dart';
+void main() async{
+  MySharedPrefference.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      appId: '1:1029361731735:android:af351e29c796171b7f41d2',
+      apiKey: 'AIzaSyBh8A-Pqdd6m2-h70dSBArjMANcAJnB5Co',
+      messagingSenderId: '1029361731735',
+      projectId: 'women-safety-app-67951',
+    ),
+  );
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
