@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Chat_Module/ChatBot.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import 'Widget_Screen/AdavancedSafety_Tool/Safety_tool.dart';
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/ChildHome_Screen.dart';
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/add_Contacts.dart';
 import 'features/personalization/screens/setting/setting.dart';
@@ -23,7 +23,7 @@ class NavigationMenu extends StatelessWidget {
           onDestinationSelected:(index)=>controller.selectedIndex.value = index,
           destinations:const[
            NavigationDestination(icon:Icon(Iconsax.call), label:"Contact"),
-           NavigationDestination(icon:Icon(Iconsax.message), label:"Chat"),
+           NavigationDestination(icon:Icon(Icons.health_and_safety_outlined), label:"Safety Tool"),
            NavigationDestination(icon:Icon(Icons.home_outlined), label:"Home"),
            NavigationDestination(icon:Icon(Icons.group_add_outlined), label:"Community"),
            NavigationDestination(icon:Icon(Iconsax.profile_add), label:"Profile"),
@@ -39,6 +39,6 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends  GetxController{
   final Rx<int>  selectedIndex = 2.obs;
 
-  final screens = [AddContactsPage(),ChatBotScreen(),HomeScreen(),AddContactsPage(),const SettingScreen()];
+  final screens = [AddContactsPage(),SafetyToolScreen(),HomeScreen(),AddContactsPage(),const SettingScreen()];
 
 }
