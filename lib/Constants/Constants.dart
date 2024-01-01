@@ -1,48 +1,71 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
-void goTo(BuildContext context, Widget nextScreen){
-  Navigator.push(context,MaterialPageRoute(builder:(context){
-    return nextScreen;
-  }));
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+Color primaryColor = const Color(0xfffc3b77);
+
+void goTo(BuildContext context, Widget nextScreen) {
+  Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => nextScreen,
+      ));
 }
 
-
-progressIndicator(BuildContext context){
-  showDialog(barrierDismissible: false,
+dialogueBox(BuildContext context, String text) {
+  showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return const Dialog(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(width: 20),
-              Text("Loading..."),
-            ],
-          ),
-        ),
-      );
-    },
+    builder: (context) => AlertDialog(
+      title: Text(text),
+    ),
   );
 }
 
-
-dialogueBox(BuildContext context,String text){
-  showDialog(barrierDismissible:false,
-    context:context,builder:(context){
-      return AlertDialog(elevation: 3,shadowColor: Colors.white,title:Text(text,
-          style:TextStyle(fontSize:18,fontWeight:FontWeight.bold)),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text("OK"),
-          ),
-        ],
-      );
-  });
+Widget progressIndicator(BuildContext context) {
+  return const Center(
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.blueAccent,
+        color: Colors.red,
+        strokeWidth: 7,
+      ));
 }
+
+
+//
+// progressIndicator(BuildContext context){
+//   showDialog(barrierDismissible:true,
+//     context: context,
+//     builder: (BuildContext context) {
+//       return const Dialog(
+//         child: Padding(
+//           padding: EdgeInsets.all(20.0),
+//           child: Row(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               CircularProgressIndicator(),
+//               SizedBox(width: 20),
+//               Text("Loading..."),
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
+// }
+//
+
+  void showToastMessage(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb:2,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
+  }
+
+
+
+
+

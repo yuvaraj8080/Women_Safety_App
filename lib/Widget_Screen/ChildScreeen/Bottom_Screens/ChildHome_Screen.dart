@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'HomeScreen_Widget/LIvesafe_Screen.dart';
-import 'HomeScreen_Widget/custom_AppBar.dart';
-import 'HomeScreen_Widget/custom_Carouel.dart';
-import 'HomeScreen_Widget/emergency_Screen.dart';
-import 'SafeHome_Widget/SafeHome_Screen.dart';
+import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
+import '../../HomeScreen_Widget/custom_AppBar.dart';
+import '../../HomeScreen_Widget/custom_Carouel.dart';
+import '../../HomeScreen_Widget/emergency_Screen.dart';
+import '../../SafeHome_Widget/SafeHome_Screen.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();

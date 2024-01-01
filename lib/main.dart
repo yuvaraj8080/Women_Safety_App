@@ -1,8 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Widget_Screen/Login_Screen.dart';
-void main() async{
+import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Page.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Screens/ChildHome_Screen.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Child_Login_Screen.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/ParentScreen/ParentHome_Screen.dart';
+import 'DB/shere_Prefrences..dart';
+import 'DB/shere_Prefrences..dart';
 
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -12,26 +17,38 @@ void main() async{
       projectId: 'women-safety-app-67951',
     ),
   );
+  await MySharedPrefference.init();
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // textTheme:GoogleFonts.firaCodeTextTheme(Theme.of(context).textTheme),
-        brightness:Brightness.dark,primaryColor: Colors.blueAccent.shade700,
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.dark,
+        primaryColor: Colors.blueAccent.shade700,
         useMaterial3: true,
       ),
-      home:Login(),
+      home: FutureBuilder(
+        future: MySharedPrefference.getUserType(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data =="") {
+            return Login();
+          }
+          if (snapshot.data == "child") {
+            return BottomPage();
+          }
+          if (snapshot.data == "parent") {
+            return BottomPage();
+          }
+          return CircularProgressIndicator();
+        },
+      ),
     );
   }
 }

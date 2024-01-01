@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Utils/quotes.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../UtilsFile/quotes.dart';
 class customAppBar extends StatelessWidget {
   // const customAppBar({super.key});
 

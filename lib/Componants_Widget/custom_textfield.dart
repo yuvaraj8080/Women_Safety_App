@@ -17,18 +17,18 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField(
       {this.controller,
-      this.check,
-      this.enable = true,
-      this.focusNode,
-      this.hintText,
-      this.isPassword = false,
-      this.keyboardtype,
-      this.maxLines,
-      this.onsave,
-      this.prefix,
-      this.suffix,
-      this.textInputAction,
-      this.validate});
+        this.check,
+        this.enable = true,
+        this.focusNode,
+        this.hintText,
+        this.isPassword = false,
+        this.keyboardtype,
+        this.maxLines,
+        this.onsave,
+        this.prefix,
+        this.suffix,
+        this.textInputAction,
+        this.validate});
 
   @override
   Widget build(BuildContext context) {
