@@ -17,7 +17,7 @@ class CustomElevatedButton extends StatelessWidget {
         style:ButtonStyle(
           elevation:MaterialStateProperty.all(2),
           shadowColor:MaterialStateProperty.all(Colors.white),
-          backgroundColor:MaterialStateProperty.all(Colors.blueAccent.shade700),
+          backgroundColor:MaterialStateProperty.all(Colors.pinkAccent.shade700),
           overlayColor: MaterialStateProperty.all(Colors.white24),
 
         ),

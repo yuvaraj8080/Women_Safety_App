@@ -12,7 +12,7 @@ class customCarouel extends StatelessWidget {
       child:CarouselSlider(options:CarouselOptions(
        aspectRatio:2.0,
         height:150,
-        // autoPlay:true,
+        autoPlay:true,
         enlargeCenterPage: true,
       ),
         items:List.generate(imageSliders.length, (index)=>
@@ -27,7 +27,7 @@ class customCarouel extends StatelessWidget {
                             imageSliders[index]))),
               child:Align(alignment:Alignment.bottomLeft,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(articleTitle[index],style:GoogleFonts.roboto(fontWeight: FontWeight.bold,
                     fontSize:MediaQuery.of(context).size.width*0.05,color:Colors.white
                     )),

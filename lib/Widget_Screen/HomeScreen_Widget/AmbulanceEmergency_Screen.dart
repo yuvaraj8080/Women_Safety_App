@@ -22,11 +22,11 @@ class AmbulanceEmergency extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Container(
-          height: 150,
+          height: 130,
           width: MediaQuery.of(context).size.width * 0.7,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
@@ -53,17 +53,13 @@ class AmbulanceEmergency extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(height:10),
                 Expanded(
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left:30),
-                        child: Text('Active Emergency',
-                            style:GoogleFonts.lato(fontSize:23,fontWeight:FontWeight.bold,color:Colors.white)
-                        ),
-                      ),
+
 
                       InkWell(
                         onTap:(){
@@ -72,7 +68,7 @@ class AmbulanceEmergency extends StatelessWidget {
                         child: Container(
                           height: 40, width:double.infinity,
                           decoration: BoxDecoration(
-                            gradient:LinearGradient(colors:[
+                            gradient:const LinearGradient(colors:[
                               Color(0xff4facfe),
                               Color(0xff00f2fe),
                             ]),
@@ -80,7 +76,7 @@ class AmbulanceEmergency extends StatelessWidget {
                           ),
                           child: Row(mainAxisAlignment:MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.call,size:35,color:Colors.deepOrange,),
+                              const Icon(Icons.call,size:35,color:Colors.deepOrange,),
                               Text(' 102',
                                 style: TextStyle(
                                   color: Colors.black,

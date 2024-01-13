@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Color primaryColor = const Color(0xfffc3b77);
 
@@ -22,12 +23,25 @@ dialogueBox(BuildContext context, String text) {
 }
 
 Widget progressIndicator(BuildContext context) {
-  return const Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.blueAccent,
-        color: Colors.red,
-        strokeWidth: 7,
-      ));
+  return  Center(
+    child: Container(
+      height:60,
+      child: Card(
+        elevation:2,shadowColor: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment:CrossAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              backgroundColor: Colors.blue,
+              color: Colors.pink, strokeWidth: 7,),
+             SizedBox(width:8),
+             Text("Loading ...",style:GoogleFonts.roboto(fontSize:15,fontWeight:FontWeight.bold,color:Colors.white))
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 

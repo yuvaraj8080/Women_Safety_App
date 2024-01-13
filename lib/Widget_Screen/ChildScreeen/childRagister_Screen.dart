@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Componants_Widget/customText_Button.dart';
 import 'package:flutter_women_safety_app/Constants/Constants.dart';
 import 'package:flutter_women_safety_app/Constants/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../Componants_Widget/custom_Button.dart';
+import '../../Componants_Widget/customElevated_Button.dart';
 import '../../Componants_Widget/custom_textfield.dart';
 import 'Child_Login_Screen.dart';
 import '../ParentScreen/ParentHome_Screen.dart';
@@ -100,7 +101,7 @@ class _RagisterChildState extends State<RagisterChild> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.pinkAccent.shade700,
       ),
       body: Stack(
         children: [
@@ -129,7 +130,7 @@ class _RagisterChildState extends State<RagisterChild> {
                         textInputAction:TextInputAction.next,
                         keyboardtype:TextInputType.name,
                         hintText: "Enter name",
-                        prefix:Icon(Icons.person,color:Colors.blueAccent,),
+                        prefix:Icon(Icons.person,color:Colors.pinkAccent,),
                         onsave:(name){
                           _formData["name"] = name??"";
                         },
@@ -151,7 +152,7 @@ class _RagisterChildState extends State<RagisterChild> {
                         keyboardtype:TextInputType.number,
                         hintText: "Enter mobile number ",
                         prefix:Icon(Icons.phone,
-                          color:Colors.blueAccent,),
+                          color:Colors.pinkAccent,),
                         onsave:(phone){
                           _formData["phone"] = phone??"";
                         },
@@ -173,7 +174,7 @@ class _RagisterChildState extends State<RagisterChild> {
                           textInputAction:TextInputAction.next,
                           keyboardtype:TextInputType.emailAddress,
                           hintText: "Enter Email",prefix:Icon(Icons.email,
-                          color:Colors.blueAccent),
+                          color:Colors.pinkAccent),
                           onsave:(cemail){
                             _formData["cemail"] = cemail??"";
                           },
@@ -197,7 +198,7 @@ class _RagisterChildState extends State<RagisterChild> {
                           textInputAction:TextInputAction.next,
                           keyboardtype:TextInputType.emailAddress,
                           hintText: "Enter Guardian Email",prefix:Icon(Icons.email,
-                          color:Colors.blueAccent),
+                          color:Colors.pinkAccent),
                           onsave:(gemail){
                             _formData["gemail"] = gemail??"";
                           },
@@ -223,7 +224,7 @@ class _RagisterChildState extends State<RagisterChild> {
                         hintText: "Enter Password",
                         isPassword:isPasswordShown,
                         prefix:Icon(Icons.key_outlined,
-                          color:Colors.blueAccent,),
+                          color:Colors.pinkAccent,),
 
                         onsave:(password){
                           _formData["password"] = password??"";
@@ -246,8 +247,8 @@ class _RagisterChildState extends State<RagisterChild> {
                           });
                         },
                           icon:isPasswordShown
-                              ?Icon(Icons.visibility_off,color: Colors.blueAccent)
-                              :Icon(Icons.visibility,color:Colors.blueAccent),
+                              ?Icon(Icons.visibility_off,color: Colors.pinkAccent)
+                              :Icon(Icons.visibility,color:Colors.pinkAccent),
                         ),
 
                       ),
@@ -258,7 +259,7 @@ class _RagisterChildState extends State<RagisterChild> {
                         hintText: "retype Password",
                         isPassword:isRetypePasswordShown,
                         prefix:Icon(Icons.key_outlined,
-                          color:Colors.blueAccent,),
+                          color:Colors.pinkAccent,),
                         onsave:(repassword){
                           _formData["repassword"] = repassword??"";
                         },
@@ -280,8 +281,8 @@ class _RagisterChildState extends State<RagisterChild> {
                           });
                         },
                           icon:isRetypePasswordShown
-                              ?Icon(Icons.visibility_off,color: Colors.blueAccent)
-                              :Icon(Icons.visibility,color:Colors.blueAccent),
+                              ?Icon(Icons.visibility_off,color: Colors.pinkAccent)
+                              :Icon(Icons.visibility,color:Colors.pinkAccent),
                         ),
 
                       ),
@@ -294,21 +295,12 @@ class _RagisterChildState extends State<RagisterChild> {
                         },
                       ),
                       SizedBox(height: 10),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder:(context){
-                            return Login();
-                          }));
-                        },
-                        child: Text(
-                          "Login with your Account",
-                          style: GoogleFonts.roboto(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blueAccent,
-                          ),
-                        ),
-                      ),
+                      customTextButton(title: "Login with your Account",
+                    onPressed:(){
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder:(context){
+                        return Login();
+                      }));
+                      })
                     ],
                   ),
                 ),

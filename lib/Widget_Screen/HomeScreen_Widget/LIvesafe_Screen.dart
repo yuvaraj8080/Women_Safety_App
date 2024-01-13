@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Constants/Utils.dart';
 import '../LiveSafe_Widget/BusStationCard.dart';
 import '../LiveSafe_Widget/HospitalCard.dart';
 import '../LiveSafe_Widget/PharmacyCard.dart';
@@ -17,7 +18,7 @@ class LiveSafe extends StatelessWidget {
       await launchUrl(_url);
     }
     catch(e){
-      Fluttertoast.showToast(msg:"something went wrong! call emergency number");
+      Utils().showError("something went wrong! call emergency number");
       print(e);
     }
   }
@@ -33,7 +34,7 @@ class LiveSafe extends StatelessWidget {
         child:Padding(
           padding: const EdgeInsets.only(left:5),
           child: ListView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection:Axis.horizontal,
             children:const [
               PoliceStation(onMapFunction:openMap),

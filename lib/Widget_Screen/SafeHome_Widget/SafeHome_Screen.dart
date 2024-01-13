@@ -19,6 +19,7 @@ class SafeHome extends StatefulWidget {
 class _SafeHomeState extends State<SafeHome> {
   Position? _currentPosition;
   String? _currentAddress;
+  LocationPermission? permission;
 
   Future<void> _getPermission() async {
     await Permission.sms.request();
@@ -89,6 +90,7 @@ class _SafeHomeState extends State<SafeHome> {
       });
     } catch (e) {
       print(e.toString());
+      Utils().showError(e.toString());
     }
   }
 
@@ -115,7 +117,7 @@ class _SafeHomeState extends State<SafeHome> {
     _getCurrentLocation();
   }
 
-  void showModalSafeHome(BuildContext context) {
+   showModalSafeHome(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -133,24 +135,24 @@ class _SafeHomeState extends State<SafeHome> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "SEND YOUR CURRENT LOCATION",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   if (_currentPosition != null)
                     Container(
                       height: 80,width:double.infinity,
                       color:Colors.white12,
                       child: Center(child: Text(_currentAddress!))),
-                  SizedBox(height: 70),
+                  const SizedBox(height: 70),
                   Container(
                     height:40,width:double.infinity,
                     child: ElevatedButton(
                       style:ButtonStyle(
                         elevation:MaterialStateProperty.all(2),
                         shadowColor:MaterialStateProperty.all(Colors.white),
-                        backgroundColor:MaterialStateProperty.all(Colors.blueAccent.shade700),
+                        backgroundColor:MaterialStateProperty.all(Colors.pinkAccent.shade700),
                         overlayColor: MaterialStateProperty.all(Colors.white24),
 
                       ),
@@ -161,14 +163,14 @@ class _SafeHomeState extends State<SafeHome> {
                       },
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Container(
                     height:40,width:double.infinity,
                     child: ElevatedButton(
                       style:ButtonStyle(
                         elevation:MaterialStateProperty.all(2),
                         shadowColor:MaterialStateProperty.all(Colors.white),
-                        backgroundColor:MaterialStateProperty.all(Colors.blueAccent.shade700),
+                        backgroundColor:MaterialStateProperty.all(Colors.pinkAccent.shade700),
                         overlayColor: MaterialStateProperty.all(Colors.white24),
 
                       ),
@@ -223,7 +225,7 @@ class _SafeHomeState extends State<SafeHome> {
           width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Column(
                   children: [
                     ListTile(

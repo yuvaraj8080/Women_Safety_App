@@ -28,7 +28,8 @@ class DatabaseHelper {
     return _databaseHelper!;
   }
 
-  // lets initialize the database
+  // lets initialize the databas2e
+
   static Database? _database;
   Future<Database> get database async {
     if (_database == null) {
@@ -36,6 +37,7 @@ class DatabaseHelper {
     }
     return _database!;
   }
+
 
   Future<Database> initializeDatabase() async {
     String directoryPath = await getDatabasesPath();

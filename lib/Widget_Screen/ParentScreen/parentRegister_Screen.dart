@@ -2,11 +2,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Componants_Widget/customText_Button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../Componants_Widget/custom_Button.dart';
+import '../../Componants_Widget/customElevated_Button.dart';
 import '../../Componants_Widget/custom_textfield.dart';
 import '../../Constants/Constants.dart';
+import '../../Constants/Utils.dart';
 import '../../Constants/user_model.dart';
 import '../ChildScreeen/Child_Login_Screen.dart';
 class RegisterParent extends StatefulWidget {
@@ -27,7 +29,7 @@ class _RegisterParentState extends State<RegisterParent> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (_formData["password"].toString()!= _formData["repassword"].toString()) {
-        dialogueBox(context, "both password should be same");
+        Utils().showError("both password should be same");
       }
       else {
         progressIndicator(context);
@@ -69,17 +71,17 @@ class _RegisterParentState extends State<RegisterParent> {
           });
           if (e.code == 'weak-password') {
             print('The password provided is too weak.');
-            dialogueBox(context,'The password provided is too weak.');
+            Utils().showError('The password provided is too weak.');
           } else if (e.code == 'email-already-in-use') {
             print('The account already exists for that email.');
-            dialogueBox(context,'The account already exists for that email.');
+            Utils().showError('The account already exists for that email.');
           }
         }
         catch (e) {
           setState(() {
             isLoading = false;
           });
-          dialogueBox(context,e.toString());
+          Utils().showError(e.toString());
           print(e);
         }
       }
@@ -101,7 +103,7 @@ class _RegisterParentState extends State<RegisterParent> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.pinkAccent.shade700,
       ),
       body: Stack(
         children: [
@@ -110,7 +112,7 @@ class _RegisterParentState extends State<RegisterParent> {
           : SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Color(0xff000000),
@@ -130,7 +132,7 @@ class _RegisterParentState extends State<RegisterParent> {
                         textInputAction:TextInputAction.next,
                         keyboardtype:TextInputType.name,
                         hintText: "Enter name",
-                        prefix:Icon(Icons.person,color:Colors.blueAccent,),
+                        prefix:const Icon(Icons.person,color:Colors.pinkAccent,),
                         onsave:(name){
                           _formData["name"] = name??"";
                         },
@@ -146,14 +148,14 @@ class _RegisterParentState extends State<RegisterParent> {
                           }
                         },
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       CustomTextField(
                         textInputAction:TextInputAction.next,
                         keyboardtype:TextInputType.number,
                         hintText: "Enter mobile number ",
                         // isPassword:isPasswordShown,
-                        prefix:Icon(Icons.phone,
-                          color:Colors.blueAccent,),
+                        prefix:const Icon(Icons.phone,
+                          color:Colors.pinkAccent,),
                         onsave:(phone){
                           _formData["phone"] = phone??"";
                         },
@@ -170,12 +172,12 @@ class _RegisterParentState extends State<RegisterParent> {
                           }
                         },
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       CustomTextField(
                           textInputAction:TextInputAction.next,
                           keyboardtype:TextInputType.emailAddress,
-                          hintText: "Enter Email",prefix:Icon(Icons.email,
-                          color:Colors.blueAccent),
+                          hintText: "Enter Email",prefix:const Icon(Icons.email,
+                          color:Colors.pinkAccent),
                           onsave:(gemail){
                             _formData["gemail"] = gemail??"";
                           },
@@ -194,12 +196,12 @@ class _RegisterParentState extends State<RegisterParent> {
                             }
                           }
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       CustomTextField(
                           textInputAction:TextInputAction.next,
                           keyboardtype:TextInputType.emailAddress,
-                          hintText: "Enter child email",prefix:Icon(Icons.email,
-                          color:Colors.blueAccent),
+                          hintText: "Enter child email",prefix:const Icon(Icons.email,
+                          color:Colors.pinkAccent),
                           onsave:(cemail){
                             _formData["cemail"] = cemail??"";
                           },
@@ -218,14 +220,14 @@ class _RegisterParentState extends State<RegisterParent> {
                             }
                           }
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       CustomTextField(
                         textInputAction:TextInputAction.next,
                         keyboardtype:TextInputType.emailAddress,
                         hintText: "Enter Password",
                         isPassword:isPasswordShown,
-                        prefix:Icon(Icons.key_outlined,
-                          color:Colors.blueAccent,),
+                        prefix:const Icon(Icons.key_outlined,
+                          color:Colors.pinkAccent,),
 
                         onsave:(password){
                           _formData["password"] = password??"";
@@ -248,19 +250,19 @@ class _RegisterParentState extends State<RegisterParent> {
                           });
                         },
                           icon:isPasswordShown
-                              ?Icon(Icons.visibility_off,color: Colors.blueAccent)
-                              :Icon(Icons.visibility,color:Colors.blueAccent),
+                              ?const Icon(Icons.visibility_off,color: Colors.pinkAccent)
+                              :const Icon(Icons.visibility,color:Colors.pinkAccent),
                         ),
 
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       CustomTextField(
                         textInputAction:TextInputAction.next,
                         keyboardtype:TextInputType.emailAddress,
                         hintText: "retype Password",
                         isPassword:isRetypePasswordShown,
-                        prefix:Icon(Icons.key_outlined,
-                          color:Colors.blueAccent,),
+                        prefix:const Icon(Icons.key_outlined,
+                          color:Colors.pinkAccent,),
                         onsave:(repassword){
                           _formData["repassword"] = repassword??"";
                         },
@@ -282,12 +284,12 @@ class _RegisterParentState extends State<RegisterParent> {
                           });
                         },
                           icon:isRetypePasswordShown
-                              ?Icon(Icons.visibility_off,color: Colors.blueAccent)
-                              :Icon(Icons.visibility,color:Colors.blueAccent),
+                              ?const Icon(Icons.visibility_off,color: Colors.pinkAccent)
+                              :const Icon(Icons.visibility,color:Colors.pinkAccent),
                         ),
 
                       ),
-                      SizedBox(height: 35),
+                      const SizedBox(height: 35),
                       CustomElevatedButton(
                         title: "Register",
                         onPressed: () {
@@ -295,22 +297,12 @@ class _RegisterParentState extends State<RegisterParent> {
                           _onSubmit();
                         },
                       ),
-                      SizedBox(height: 10),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder:(context){
-                            return Login();
-                          }));
-                        },
-                        child: Text(
-                          "Login with your Account",
-                          style: GoogleFonts.roboto(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blueAccent,
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 10),
+                      customTextButton(title:"Login with your Account", onPressed:(){
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder:(context){
+                          return Login();
+                        }));
+                      }),
                     ],
                   ),
                 ),

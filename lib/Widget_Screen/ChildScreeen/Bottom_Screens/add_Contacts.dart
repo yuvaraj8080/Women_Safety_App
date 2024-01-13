@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../Constants/Utils.dart';
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
 import 'Contacts.Screen.dart';
@@ -31,7 +32,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
       });
     } catch (error) {
       print("Error fetching contacts: $error");
-      Fluttertoast.showToast(msg: "Failed to load contacts");
+      Utils().showError("Failed to load contacts");
     }
   }
 
@@ -39,7 +40,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
   void deleteContact(TContact contact) async {
     int result = await databasehelper.deleteContact(contact.id);
     if (result != 0) {
-      Fluttertoast.showToast(msg: "contact removed succesfully");
+      Utils().showError("contact removed succesfully");
       showList();
     }
   }

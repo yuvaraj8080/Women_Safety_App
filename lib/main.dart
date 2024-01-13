@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/UtilsFile/flutter_background_services.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Page.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Screens/ChildHome_Screen.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Child_Login_Screen.dart';
@@ -18,6 +19,7 @@ void main() async {
     ),
   );
   await MySharedPrefference.init();
+  // await initializeService();
   runApp(const MyApp());
 }
 
@@ -36,19 +38,43 @@ class MyApp extends StatelessWidget {
       ),
       home: FutureBuilder(
         future: MySharedPrefference.getUserType(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data =="") {
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+
+          final userType = snapshot.data;
+
+          if (userType == null || userType.isEmpty) {
             return Login();
           }
-          if (snapshot.data == "child") {
+
+          if (userType == "child") {
             return BottomPage();
           }
-          if (snapshot.data == "parent") {
-            return BottomPage();
+
+          if (userType == "parent") {
+            return ParentHomeScreen();
           }
-          return CircularProgressIndicator();
+
+          return Login(); // Default to login if userType is not recognized
         },
       ),
     );
   }
 }
+
+
+
+// class CheckAuth extends StatelessWidget {
+//   // const CheckAuth({Key? key}) : super(key: key);
+
+//   checkData() {
+//     if (MySharedPrefference.getUserType() == 'parent') {}
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold();
+//   }
+// }

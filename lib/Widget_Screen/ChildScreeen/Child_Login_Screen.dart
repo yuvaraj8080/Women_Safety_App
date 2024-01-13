@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Componants_Widget/custom_textfield.dart';
 import 'package:flutter_women_safety_app/Constants/Constants.dart';
 import 'package:flutter_women_safety_app/DB/shere_Prefrences..dart';
+import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../Componants_Widget/custom_Button.dart';
+import '../../Componants_Widget/customElevated_Button.dart';
+import '../../Constants/Utils.dart';
 import 'childRagister_Screen.dart';
 import 'Bottom_Screens/ChildHome_Screen.dart';
 import '../ParentScreen/ParentHome_Screen.dart';
@@ -43,6 +45,7 @@ class _LoginState extends State<Login> {
                 .doc(userCredential.user!.uid)
                 .get()
                 .then((value){
+
               if(value['type'] == 'parent'){
                 print(value['type']);
                 MySharedPrefference.saveUserType("parent");
@@ -50,7 +53,7 @@ class _LoginState extends State<Login> {
               }
               else{
                 MySharedPrefference.saveUserType("child");
-                goTo(context,HomeScreen());
+                goTo(context,BottomPage());
               }
             });
         }
@@ -60,10 +63,10 @@ class _LoginState extends State<Login> {
           isLoading = false;
         });
         if (e.code == 'user-not-found') {
-          dialogueBox(context,"No user found for that email.");
+          Utils().showError("No user found for that email.");
           print('No user found for that email.');
         } else if (e.code == 'wrong-password') {
-          dialogueBox(context,"Wrong password provided for that user.");
+          Utils().showError("Wrong password provided for that user.");
           print('Wrong password provided for that user.');
         }
       }
@@ -83,7 +86,7 @@ class _LoginState extends State<Login> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.pinkAccent,
       ),
       body:Stack(
         children: [
@@ -112,7 +115,7 @@ class _LoginState extends State<Login> {
                           textInputAction:TextInputAction.next,
                           keyboardtype:TextInputType.emailAddress,
                           hintText: "Enter Email",prefix:Icon(Icons.email_outlined,
-                          color:Colors.blueAccent),
+                          color:Colors.pinkAccent),
                           onsave:(email){
                             _formData["email"] = email??"";
                           },
@@ -137,7 +140,7 @@ class _LoginState extends State<Login> {
                         keyboardtype:TextInputType.emailAddress,
                         hintText: "Enter Password",isPassword:isPasswordShown,
                         prefix:Icon(Icons.key_outlined,
-                          color:Colors.blueAccent,),
+                          color:Colors.pinkAccent,),
                         onsave:(password){
                           _formData["password"] = password??"";
                         },
@@ -159,8 +162,8 @@ class _LoginState extends State<Login> {
                           });
                         },
                           icon:isPasswordShown
-                              ?Icon(Icons.visibility_off,color: Colors.blueAccent)
-                              :Icon(Icons.visibility,color:Colors.blueAccent),
+                              ?Icon(Icons.visibility_off,color: Colors.pinkAccent)
+                              :Icon(Icons.visibility,color:Colors.pinkAccent),
                         ),
 
                       ),
@@ -193,7 +196,7 @@ class _LoginState extends State<Login> {
                                 style: GoogleFonts.roboto(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueAccent,
+                                  color: Colors.pinkAccent,
                                 ),
                               ),
                               onPressed: () {},
@@ -203,7 +206,7 @@ class _LoginState extends State<Login> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder:(context){
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder:(context){
                             return RagisterChild();
                           }));
                         },
@@ -218,7 +221,7 @@ class _LoginState extends State<Login> {
                                 style: GoogleFonts.roboto(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueAccent,
+                                  color: Colors.pinkAccent,
                                 ),
                               ),
                             ),
@@ -227,7 +230,7 @@ class _LoginState extends State<Login> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder:(context){
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder:(context){
                             return RegisterParent();
                           }));
                         },
@@ -242,7 +245,7 @@ class _LoginState extends State<Login> {
                                 style: GoogleFonts.roboto(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueAccent,
+                                  color: Colors.pinkAccent,
                                 ),
                               ),
                             ),
