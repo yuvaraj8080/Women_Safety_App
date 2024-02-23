@@ -57,7 +57,7 @@ class _BottomPageState extends State<BottomPage> {
 
         child:CurvedNavigationBar(
           animationDuration:const Duration(milliseconds:400),
-            color:Colors.white70,
+            color:Colors.white,
             backgroundColor:Colors.transparent,
             buttonBackgroundColor:primaryColor,
             index:currentIndex,

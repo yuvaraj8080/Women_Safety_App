@@ -1,4 +1,3 @@
-
 import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -20,6 +19,7 @@ class _SafeHomeState extends State<SafeHome> {
   Position? _currentPosition;
   String? _currentAddress;
   LocationPermission? permission;
+  String messageBody = "";
 
   Future<void> _getPermission() async {
     await Permission.sms.request();
@@ -31,12 +31,15 @@ class _SafeHomeState extends State<SafeHome> {
 
   Future<void> _sendSms(String phoneNumber, String message, {int? simSlot}) async {
     SmsStatus result = await BackgroundSms.sendMessage(
-        phoneNumber: phoneNumber, message: message, simSlot: 1);
+      phoneNumber: phoneNumber,
+      message: message,
+      simSlot: 1,
+    );
     if (result == SmsStatus.sent) {
       print("Sent");
-      Utils().showError( "successfully sent");
+      Utils().showError("Successfully sent");
     } else {
-      Utils().showError( "failed..");
+      Utils().showError("Failed...");
     }
   }
 
@@ -84,29 +87,30 @@ class _SafeHomeState extends State<SafeHome> {
         desiredAccuracy: LocationAccuracy.high,
         forceAndroidLocationManager: true,
       );
-      setState(() {
-        _currentPosition = position;
-        _getAddressFromLatLon();
-      });
+      _getAddressFromLatLon(position);
     } catch (e) {
       print(e.toString());
       Utils().showError(e.toString());
     }
   }
 
-  Future<void> _getAddressFromLatLon() async {
+  Future<void> _getAddressFromLatLon(Position position) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
-        _currentPosition!.latitude,
-        _currentPosition!.longitude,
+        position.latitude,
+        position.longitude,
       );
       Placemark place = placemarks[0];
       setState(() {
-        _currentAddress =
-        "${place.locality},${place.postalCode},${place.street},";
+        _currentPosition = position;
+        _currentAddress = "${place.country},${place.administrativeArea},${place.locality},"
+            "${place.subLocality},${place.postalCode}, ${place.street}";
+        messageBody =
+        "I am in trouble! Please reach me at https://www.google.com/maps/search/?api=1&query=${place.country},${place.administrativeArea},${place.locality},"
+            "${place.subLocality},${place.postalCode}, ${place.street}";
       });
     } catch (e) {
-      print(e.toString());
+      Utils().showError(e.toString());
     }
   }
 
@@ -117,7 +121,7 @@ class _SafeHomeState extends State<SafeHome> {
     _getCurrentLocation();
   }
 
-   showModalSafeHome(BuildContext context) {
+  showModalSafeHome(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -125,6 +129,10 @@ class _SafeHomeState extends State<SafeHome> {
           child: Container(
             height: 400,
             decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Color(0xff000000),
+                Color(0xff434343),
+              ]),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -142,21 +150,31 @@ class _SafeHomeState extends State<SafeHome> {
                   const SizedBox(height: 40),
                   if (_currentPosition != null)
                     Container(
-                      height: 80,width:double.infinity,
-                      color:Colors.white12,
-                      child: Center(child: Text(_currentAddress!))),
+                      height: 80,
+                      color: Colors.white38,
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          _currentAddress!,
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),
+                        ),
+                      ),
+                    ),
                   const SizedBox(height: 70),
                   Container(
-                    height:40,width:double.infinity,
+                    height: 40,
+                    width: double.infinity,
                     child: ElevatedButton(
-                      style:ButtonStyle(
-                        elevation:MaterialStateProperty.all(2),
-                        shadowColor:MaterialStateProperty.all(Colors.white),
-                        backgroundColor:MaterialStateProperty.all(Colors.pinkAccent.shade700),
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(2),
+                        shadowColor: MaterialStateProperty.all(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(Colors.pinkAccent.shade700),
                         overlayColor: MaterialStateProperty.all(Colors.white24),
-
                       ),
-                      child: Text("Get Location",style:GoogleFonts.roboto(fontSize:18,fontWeight:FontWeight.bold),),
+                      child: Text(
+                        "Get Current Location",
+                        style: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                       onPressed: () {
                         _getCurrentLocation();
                         Utils().showError("Location getting...");
@@ -165,40 +183,20 @@ class _SafeHomeState extends State<SafeHome> {
                   ),
                   const SizedBox(height: 15),
                   Container(
-                    height:40,width:double.infinity,
+                    height: 40,
+                    width: double.infinity,
                     child: ElevatedButton(
-                      style:ButtonStyle(
-                        elevation:MaterialStateProperty.all(2),
-                        shadowColor:MaterialStateProperty.all(Colors.white),
-                        backgroundColor:MaterialStateProperty.all(Colors.pinkAccent.shade700),
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(2),
+                        shadowColor: MaterialStateProperty.all(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(Colors.pinkAccent.shade700),
                         overlayColor: MaterialStateProperty.all(Colors.white24),
-
                       ),
-                      child: Text("Send Alert",style:GoogleFonts.roboto(fontSize:18,fontWeight:FontWeight.bold),),
-                      onPressed: () async {
-                        List<TContact> contactList =
-                        await DatabaseHelper().getContactList();
-                        String recipients = "";
-                        int i = 1;
-                        for (TContact contact in contactList) {
-                          recipients += contact.number;
-                          if (i != contactList.length) {
-                            recipients += ";";
-                            i++;
-                          }
-                        }
-                        String messageBody =
-                            "https://www.google.com/maps/search/?api=1&query=${_currentPosition!.latitude}%2C${_currentPosition!.longitude}. $_currentAddress";
-                        if (await _isPermissionGranted()) {
-                          contactList.forEach((element) {
-                            _sendSms("${element.number}","I am in trouble please reach me out at $messageBody",
-                              simSlot: 1,
-                            );
-                          });
-                        } else {
-                          print("Something wrong");
-                        }
-                      },
+                      child: Text(
+                        "Send SMS Location",
+                        style: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: _handleSendAlert,
                     ),
                   ),
                 ],
@@ -208,6 +206,23 @@ class _SafeHomeState extends State<SafeHome> {
         );
       },
     );
+  }
+
+  Future<void> _handleSendAlert() async {
+    List<TContact> contactList = await DatabaseHelper().getContactList();
+    if (contactList.isEmpty) {
+      Utils().showError("No trusted contacts available? Please Add Trusted  Contact!");
+      return;
+    }
+
+    if (await _isPermissionGranted()) {
+      for (TContact contact in contactList) {
+        _sendSms(contact.number, messageBody, simSlot: 1);
+      }
+      Utils().showError("Alert sent to trusted contacts!");
+    } else {
+      Utils().showError("SMS permission not granted");
+    }
   }
 
   @override

@@ -53,7 +53,7 @@ class _MessageTextFieldState extends State<MessageTextField> {
     String fileName = const Uuid().v1();
     int status = 1;
     var ref =
-    FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
+        FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
     var uploadTask = await ref.putFile(imageFile!);
     if (status == 1) {
       String imageUrl = await uploadTask.ref.getDownloadURL();
@@ -67,12 +67,12 @@ class _MessageTextFieldState extends State<MessageTextField> {
       permission = await Geolocator.requestPermission();
       Utils().showError("Location permissions are denied");
       if (permission == LocationPermission.deniedForever) {
-        Utils().showError( "Location permissions are permanently denied");
+        Utils().showError("Location permissions are permanently denied");
       }
     }
     Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        forceAndroidLocationManager: true)
+            desiredAccuracy: LocationAccuracy.high,
+            forceAndroidLocationManager: true)
         .then((Position position) {
       setState(() {
         _curentPosition = position;
@@ -80,7 +80,7 @@ class _MessageTextFieldState extends State<MessageTextField> {
         _getAddressFromLatLon();
       });
     }).catchError((e) {
-      Utils().showError( e.toString());
+      Utils().showError(e.toString());
     });
   }
 
@@ -92,10 +92,10 @@ class _MessageTextFieldState extends State<MessageTextField> {
       Placemark place = placemarks[0];
       setState(() {
         _curentAddress =
-        "${place.locality},${place.postalCode},${place.street},";
+            "${place.locality},${place.postalCode},${place.street},";
       });
     } catch (e) {
-      Utils().showError( e.toString());
+      Utils().showError(e.toString());
     }
   }
 
@@ -145,7 +145,8 @@ class _MessageTextFieldState extends State<MessageTextField> {
                 cursorColor: Colors.pink,
                 controller: _controller,
                 decoration: InputDecoration(
-                    hintText: 'Message',hintStyle:const TextStyle(color:Colors.black87),
+                    hintText: 'Message',
+                    hintStyle: const TextStyle(color: Colors.black87),
                     fillColor: Colors.black87,
                     filled: true,
                     prefixIcon: IconButton(
@@ -195,11 +196,11 @@ class _MessageTextFieldState extends State<MessageTextField> {
           children: [
             chatsIcon(Icons.location_pin, "location", () async {
               await _getCurrentLocation();
-              Future.delayed(const Duration(seconds:2), () {
+              Future.delayed(const Duration(seconds: 2), () {
                 message =
-                "https://www.google.com/maps/search/?api=1&query=${_curentPosition!.latitude}%2C${_curentPosition!.longitude}. $_curentAddress";
+                    "https://www.google.com/maps/search/?api=1&query=${_curentPosition!.latitude}%2C${_curentPosition!.longitude}. $_curentAddress";
                 sendMessage(message!, "link");
-              }).onError((error, stackTrace){
+              }).onError((error, stackTrace) {
                 Utils().showError(error.toString());
               });
             }),
@@ -224,7 +225,7 @@ class _MessageTextFieldState extends State<MessageTextField> {
           CircleAvatar(
             radius: 30,
             backgroundColor: Colors.pink,
-            child: Icon(icons,size:35),
+            child: Icon(icons, size: 35),
           ),
           Text("$title")
         ],

@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/UtilsFile/flutter_background_services.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Page.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Screens/ChildHome_Screen.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Child_Login_Screen.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ParentScreen/ParentHome_Screen.dart';
 import 'DB/shere_Prefrences..dart';
 import 'DB/shere_Prefrences..dart';
+import 'Widget_Screen/SafeHome_Widget/GoogleMap.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Colors.blueAccent.shade700,
-        useMaterial3: true,
+        primaryColor: Colors.blueAccent.shade700,useMaterial3: true,
       ),
       home: FutureBuilder(
         future: MySharedPrefference.getUserType(),
@@ -63,9 +62,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
 // class CheckAuth extends StatelessWidget {
 //   // const CheckAuth({Key? key}) : super(key: key);
 

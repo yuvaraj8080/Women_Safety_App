@@ -65,8 +65,6 @@ dependencies:
   sqflite: ^2.3.0
   provider: ^6.1.1
   geolocator: ^10.1.0
-  flutter_sensors: ^1.0.1
-  shake: ^2.2.0
   vibration: ^1.8.4
   geocoding: ^2.1.1
   flutter_local_notifications: ^16.3.0
@@ -74,7 +72,10 @@ dependencies:
   flutter_background_service_ios: ^5.0.0
   flutter_background_service: ^5.0.5
   telephony: ^0.2.0
+  location: ^5.0.3
+  google_maps_flutter: ^2.5.3
   url_launcher_android: ^6.2.0
+  dialog_flowtter_plus: ^0.0.1
   flutter_native_splash: ^2.3.9
   flutter_launcher_icons: ^0.13.1
 
@@ -122,7 +123,7 @@ flutter:
   assets:
     - assets/images/
 
-  #   - images/a_dot_ham.jpeg
+    - assets/dialog_flow_auth.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,20 +1,18 @@
 import 'dart:math';
-
-import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shake/shake.dart';
 import 'package:telephony/telephony.dart';
+import '../../../Chat_Module/ChatBot.dart';
 import '../../../Constants/Utils.dart';
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
 import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
 import '../../HomeScreen_Widget/custom_AppBar.dart';
-import '../../HomeScreen_Widget/custom_Carouel.dart';
 import '../../HomeScreen_Widget/emergency_Screen.dart';
 import '../../SafeHome_Widget/SafeHome_Screen.dart';
 
@@ -31,16 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   LocationPermission? permission;
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
-  // _sendSms(String phoneNumber, String message, {int? simSlot}) async {
-  //   SmsStatus result = await BackgroundSms.sendMessage(
-  //       phoneNumber: phoneNumber, message: message, simSlot: 1);
-  //   if (result == SmsStatus.sent) {
-  //     print("Sent");
-  //     Fluttertoast.showToast(msg: "send");
-  //   } else {
-  //     Fluttertoast.showToast(msg: "failed");
-  //   }
-  // }
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
@@ -133,16 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
     _getPermission();
     _getCurrentLocation();
 
-    ////// shake feature ///
-
-    // To close: detector.stopListening();
-    // ShakeDetector.waitForStart() waits for user to call detector.startListening();
   }
   @override
   Widget build(BuildContext context) {
 
     return  Scaffold(
-      appBar: AppBar(title:Row(
+      appBar: AppBar(
+          title:Row(
         children: [
           Text("I'm ",style:GoogleFonts.lexend(fontSize:22,fontWeight:FontWeight.bold,color:Colors.white)),
           Text(" Safe",style:GoogleFonts.archivoBlack(fontSize:22,fontWeight:FontWeight.bold,color:Colors.green,)),
@@ -159,21 +144,52 @@ class _HomeScreenState extends State<HomeScreen> {
           getRandomSafeText();
         },),
               const SizedBox(height:3),
-              const customCarouel(),
+              // const customCarouel(),
               Row(children: [
-                  Text("   Emergency helpline",style:GoogleFonts.lato(fontSize:22,
+                  Text("   Emergency helpline",style:GoogleFonts.lato(fontSize:18,
                       fontWeight:FontWeight.bold,color:Colors.white)),
                 ],
               ),
               const Emergency(),
               Row(children: [
-                  Text("   Explore LiveSafe",style:GoogleFonts.lato(fontSize:22,
+                  Text("   Explore LiveSafe",style:GoogleFonts.lato(fontSize:18,
                       fontWeight:FontWeight.bold,color:Colors.white)),
                 ],
               ),
               const LiveSafe(),
+              InkWell(
+                onTap:(){
+                  Navigator.push(context,MaterialPageRoute(builder:(context){
+                    return LiveLocation();
+                  }));
+                },
+                child: Card(
+                  elevation:3,shadowColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                        height:250,width:double.infinity,
+                        child:Center(child: LiveLocation())),
+                  ),),),
+
               SafeHome(),
+
               ]),
+      ),
+      floatingActionButton:Padding(
+        padding: const EdgeInsets.only(bottom:65),
+        child: FloatingActionButton(
+
+          shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(30)),
+          elevation:2,
+          backgroundColor:Colors.pinkAccent.shade100,
+          onPressed: () {
+            Navigator.push(context,MaterialPageRoute(builder:(context){
+              return ChatBotScreen();
+            }));
+        },
+            child:CircleAvatar(backgroundImage:AssetImage("assets/images/bot.png",)),
+        ),
       ),
     );
   }

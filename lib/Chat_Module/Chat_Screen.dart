@@ -80,7 +80,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
                       child: Text(
                         type == "parent"
                             ? "TALK WITH CHILD"
-                            : "TALK WITH PARENT",
+                            : "TALK WITH GUARDIAN",
                         style: TextStyle(fontSize: 30),
                       ),
                     );
