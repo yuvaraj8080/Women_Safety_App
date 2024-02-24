@@ -4,12 +4,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_women_safety_app/utils/popups/full_screen_loader.dart';
 import 'package:get/get.dart';
-
-import '../Allcontroller/personalization/controllers/user_controller.dart';
-import '../Allcontroller/personalization/screens/profile/profile.dart';
 import '../common/NetworkManager/network_manager.dart';
 import '../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../data/repositories/user/user_repository.dart';
+import '../features/personalization/controllers/user_controller.dart';
+import '../features/personalization/screens/profile/profile.dart';
 
 
 
@@ -17,7 +16,7 @@ import '../data/repositories/user/user_repository.dart';
 class UpdateNameController extends GetxController{
   static UpdateNameController get instance => Get.find();
 
-
+  final userName = TextEditingController();
   final firstName = TextEditingController();
   final lastName = TextEditingController();
   final userController = UserController.instance;
@@ -36,6 +35,7 @@ class UpdateNameController extends GetxController{
   Future<void> initializeNames() async {
     firstName.text = userController.user.value.firstName;
     lastName.text = userController.user.value.lastName;
+    userName.text = userController.user.value.username;
   }
 
   Future<void> updateUserName() async{
@@ -64,6 +64,7 @@ class UpdateNameController extends GetxController{
         /// UPDATE THE RX USER VALUE
        userController.user.value.firstName = firstName.text.trim();
        userController.user.value.lastName = lastName.text.trim();
+       userController.user.value.username = userName.text.trim();
 
 
        ///  REMOVE LOADER

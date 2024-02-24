@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Allcontroller/personalization/screens/profile/widget/change_name.dart';
-import 'package:flutter_women_safety_app/Allcontroller/personalization/screens/profile/widget/profile_menu.dart';
+import 'package:flutter_women_safety_app/features/personalization/screens/profile/widget/change_infomation.dart';
+import 'package:flutter_women_safety_app/features/personalization/screens/profile/widget/change_name.dart';
+import 'package:flutter_women_safety_app/features/personalization/screens/profile/widget/profile_menu.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../common/widgets.Login_Signup/appBar/appbar.dart';
 import '../../../../common/widgets.Login_Signup/images/t_circular_image.dart';
 import '../../../../common/widgets.Login_Signup/texts/section_heading.dart';
@@ -45,11 +45,11 @@ class ProfileScreen extends StatelessWidget {
             ///------DETAIL--------
             const Divider(),
             const SizedBox(height:5),
-            const TSectionHeading(title:"Profile Inforamation",showActionButton:false),
+            const TSectionHeading(title:"Profile Information",showActionButton:false),
             const SizedBox(height:8),
 
             TProfileMenu(title:"Name",value:controller.user.value.fullName,onPressed:()=>Get.to(()=>const ChangeName())),
-            TProfileMenu(title:"Username",value:controller.user.value.username,onPressed:(){}),
+            TProfileMenu(title:"Username",value:controller.user.value.username,onPressed:()=>Get.to(()=> const ChangeInformationScreen())),
 
              ///-----HEADING PERSONAL INFORMATION-------
 
@@ -73,4 +73,5 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
 

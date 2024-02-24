@@ -176,21 +176,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               ]),
       ),
-      floatingActionButton:Padding(
-        padding: const EdgeInsets.only(bottom:65),
-        child: FloatingActionButton(
-
-          shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(30)),
-          elevation:2,
-          backgroundColor:Colors.pinkAccent.shade100,
-          onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder:(context){
-              return ChatBotScreen();
-            }));
-        },
-            child:CircleAvatar(backgroundImage:AssetImage("assets/images/bot.png",)),
-        ),
-      ),
     );
   }
 }

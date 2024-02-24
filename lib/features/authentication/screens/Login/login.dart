@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Allcontroller/authentication/screens/Login/widgets/login_form.dart';
-import 'package:flutter_women_safety_app/Allcontroller/authentication/screens/Login/widgets/login_header.dart';
+import 'package:flutter_women_safety_app/features/authentication/screens/Login/widgets/login_form.dart';
+import 'package:flutter_women_safety_app/features/authentication/screens/Login/widgets/login_header.dart';
 
 import '../../../../common/widgets.Login_Signup/form_divider.dart';
 import '../../../../common/widgets.Login_Signup/social_buttons.dart';

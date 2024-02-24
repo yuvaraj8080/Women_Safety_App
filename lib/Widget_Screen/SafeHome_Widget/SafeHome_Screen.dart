@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_women_safety_app/Constants/contactsm.dart';
 import 'package:flutter_women_safety_app/DB/db_services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../Constants/Utils.dart';
 

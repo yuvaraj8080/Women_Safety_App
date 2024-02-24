@@ -22,7 +22,7 @@ class TFullScreenLoader {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TAnimationLoaderWidget(text: text, animation: animation),
+                Center(child: TAnimationLoaderWidget(text: text, animation: animation)),
               ],
             ),
           ),

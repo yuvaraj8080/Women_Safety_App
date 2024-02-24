@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Allcontroller/authentication/screens/signup.widgets/signup_form.dart';
+import 'package:flutter_women_safety_app/features/authentication/screens/signup.widgets/signup_form.dart';
 import '../../../../common/widgets.Login_Signup/form_divider.dart';
 import '../../../../common/widgets.Login_Signup/social_buttons.dart';
 import '../../../../utils/halpers/helper_function.dart';

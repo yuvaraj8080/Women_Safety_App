@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/widgets.Login_Signup/appBar/appbar.dart';
 import '../../../../../utils/update_name_controller.dart';
 import '../../../../../utils/validators/validator.dart';
@@ -19,13 +18,13 @@ class ChangeName extends StatelessWidget {
       showBackArrow:true,
         title:Text("Change Name",style:Theme.of(context).textTheme.headlineSmall),
       ),
-      body: Padding(padding:const EdgeInsets.all(8),
+      body: Padding(padding:const EdgeInsets.all(10),
       child:Column(
         crossAxisAlignment:CrossAxisAlignment.start,
         children:[
           ///HEADING
           Text("use real name for easy verification. this name will appear on several pages.",
-          style:Theme.of(context).textTheme.labelMedium,
+          style:Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(height:8),
 
@@ -63,3 +62,5 @@ class ChangeName extends StatelessWidget {
     );
   }
 }
+
+

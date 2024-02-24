@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Allcontroller/authentication/controllers/onboarding/onboardingcontroller.dart';
+import 'package:flutter_women_safety_app/features/authentication/controllers/onboarding/onboardingcontroller.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';

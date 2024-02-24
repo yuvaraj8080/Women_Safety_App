@@ -4,10 +4,10 @@ import 'package:flutter_women_safety_app/Chat_Module/ChatBot.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import 'Allcontroller/personalization/screens/setting/setting.dart';
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/ChildHome_Screen.dart';
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/Review_Screen.dart';
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/add_Contacts.dart';
+import 'features/personalization/screens/setting/setting.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});

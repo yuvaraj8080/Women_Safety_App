@@ -6,12 +6,10 @@ import 'package:flutter_women_safety_app/data/repositories/user/user_repository.
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-
-import '../../Allcontroller/authentication/screens/Login/login.dart';
-import '../../Allcontroller/authentication/screens/onBoarding/onboarding.dart';
-import '../../Allcontroller/authentication/screens/signup.widgets/verify_email.dart';
 import '../../exception_handling/handle_exception_file.dart';
+import '../../features/authentication/screens/Login/login.dart';
+import '../../features/authentication/screens/onBoarding/onboarding.dart';
+import '../../features/authentication/screens/signup.widgets/verify_email.dart';
 import '../../navigation_menu.dart';
 
 class AuthenticationRepository extends GetxController{
