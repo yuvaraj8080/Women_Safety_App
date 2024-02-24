@@ -20,8 +20,8 @@ class TPrimaryHeaderContainer extends StatelessWidget {
         child: Stack(
           children: [
             /// Creating the Stack Position
-            Positioned(top: -220, right: -80, child: TCircularContainer(backgroundColor: TColors.textWhite.withOpacity(0.1))),
-            Positioned(top: 50,right: -250,child: TCircularContainer(backgroundColor: TColors.textWhite.withOpacity(0.1))),
+            Positioned(top: -220, right: -80, child: TCircularContainer(backgroundColor: TColors.textWhite.withOpacity(0.2))),
+            Positioned(top: 50,right: -250,child: TCircularContainer(backgroundColor: TColors.textWhite.withOpacity(0.2))),
             child
             // Add your other widgets or content here
           ],

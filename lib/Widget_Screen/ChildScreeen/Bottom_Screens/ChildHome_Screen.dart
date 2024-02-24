@@ -1,18 +1,23 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
+import 'package:flutter_women_safety_app/common/widgets.Login_Signup/appBar/appbar.dart';
+import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
 import '../../../Chat_Module/ChatBot.dart';
 import '../../../Constants/Utils.dart';
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
 import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
-import '../../HomeScreen_Widget/custom_AppBar.dart';
 import '../../HomeScreen_Widget/emergency_Screen.dart';
 import '../../SafeHome_Widget/SafeHome_Screen.dart';
 
@@ -65,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
     await telephony.requestPhoneAndSmsPermissions;
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        forceAndroidLocationManager: true)
+            desiredAccuracy: LocationAccuracy.high,
+            forceAndroidLocationManager: true)
         .then((Position position) {
       setState(() {
         _curentPosition = position;
@@ -74,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _getAddressFromLatLon();
       });
     }).catchError((e) {
-      Utils().showError( e.toString());
+      Utils().showError(e.toString());
     });
   }
 
@@ -86,10 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
       Placemark place = placemarks[0];
       setState(() {
         _curentAddress =
-        "${place.locality},${place.postalCode},${place.street},";
+            "${place.locality},${place.postalCode},${place.street},";
       });
     } catch (e) {
-      Utils().showError( e.toString());
+      Utils().showError(e.toString());
     }
   }
 
@@ -120,61 +125,76 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _getPermission();
     _getCurrentLocation();
-
   }
+
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(children: [
+          // --------HEADER---------
+          TPrimaryHeaderContainer(
+              child: Column(
+            children: [
+              // ------ CUSTOM APPBAR ------
+              TAppBar(actions:[Icon(Icons.help_center,size:25)],
+                  title: Row(
+                    children: [
+                      Text("IM Safe",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .apply(color: TColors.white))
+                    ],
+                  )),
+              Text("Hey Dear! Now Your Safety is My Responsibility",
+                  style:Theme.of(context).textTheme.titleSmall!.apply(color:TColors.white)),
 
-    return  Scaffold(
-      appBar: AppBar(
-          title:Row(
-        children: [
-          Text("I'm ",style:GoogleFonts.lexend(fontSize:22,fontWeight:FontWeight.bold,color:Colors.white)),
-          Text(" Safe",style:GoogleFonts.archivoBlack(fontSize:22,fontWeight:FontWeight.bold,color:Colors.green,)),
-        ],
-      ),
-        backgroundColor: Colors.pinkAccent.shade700,
-        elevation:2,shadowColor:Colors.white
-      ),
-      body:SingleChildScrollView(
-        child: Column(
-            children:[
-        customAppBar(safeTextIndex:qIndex,
-          onTap:(){
-          getRandomSafeText();
-        },),
-              const SizedBox(height:3),
-              // const customCarouel(),
-              Row(children: [
-                  Text("   Emergency helpline",style:GoogleFonts.lato(fontSize:18,
-                      fontWeight:FontWeight.bold,color:Colors.white)),
-                ],
+              ///------APP BAR HEIGHT-----------'
+              SizedBox(height:TSizes.size32)
+            ],
+          )),
+          Row(
+            children: [
+              Text("   Emergency helpline",
+                  style: GoogleFonts.lato(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            ],
+          ),
+          const Emergency(),
+          Row(
+            children: [
+              Text("   Explore LiveSafe",
+                  style: GoogleFonts.lato(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            ],
+          ),
+          const LiveSafe(),
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return LiveLocation();
+              }));
+            },
+            child: Card(
+              elevation: 3,
+              shadowColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                    height: 250,
+                    width: double.infinity,
+                    child: Center(child: LiveLocation())),
               ),
-              const Emergency(),
-              Row(children: [
-                  Text("   Explore LiveSafe",style:GoogleFonts.lato(fontSize:18,
-                      fontWeight:FontWeight.bold,color:Colors.white)),
-                ],
-              ),
-              const LiveSafe(),
-              InkWell(
-                onTap:(){
-                  Navigator.push(context,MaterialPageRoute(builder:(context){
-                    return LiveLocation();
-                  }));
-                },
-                child: Card(
-                  elevation:3,shadowColor: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                        height:250,width:double.infinity,
-                        child:Center(child: LiveLocation())),
-                  ),),),
+            ),
+          ),
 
-              SafeHome(),
-
-              ]),
+          SafeHome(),
+        ]),
       ),
     );
   }

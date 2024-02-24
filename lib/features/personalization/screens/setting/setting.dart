@@ -43,10 +43,6 @@ class SettingScreen extends StatelessWidget {
                 const TSectionHeading(title:"Account Setting",showActionButton: false),
                 const SizedBox(height:8),
                // TSettingMenuTile(icon:Iconsax.safe_home, title:"My Address", subTitle:"Set shopping delivery address",onTap:()=> Get.to((const UserAddressScreen()))),
-                TSettingMenuTile(icon:Iconsax.shopping_cart, title:"My Cart", subTitle:"Add, remove products and move to checkout",onTap:(){}),
-                TSettingMenuTile(icon:Iconsax.bag_tick, title:"My Orders", subTitle:"In-progress and Completed Orders",onTap:(){}),
-                TSettingMenuTile(icon:Iconsax.bank, title:"My Account", subTitle:"Withdraw balance to registered bank account",onTap:(){}),
-                TSettingMenuTile(icon:Iconsax.discount_shape, title:"My Coupons", subTitle:"List of all the discount coupons",onTap:(){}),
                 TSettingMenuTile(icon:Iconsax.notification, title:"Notification", subTitle:"Set any kind of notification messages",onTap:(){}),
                 TSettingMenuTile(icon:Iconsax.security_card, title:"Account Privacy", subTitle:"Manage data usage and connected accounts",onTap:(){}),
 
@@ -54,7 +50,6 @@ class SettingScreen extends StatelessWidget {
                 const SizedBox(height:8),
                 const TSectionHeading(title:"App Setting",showActionButton:false),
                 const SizedBox(height:8),
-                const TSettingMenuTile(icon:Iconsax.document, title:"load Data", subTitle:"Upload Data to your Cloud Firebase"),
                 TSettingMenuTile(icon:Iconsax.location, title:"Geolocation",
                   subTitle:"Set recommendation based on location",
                 trailing:Switch(value: true,onChanged:(value){}),

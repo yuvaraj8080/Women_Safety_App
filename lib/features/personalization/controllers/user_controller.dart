@@ -168,7 +168,7 @@ Future<void> saveUserRecord(UserCredential? userCredential) async{
   uploadUserProfilePicture() async{
     try{
       final image = await ImagePicker().pickImage(source: ImageSource.gallery,
-        imageQuality:70,maxHeight:70,maxWidth:512);
+       maxHeight:70,maxWidth:512);
       if(image != null){
         imageUploading.value = true;
         // UPLOAD IMAGE

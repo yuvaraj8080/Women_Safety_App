@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                       final image = networkImage.isNotEmpty? networkImage :"assets/user/UserImge.png";
                       return controller.imageUploading.value
                       ? const TShimmerEffect(width:80, height: 80)
-                      :TCircularImage(image:image,width:100,height:100,isNetworkImage:networkImage.isNotEmpty);
+                      :TCircularImage(image:image,width:100,height:100,isNetworkImage:networkImage.isNotEmpty,fit:BoxFit.cover);
 
                     }),
                 TextButton(onPressed:() => controller.uploadUserProfilePicture(), child:const Text("Change Profile Picture"))
