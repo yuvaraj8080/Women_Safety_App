@@ -1,24 +1,18 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/appBar/appbar.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
-import '../../../Chat_Module/ChatBot.dart';
 import '../../../Constants/Utils.dart';
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
-import '../../HomeScreen_Widget/emergency_Screen.dart';
+import '../../SafeHome_Widget/GoogleMap.dart';
 import '../../SafeHome_Widget/SafeHome_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -154,46 +148,56 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height:TSizes.size32)
             ],
           )),
-          Row(
-            children: [
-              Text("   Emergency helpline",
-                  style: GoogleFonts.lato(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-            ],
-          ),
-          const Emergency(),
-          Row(
-            children: [
-              Text("   Explore LiveSafe",
-                  style: GoogleFonts.lato(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-            ],
-          ),
-          const LiveSafe(),
-          InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return LiveLocation();
-              }));
-            },
-            child: Card(
-              elevation: 3,
-              shadowColor: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
-                    height: 250,
-                    width: double.infinity,
-                    child: Center(child: LiveLocation())),
-              ),
+          // Row(
+          //   children: [
+          //     Text("Emergency helpline",
+          //         style: GoogleFonts.lato(
+          //             fontSize: 18,
+          //             fontWeight: FontWeight.bold,
+          //             color: Colors.white)),
+          //   ],
+          // ),
+          // const Emergency(),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal:TSizes.size12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ///-----EXPLORE LIVE SAFE OPEN MAP AND TEXT--------
+                Text("Explore LiveSafe",style:Theme.of(context).textTheme.headlineSmall),
+                const LiveSafe(),
+                SizedBox(height:TSizes.size8),
+
+
+                ///----[SOS] BUTTON SAFE AND SOUL---------
+                SafeHome(),
+
+
+              ],
             ),
           ),
 
-          SafeHome(),
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //       return LiveLocation();
+          //     }));
+          //   },
+          //   child: Card(
+          //     elevation: 3,
+          //     shadowColor: Colors.white,
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(5.0),
+          //       child: Container(
+          //           height: 250,
+          //           width: double.infinity,
+          //           child: Center(child: LiveLocation())),
+          //     ),
+          //   ),
+          // ),
+
+
         ]),
       ),
     );
