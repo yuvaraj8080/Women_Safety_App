@@ -28,11 +28,11 @@ class TBrandCard extends StatelessWidget {
           child: Row(
               children:[
                 /// ----- ICONS IN THE TEXTFIELD -----
-                const Flexible(
+                 Flexible(
                   child: TCircularImage(
                     isNetworkImage: false,
                     backgroundColor:Colors.transparent,
-                    image:"assets/images/products/cloth.jpg",
+                    image:"assets/images/products/cloth.jpg", width:30 ,height:30,
                   ),
                 ),
 

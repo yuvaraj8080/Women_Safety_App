@@ -58,7 +58,6 @@ dependencies:
   get_storage:
   http_multi_server: ^3.2.1
   permission_handler: ^11.1.0
-  background_sms: ^0.0.4
   contacts_service: ^0.6.3
   curved_navigation_bar: ^1.0.3
   flutter_floating_bottom_bar: ^1.2.0
@@ -67,7 +66,7 @@ dependencies:
   date_format: ^2.0.7
   sqflite: ^2.3.0
   provider: ^6.1.1
-  geolocator: ^10.1.0
+  geolocator: ^11.0.0
   vibration: ^1.8.4
   geocoding: ^2.1.1
   flutter_local_notifications: ^16.3.0
@@ -89,6 +88,7 @@ dependencies:
   smooth_page_indicator:
   readmore: ^2.2.0
   flutter_rating_bar:
+  background_sms:
   lottie: ^3.0.0
   connectivity_plus: ^5.0.2
   network_manager:

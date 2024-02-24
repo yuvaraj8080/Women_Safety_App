@@ -12,7 +12,6 @@ import '../../../DB/db_services.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
-import '../../SafeHome_Widget/GoogleMap.dart';
 import '../../SafeHome_Widget/SafeHome_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -196,7 +195,6 @@ class _HomeScreenState extends State<HomeScreen> {
           //     ),
           //   ),
           // ),
-
 
         ]),
       ),

@@ -36,3 +36,17 @@ class LiveSafe extends StatelessWidget {
     ]);
   }
 }
+
+
+
+
+// Future<void> _sendWhatsAppMessage(String phoneNumber, String message) async {
+//   try {
+//     String encodedMessage = Uri.encodeComponent(message);
+//     String url = 'https://wa.me/$phoneNumber/?text=$encodedMessage';
+//     await launch(url);
+//   } catch (e) {
+//     print('Error launching WhatsApp: $e');
+//     // Handle errors or fallback to another method if needed
+//   }
+// }

@@ -1,13 +1,15 @@
+import 'dart:async';
 import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_women_safety_app/Constants/contactsm.dart';
 import 'package:flutter_women_safety_app/DB/db_services.dart';
-
-import '../../Constants/Utils.dart';
+import '../../common/widgets.Login_Signup/custom_shapes/container/TCircleAvatar.dart';
+import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
+import '../../utils/halpers/helper_function.dart';
+import 'package:flutter/services.dart';
 
 class SafeHome extends StatefulWidget {
   @override
@@ -17,15 +19,20 @@ class SafeHome extends StatefulWidget {
 class _SafeHomeState extends State<SafeHome> {
   Position? _currentPosition;
   String? _currentAddress;
-  LocationPermission? permission;
   String messageBody = "";
+  Timer? _timer;
+  final int _timerDurationInSeconds = 10;
+  bool _isSOSActive = false;
+  List<TContact> contactList = [];
 
   Future<void> _getPermission() async {
     await Permission.sms.request();
+    await Permission.contacts.request();
   }
 
   Future<bool> _isPermissionGranted() async {
-    return await Permission.sms.status.isGranted;
+    return await Permission.sms.status.isGranted &&
+        await Permission.contacts.status.isGranted;
   }
 
   Future<void> _sendSms(String phoneNumber, String message, {int? simSlot}) async {
@@ -34,14 +41,7 @@ class _SafeHomeState extends State<SafeHome> {
       message: message,
       simSlot: 1,
     );
-    if (result == SmsStatus.sent) {
-      print("Sent");
-      Utils().showError("Successfully sent");
-    } else {
-      Utils().showError("Failed...");
-    }
   }
-
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -50,7 +50,7 @@ class _SafeHomeState extends State<SafeHome> {
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Location services are disabled. Please enable the services'),
+          content: Text('Location services are disabled. Please Enable Location'),
         ),
       );
       return false;
@@ -60,18 +60,14 @@ class _SafeHomeState extends State<SafeHome> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Location permissions are denied')),
+            TLoaders.errorSnackBar(title:"Location Permission  are Denied")
         );
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Location permissions are permanently denied, we cannot request permissions.',
-          ),
-        ),
+          TLoaders.errorSnackBar(title:'Location permissions are permanently Denied, we cannot request Permissions.',)
       );
       return false;
     }
@@ -88,8 +84,7 @@ class _SafeHomeState extends State<SafeHome> {
       );
       _getAddressFromLatLon(position);
     } catch (e) {
-      print(e.toString());
-      Utils().showError(e.toString());
+      TLoaders.successSnackBar(title:"Getting Your Current Location");
     }
   }
 
@@ -104,12 +99,13 @@ class _SafeHomeState extends State<SafeHome> {
         _currentPosition = position;
         _currentAddress = "${place.country},${place.administrativeArea},${place.locality},"
             "${place.subLocality},${place.postalCode}, ${place.street}";
-        messageBody =
-        "I am in trouble! Please reach me at https://www.google.com/maps/search/?api=1&query=${place.country},${place.administrativeArea},${place.locality},"
+        messageBody = "I am in trouble! Please reach me at https://www.google.com/maps/search/?api=1&query="
+            "${place.country},${place.administrativeArea},${place.locality}${place.subLocality},${place.postalCode},${place.street},"
             "${place.subLocality},${place.postalCode}, ${place.street}";
       });
-    } catch (e) {
-      Utils().showError(e.toString());
+    }
+    catch (e) {
+
     }
   }
 
@@ -118,144 +114,73 @@ class _SafeHomeState extends State<SafeHome> {
     super.initState();
     _getPermission();
     _getCurrentLocation();
+    _loadContacts();
   }
 
-  showModalSafeHome(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Card(
-          child: Container(
-            height: 400,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xff000000),
-                Color(0xff434343),
-              ]),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "SEND YOUR CURRENT LOCATION",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 40),
-                  if (_currentPosition != null)
-                    Container(
-                      height: 80,
-                      color: Colors.white38,
-                      width: double.infinity,
-                      child: Center(
-                        child: Text(
-                          _currentAddress!,
-                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 70),
-                  Container(
-                    height: 40,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(2),
-                        shadowColor: MaterialStateProperty.all(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(Colors.pinkAccent.shade700),
-                        overlayColor: MaterialStateProperty.all(Colors.white24),
-                      ),
-                      child: Text(
-                        "Get Current Location",
-                        style: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        _getCurrentLocation();
-                        Utils().showError("Location getting...");
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 40,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(2),
-                        shadowColor: MaterialStateProperty.all(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(Colors.pinkAccent.shade700),
-                        overlayColor: MaterialStateProperty.all(Colors.white24),
-                      ),
-                      child: Text(
-                        "Send SMS Location",
-                        style: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: _handleSendAlert,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
+  void _loadContacts() async {
+    contactList = await DatabaseHelper().getContactList();
   }
 
   Future<void> _handleSendAlert() async {
-    List<TContact> contactList = await DatabaseHelper().getContactList();
     if (contactList.isEmpty) {
-      Utils().showError("No trusted contacts available? Please Add Trusted  Contact!");
+      TLoaders.warningSnackBar(title:"No trusted contacts available? Please Add Trusted  Contact!");
       return;
     }
 
     if (await _isPermissionGranted()) {
-      for (TContact contact in contactList) {
-        _sendSms(contact.number, messageBody, simSlot: 1);
+      setState(() {
+        _isSOSActive = !_isSOSActive;
+      });
+
+      if (_isSOSActive) {
+        _timer = Timer.periodic(Duration(seconds: _timerDurationInSeconds), (timer) async {
+          for (TContact contact in contactList) {
+            _sendSms(contact.number, messageBody, simSlot: 1);
+            _makeCall(contact.number);
+            TLoaders.successSnackBar(title:"SOS Help Successfully Sent");
+          }
+        });
+        TLoaders.successSnackBar(title:"SOS Help Activated");
+      } else {
+        _timer?.cancel();
+        TLoaders.errorSnackBar(title:"SOS Help Deactivated");
       }
-      Utils().showError("Alert sent to trusted contacts!");
     } else {
-      Utils().showError("SMS permission not granted");
+      TLoaders.errorSnackBar(title:"SMS permission not granted");
+    }
+  }
+
+  void _makeCall(String phoneNumber) async {
+    try {
+      const platform = MethodChannel('flutter.native/helper');
+      await platform.invokeMethod('makeCall', {"phoneNumber": phoneNumber});
+    } on PlatformException catch (e) {
+      print("Failed to make call: '${e.message}'.");
     }
   }
 
   @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final dark = THelperFunction.isDarkMode(context);
     return InkWell(
       onTap: () {
-        showModalSafeHome(context);
+        _handleSendAlert();
       },
-      child: Card(
-        elevation: 3,
-        shadowColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
-          height: 150,
-          width: MediaQuery.of(context).size.width,
+      child: Container(
+        height: 140,
+        width: MediaQuery.of(context).size.width,
+        child: Card(
+          elevation:3,shadowColor:dark?Colors.white:Colors.black,
           child: Row(
-            children: [
-              const Expanded(
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        "Send Location",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text("Share Location"),
-                    ),
-                  ],
-                ),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset("assets/images/route.jpg"),
-              ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:[
+              TCircularAvatar(imageUrl:"assets/images/sos.png",radius: 45)
             ],
           ),
         ),
@@ -263,3 +188,7 @@ class _SafeHomeState extends State<SafeHome> {
     );
   }
 }
+
+
+
+
