@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Constants.dart';
+// import 'Constants.dart';///
 
 class PrimaryButton extends StatelessWidget {
   final String title;
@@ -23,7 +23,7 @@ class PrimaryButton extends StatelessWidget {
           style: TextStyle(fontSize: 18),
         ),
         style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
+            // backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30))),
       ),

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Chat_Module/Chat_Screen.dart';
-import 'package:flutter_women_safety_app/Constants/Constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -22,7 +21,7 @@ class ChatPage extends StatelessWidget {
         builder:(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
 
           if(!snapshot.hasData){
-            return progressIndicator(context);
+            // return progressIndicator(context);
           }
           return ListView.builder(
 

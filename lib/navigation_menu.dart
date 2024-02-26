@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/ChildHome_Screen.dart';
-import 'Widget_Screen/ChildScreeen/Bottom_Screens/Review_Screen.dart';
 import 'Widget_Screen/ChildScreeen/Bottom_Screens/add_Contacts.dart';
 import 'features/personalization/screens/setting/setting.dart';
 
@@ -40,6 +39,6 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends  GetxController{
   final Rx<int>  selectedIndex = 2.obs;
 
-  final screens = [AddContactsPage(),ChatBotScreen(),HomeScreen(),ReviewPage(),const SettingScreen()];
+  final screens = [AddContactsPage(),ChatBotScreen(),HomeScreen(),AddContactsPage(),const SettingScreen()];
 
 }

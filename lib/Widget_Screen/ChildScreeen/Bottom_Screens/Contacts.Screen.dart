@@ -1,11 +1,8 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_women_safety_app/Constants/Utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../Constants/Constants.dart';
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
 
@@ -83,9 +80,9 @@ class _ContactsPageState extends State<ContactsPage> {
 
   handInvaliedPermissions(PermissionStatus permissionStatus) {
     if (permissionStatus == PermissionStatus.denied) {
-      Utils().showError("Access to the contacts denied by the user");
+      // Utils().showError("Access to the contacts denied by the user");
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
-      Utils().showError("May contact does exist in this device");
+      // Utils().showError("May contact does exist in this device");
     }
   }
 
@@ -174,8 +171,8 @@ class _ContactsPageState extends State<ContactsPage> {
                           final String name = contact.displayName!;
                           _addContact(TContact(phoneNum, name));
                         } else {
-                          Utils().showError(
-                              "Oops! phone number of this contact does exist");
+                          // Utils().showError(
+                          //     "Oops! phone number of this contact does exist");
                         }
                       },
                     ),
@@ -195,10 +192,10 @@ class _ContactsPageState extends State<ContactsPage> {
   void _addContact(TContact newContact) async {
     int result = await _databaseHelper.insertContact(newContact);
     if (result != 0) {
-      Utils().showError("contact added successfully");
+      // Utils().showError("contact added successfully");
     }
     else {
-      Utils().showError("Failed to add contacts");
+      // Utils().showError("Failed to add contacts");
     }
     Navigator.of(context).pop(true);
   }

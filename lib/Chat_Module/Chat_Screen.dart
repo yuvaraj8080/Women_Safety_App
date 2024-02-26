@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Constants/Utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../Constants/Constants.dart';
+import '../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import 'Message_TextField.dart';
 import 'SingleMessage.dart';
 
@@ -127,7 +125,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
                     ),
                   );
                 }
-                return progressIndicator(context);
+                return TLoaders.warningSnackBar(title: "jd");
               },
             ),
           ),
