@@ -16,7 +16,7 @@ class onBoardingNavigation extends StatelessWidget {
     final controller = onBordingController.instance;
 
     return Positioned(
-        bottom:kToolbarHeight+20,
+        bottom:kToolbarHeight+35,
         left:15,
         child:SmoothPageIndicator(
           controller:controller.pageCotroller,

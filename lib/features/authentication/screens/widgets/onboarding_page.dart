@@ -15,16 +15,22 @@ class onBordingPage extends StatelessWidget {
         children: [
           Image(
             width: MediaQuery.of(context).size.width * .8,
-            height: MediaQuery.of(context).size.height * .6,
+            height: MediaQuery.of(context).size.height * .5,
             image: AssetImage(image),
           ),
-          Text(title,
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.center),
-          const SizedBox(height: 8),
-          Text(subtitle,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: 8),
+              Text(subtitle,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center),
+            ],
+          ),
+
         ],
       ),
     );

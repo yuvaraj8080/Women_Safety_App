@@ -9,8 +9,8 @@ class onBoardingSkip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(top:kToolbarHeight,right:8,child:TextButton(
+    return Positioned(left:20,bottom:20,child:TextButton(
       onPressed:()=> onBordingController.instance.skipPage(),
-      child:const Text("Skip"),));
+      child:Text("Skip",style:Theme.of(context).textTheme.headlineSmall)));
   }
 }

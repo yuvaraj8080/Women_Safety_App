@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
   import '../../../../common/NetworkManager/network_manager.dart';
 import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../../../data/repositories/authentication-repository.dart';
+import '../../../../utils/constants/image_string.dart';
 import '../../../../utils/popups/full_screen_loader.dart';
 import '../../../personalization/controllers/user_controller.dart';
 
@@ -33,7 +34,7 @@ import '../../../personalization/controllers/user_controller.dart';
     Future<void> emailAndPasswordSignIn () async{
       try{
         //  START LOADING
-        TFullScreenLoader.openLoadingDialog("Loading you in..","assets/images/animations/emailVerification.jpg");
+        TFullScreenLoader.openLoadingDialog("Login For you...",TImages.loadingLottie);
 
         // CHECK INTERNET CONNECTIVITY
         final isConnected = await NetworkManager.instance.isConnected();
@@ -79,7 +80,7 @@ import '../../../personalization/controllers/user_controller.dart';
     Future<void> googleSignIn() async{
       try{
         // START LOADING
-        TFullScreenLoader.openLoadingDialog("Logging you in...","assets/images/animations/doneEmail.webp");
+        TFullScreenLoader.openLoadingDialog("Sign In For you....",TImages.loadingLottie);
 
         //CHECK INTERNET CONNECTIVITY
         final isConnected = await NetworkManager.instance.isConnected();

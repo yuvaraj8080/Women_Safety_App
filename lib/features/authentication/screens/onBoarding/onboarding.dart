@@ -19,19 +19,21 @@ class OnBoardingScreen extends StatelessWidget {
     return Scaffold(
         body: Stack(children: [
           /// Horizantal Scrollabel Pages
-      PageView(
+            PageView(
         controller: controller.pageCotroller,
           onPageChanged: controller.updatePageIndicator,
           children: const [
-        onBordingPage(image:"assets/images/on_boarding_images/firstgiftCard.jpg",
-          title: "Choose your Product",subtitle:"Welcome to a world of Limitless Choice your Perfect Product Awaits"),
+        onBordingPage(image:"assets/images/on_boarding_images/img.png",
+          title: "Welcome to Your Safety App.",subtitle:"To create a secure and inclusive environment for all users, particularly women, using the platform. This could involve implementing features such as emergency contact options, reporting mechanisms for harassment or abuse, safety tips, and clear guidelines on how to use the platform safely."),
 
 
-        onBordingPage(image:"assets/images/on_boarding_images/secondgiftCard.png",
-            title: "Select Payment Method",subtitle:"For Seamless Transaction Choose Your Payyment Path Your Convenience Our Priority!"),
+        onBordingPage(image:"assets/images/on_boarding_images/board4.png",
+            title: "Safety Advanced SOS Feature",subtitle:"1)Women with SOS features for instant help sms send every 20 second  your trusted contact"
+                "     2)Ensure safety with quick access to emergency contacts and services."),
 
-        onBordingPage(image:"assets/images/on_boarding_images/thirdgiftCard.jpeg",
-            title: "Delivern at your door step",subtitle:"From our Doorstep to Your Swipt Secure, and Contacties Delivery"),
+        onBordingPage(image:"assets/images/on_boarding_images/onboard2.webp",
+            title: "Hello Dear, Lets Go Your Dream App",subtitle:"Allow users to create trusted networks of friends and family who can be contacted in case of emergencies."
+                " Enable users to report incidents of harassment or unsafe behavior within the community while maintaining anonymity, fostering a safe environment for sharing concerns."),
       ]),
 
           /// Skip Button

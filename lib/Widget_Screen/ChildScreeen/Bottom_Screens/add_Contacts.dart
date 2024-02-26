@@ -96,7 +96,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
               style: GoogleFonts.roboto(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             Divider(height: 5, color: Colors.white54, thickness: 2),

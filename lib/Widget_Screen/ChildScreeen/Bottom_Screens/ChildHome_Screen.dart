@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/appBar/appbar.dart';
+import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/VerticaleCard.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -167,6 +168,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text("Explore LiveSafe",style:Theme.of(context).textTheme.headlineSmall),
                 const LiveSafe(),
                 SizedBox(height:TSizes.size8),
+
+
+                ///EMERGENCY HELPLINE
+                EmergencyHelpline_Card(),
 
 
                 ///----[SOS] BUTTON SAFE AND SOUL---------

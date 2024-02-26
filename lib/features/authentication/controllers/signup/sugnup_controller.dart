@@ -6,6 +6,7 @@ import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../../../data/repositories/authentication-repository.dart';
 import '../../../../data/repositories/user/user_repository.dart';
 import '../../../../utils/User_Model/user_model.dart';
+import '../../../../utils/constants/image_string.dart';
 import '../../../../utils/popups/full_screen_loader.dart';
 import '../../screens/signup.widgets/verify_email.dart';
 
@@ -29,7 +30,7 @@ class SignupController extends GetxController{
      try {
        //START LOADING
        TFullScreenLoader.openLoadingDialog(
-           "We are processing your information...","assets/images/animations/loading.json");
+           "We are processing your information...",TImages.loadingLottie);
 
        ///CHECK INTERNET CONNECTIVITY
        final isConnected = await NetworkManager.instance.isConnected();

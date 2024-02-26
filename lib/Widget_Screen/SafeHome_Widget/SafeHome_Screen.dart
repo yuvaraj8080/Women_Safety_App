@@ -14,7 +14,7 @@ class SafeHome extends GetView<SafeHomeController> {
         controller.handleSendAlert();
       },
       child: Container(
-        height: 140,
+        height: 120,
         width: MediaQuery.of(context).size.width,
         child: Card(
           elevation: 3,
@@ -25,7 +25,7 @@ class SafeHome extends GetView<SafeHomeController> {
               Column(
                 children: [
                   Text('Timer: ${controller.timerValue.value}'),
-                  TCircularAvatar(imageUrl: "assets/images/sos.png", radius: 40),
+                  TCircularAvatar(imageUrl: "assets/images/sos.png", radius:35),
                 ],
               ),
             ],

@@ -23,7 +23,7 @@ class LiveSafeMap_Card extends StatelessWidget {
         onMapFunction!(openurl);
       },
       child: Container(
-        height: 120,
+        height: 100,
         width: 160,
         child: Card(
           elevation:2,
@@ -32,7 +32,7 @@ class LiveSafeMap_Card extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // -------CIRCULAR AVATAR --------
-              TCircularAvatar(imageUrl: imageUrl, radius:30),
+              TCircularAvatar(imageUrl: imageUrl, radius:20 ),
 
               // ------TEXT OF IMAGE HERE --------
               SizedBox(height: TSizes.size8),

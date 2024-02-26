@@ -87,6 +87,7 @@ dependencies:
   intl:
   smooth_page_indicator:
   readmore: ^2.2.0
+  liquid_swipe:
   flutter_rating_bar:
   background_sms:
   lottie: ^3.0.0
@@ -145,7 +146,7 @@ flutter:
     - assets/icons/categories/
     - assets/images/products/
     - assets/user/
-    - assets/images/banners/
+    - assets/images/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

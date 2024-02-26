@@ -7,6 +7,9 @@ import 'package:flutter_women_safety_app/Constants/contactsm.dart';
 import 'package:flutter_women_safety_app/DB/db_services.dart';
 import 'package:get/get.dart';
 
+import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
+
+
 class SafeHomeController extends GetxController {
   final _isSOSActive = false.obs;
   final _currentPosition = Rxn<Position>();
@@ -14,7 +17,7 @@ class SafeHomeController extends GetxController {
   final _contactList = <TContact>[].obs;
   final _timerValue = ''.obs;
   Timer? _timer;
-  final int _timerDurationInSeconds = 15;
+  final int _timerDurationInSeconds = 20;
 
   @override
   void onInit() {
@@ -39,7 +42,7 @@ class SafeHomeController extends GetxController {
       );
       _getAddressFromLatLon(position);
     } catch (e) {
-      // Handle error
+      TLoaders.errorSnackBar(title: "Something Went wrong? Please try again");
     }
   }
 
@@ -49,25 +52,20 @@ class SafeHomeController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar(
-        'Error',
-        'Location services are disabled. Please Enable Location',
-      );
+      TLoaders.warningSnackBar(title: 'Location services are disabled. Please Enable Location');
       return false;
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        Get.snackbar('Error', 'Location Permissions are Denied');
+        TLoaders.warningSnackBar(title: 'Location Permissions are Denied');
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      Get.snackbar(
-        'Error',
-        'Location permissions are permanently Denied, we cannot request Permissions.',
-      );
+      TLoaders.warningSnackBar(
+          title: 'Location permissions are permanently Denied, we cannot request Permissions.');
       return false;
     }
     return true;
@@ -75,16 +73,16 @@ class SafeHomeController extends GetxController {
 
   Future<void> _getAddressFromLatLon(Position position) async {
     try {
-      final placemarks = await placemarkFromCoordinates(
+      final List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
       );
-      final place = placemarks[0];
+      final Placemark place = placemarks[0];
       _currentPosition.value = position;
-      _currentAddress.value = "${place.country},${place.administrativeArea},${place.locality},"
-          "${place.subLocality},${place.postalCode}, ${place.street}";
+      _currentAddress.value = "${position.latitude},${position.longitude},${place.country},${place.administrativeArea},${place.locality},"
+          "${place.subLocality},${place.postalCode},${place.street}";
     } catch (e) {
-      // Handle error
+      TLoaders.errorSnackBar(title: "Something went wrong! Please try again");
     }
   }
 
@@ -94,49 +92,44 @@ class SafeHomeController extends GetxController {
 
   Future<void> handleSendAlert() async {
     if (_contactList.isEmpty) {
-      Get.snackbar(
-        "No trusted contacts available? Please Add Trusted Contact!",
-        '',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      TLoaders.warningSnackBar(title: "No trusted contacts available? Please Add Trusted Contact!");
       return;
     }
-
     if (await _isPermissionGranted()) {
       _isSOSActive.toggle();
 
       if (_isSOSActive.value) {
         _timer = Timer.periodic(Duration(seconds: _timerDurationInSeconds), (timer) {
           _timerValue.value = '${timer.tick}';
-          for (TContact contact in _contactList) {
-            _sendSms(contact.number, _currentAddress.value ?? '');
+          if (_currentAddress.value != null) {
+            for (TContact contact in _contactList) {
+              _sendSms(contact.number,"I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${_currentPosition.value}");
+              TLoaders.customToast(message: "SOS Help Successfully Sent");
+            }
+          } else {
+            // Handle null address
+            TLoaders.errorSnackBar(title: "Current address not available");
           }
         });
-        Get.snackbar(
-          "SOS Help Activated",
-          '',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        TLoaders.successSnackBar(title: "SOS Help Activated");
       } else {
         _timer?.cancel();
-        Get.snackbar(
-          "SOS Help Deactivated",
-          '',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        _sendSafeMessage(); // Send a final message indicating the user is safe
+        TLoaders.successSnackBar(title: "SOS Help Deactivated");
       }
     } else {
-      Get.snackbar(
-        "SMS permission not granted",
-        '',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      TLoaders.warningSnackBar(title: "SMS permission not granted");
+    }
+  }
+
+  void _sendSafeMessage() {
+    for (TContact contact in _contactList) {
+      _sendSms(contact.number,"I am Safe, my Current location: https://www.google.com/maps/search/?api=1&query=${_currentAddress.value}");
     }
   }
 
   Future<bool> _isPermissionGranted() async {
-    return await Permission.sms.status.isGranted &&
-        await Permission.contacts.status.isGranted;
+    return await Permission.sms.isGranted && await Permission.contacts.isGranted;
   }
 
   Future<void> _sendSms(String phoneNumber, String message) async {
@@ -152,6 +145,5 @@ class SafeHomeController extends GetxController {
     _timer?.cancel(); // Cancel the timer when the widget is disposed
     super.onClose();
   }
-
   RxString get timerValue => _timerValue;
 }

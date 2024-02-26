@@ -5,7 +5,7 @@ class TImages{
   static const String lightAppLogo = "";
 
   /// LOADING LOTTIE ANIMATION IMAGE
-  static const String loadingLottie = "";
+  static const String loadingLottie = "assets/images/animations/loading.json";
 
 
 }

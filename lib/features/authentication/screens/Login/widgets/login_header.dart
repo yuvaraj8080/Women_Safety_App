@@ -14,8 +14,8 @@ class TLoginHeader extends StatelessWidget {
       Image(
         height: 180,
         image: AssetImage(dark
-            ? "assets/logos/ELightLogo.png"
-            : "assets/logos/backElogo.png"),
+            ? "assets/images/on_boarding_images/onboard1.png"
+            : "assets/images/on_boarding_images/onboard1.png"),
       ),
       const SizedBox(height: 5),
       Text(
