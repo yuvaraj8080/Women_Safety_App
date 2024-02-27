@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Chat_Module/ChatBot.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/container/TCircleAvatar.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../common/widgets.Login_Signup/appBar/appbar.dart';
 import '../../common/widgets.Login_Signup/card/Safety_Tool_Card.dart';
@@ -36,7 +39,9 @@ class SafetyToolScreen extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ToolsCard(image:"assets/images/images/img_3.png", text:"Defence tool", radius: 30),
-                    ToolsCard(image:"assets/images/images/img_4.png", text:"AI ChatBot", radius: 30),
+                    GestureDetector(
+                      onTap:()=> Get.to(()=>ChatBotScreen()),
+                        child: ToolsCard(image:"assets/images/images/img_4.png", text:"AI ChatBot", radius: 30)),
                   ]),
     ])),
 

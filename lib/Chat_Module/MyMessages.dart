@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constants/colors.dart';
+
 class MessagesScreen extends StatefulWidget {
   final List messages;
   const MessagesScreen({Key? key, required this.messages}) : super(key: key);
@@ -33,8 +35,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
                               widget.messages[index]['isUserMessage'] ? 20 : 0),
                         ),
                         color: widget.messages[index]['isUserMessage']
-                            ? Colors.grey.shade800
-                            : Colors.grey.shade900.withOpacity(0.8)),
+                            ?Colors.greenAccent.shade100
+                            :TColors.darkGrey),
                     constraints: BoxConstraints(maxWidth: w * 2 / 3),
                     child:
                     Text(widget.messages[index]['message'].text.text[0])),

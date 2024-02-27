@@ -1,8 +1,6 @@
-
-
 import 'package:dialog_flowtter_plus/dialog_flowtter_plus.dart';
 import 'package:flutter/material.dart';
-
+import '../utils/constants/colors.dart';
 import 'MyMessages.dart';
 
 class ChatBotScreen extends StatefulWidget {
@@ -27,9 +25,18 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('IMBot',style:TextStyle(fontSize:20,fontWeight:FontWeight.bold)),
-        backgroundColor:Colors.black54,elevation:2,shadowColor: Colors.white,
+
+      appBar:AppBar(elevation:3,shadowColor:Colors.blue,
+          leading:Padding(
+            padding: const EdgeInsets.only(left:10),
+            child: CircleAvatar(backgroundImage:AssetImage("assets/images/images/img_5.png")),
+          ),
+        title:Column(
+          children: [
+            Text("SafetyBOT",style:Theme.of(context).textTheme.headlineSmall),
+            Text("What can I Help You..",style:Theme.of(context).textTheme.bodySmall),
+          ],
+        )
       ),
       body: Container(
         child: Column(
@@ -41,7 +48,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
               child: Row(
                 children: [
                   Expanded(
-                      child: TextField(
+                      child:TextFormField(
                         controller: _controller,
                         style: TextStyle(color: Colors.white),
                       )),
@@ -51,7 +58,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                         sendMessage(_controller.text);
                         _controller.clear();
                       },
-                      icon: Icon(Icons.send))
+                      icon: Icon(Icons.send,color:TColors.primaryColor))
                 ],
               ),
             )
@@ -63,7 +70,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   sendMessage(String text) async {
     if (text.isEmpty) {
-      print('Message is empty');
+      print('Message is empty',);
     } else {
       setState(() {
         addMessage(Message(text: DialogText(text: [text])), true);

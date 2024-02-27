@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/appBar/appbar.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/VerticaleCard.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
@@ -167,16 +168,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ///-----EXPLORE LIVE SAFE OPEN MAP AND TEXT--------
                 Text("Explore LiveSafe",style:Theme.of(context).textTheme.headlineSmall),
                 const LiveSafe(),
-                SizedBox(height:TSizes.size8),
-
+                SizedBox(height:4),
 
                 ///EMERGENCY HELPLINE
-                EmergencyHelpline_Card(),
+                // EmergencyHelpline_Card(),
 
 
                 ///----[SOS] BUTTON SAFE AND SOUL---------
-                SafeHome(),
+                // SafeHome(),
 
+                Container(
+                  height:MediaQuery.of(context).size.height*0.4,
+                  width:double.infinity,
+                  child: Card(
+                    elevation:3,shadowColor:Colors.grey,
+                    child: LiveLocation(),
+                  ),
+                )
 
               ],
             ),
