@@ -9,16 +9,19 @@ import 'package:background_sms/background_sms.dart';
 import '../../Constants/contactsm.dart';
 import '../../DB/db_services.dart';
 import 'package:sensors/sensors.dart';
+import 'package:vibration/vibration.dart';
 
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
+
 class LiveLocationController extends GetxController {
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
-  Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
+  Rx<GoogleMapController?> googleMapController =
+  Rx<GoogleMapController?>(null);
   final _contactList = <TContact>[].obs;
   bool isSOSActive = false;
-  int shakeCount = 0;
   Timer? _timer;
+  int shakeCount = 0;
 
   @override
   void onInit() {
@@ -29,24 +32,23 @@ class LiveLocationController extends GetxController {
     _startListeningShakeDetector();
   }
 
-  /// GETTING PERMISSION FOR BACKGROUND SMS AND CONTACTS
   Future<void> _getPermission() async {
     await Permission.sms.request();
     await Permission.contacts.request();
   }
 
-  /// FETCHING THE USER CURRENT LIVE LOCATION
   Future<void> getCurrentLocation() async {
     bool locationPermissionGranted = await _handleLocationPermission();
     if (!locationPermissionGranted) {
-      return; // Stop if location permission is not granted
+      return;
     }
 
     Location location = Location();
     LocationData _locationData;
 
     _locationData = await location.getLocation();
-    initialLatLng.value = LatLng(_locationData.latitude!, _locationData.longitude!);
+    initialLatLng.value =
+        LatLng(_locationData.latitude!, _locationData.longitude!);
 
     final GoogleMapController? controller = googleMapController.value;
     controller?.animateCamera(
@@ -54,7 +56,6 @@ class LiveLocationController extends GetxController {
     );
   }
 
-  /// HANDLE LOCATION PERMISSION
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -69,19 +70,20 @@ class LiveLocationController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        TLoaders.warningSnackBar(title: 'Location Permissions are Denied');
+        TLoaders.warningSnackBar(
+            title: 'Location Permissions are Denied');
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       TLoaders.warningSnackBar(
-          title: 'Location permissions are permanently Denied, we cannot request Permissions.');
+          title:
+          'Location permissions are permanently Denied, we cannot request Permissions.');
       return false;
     }
     return true;
   }
 
-  /// GETTING TRUSTED CONTACTS FROM DATABASE
   void _loadContacts() async {
     _contactList.assignAll((await DatabaseHelper().getContactList()));
   }
@@ -105,12 +107,12 @@ class LiveLocationController extends GetxController {
 
             for (TContact contact in _contactList) {
               await sendMessage(contact.number, message);
-              TLoaders.customToast(message: "Sent SOS");
+              TLoaders.customToast(message: "Sent SOS message Successfully");
             }
           }
         });
 
-        TLoaders.customToast(message: "SOS Help Activated");
+        TLoaders.successSnackBar(title: "SOS Help Activated");
         isSOSActive = true;
       }
     } else {
@@ -129,13 +131,35 @@ class LiveLocationController extends GetxController {
     }
   }
 
-  /// Check if permissions for SMS and contacts are granted
+  Future<void> sendShake() async {
+      if (_contactList.isEmpty) {
+        TLoaders.warningSnackBar(
+            title:
+            "No trusted contacts available? Please Add Trusted Contact!");
+        return;
+      }
+
+      bool permissionsGranted = await _arePermissionsGranted();
+      if (permissionsGranted) {
+        LocationData? locationData = await _getCurrentLocation();
+        if (locationData != null) {
+          String message =
+              "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+
+          for (TContact contact in _contactList) {
+            await sendMessage(contact.number, message);
+            TLoaders.customToast(message: "Sent Shake SOS successfully");
+          }
+        }
+      }
+
+  }
+
   Future<bool> _arePermissionsGranted() async {
     return await Permission.sms.isGranted &&
         await Permission.contacts.isGranted;
   }
 
-  /// Get current location
   Future<LocationData?> _getCurrentLocation() async {
     Location location = Location();
     LocationData? locationData;
@@ -148,7 +172,6 @@ class LiveLocationController extends GetxController {
     return locationData;
   }
 
-  /// Send SMS message
   Future<void> sendMessage(String phoneNumber, String message) async {
     await BackgroundSms.sendMessage(
       phoneNumber: phoneNumber,
@@ -157,45 +180,35 @@ class LiveLocationController extends GetxController {
     );
   }
 
-  /// Start listening for shake gesture
   void _startListeningShakeDetector() {
-    accelerometerEvents.listen((event) {
-      if (_isShaking(event)) {
-        // First shake triggers SOS
-        if (!isSOSActive) {
-          sendSOS();
-          isSOSActive = true;
-        }
-        // Increment shake count
+    bool isShaking = false;
+    accelerometerEvents.listen((event) async {
+      if (_isShaking(event) && !isShaking) {
+        isShaking = true;
         shakeCount++;
-        // Second shake cancels SOS
-        if (shakeCount >= 2) {
-          cancelSOS();
+        if (shakeCount == 5) {
+          await sendShake();
+          shakeCount = 0;
+          isSOSActive = false; // Turn off SOS mode after sending 5 messages
         }
+        if (await Vibration.hasVibrator() ?? false) {
+          Vibration.vibrate(duration: 100); // Vibrate for feedback
+        }
+        isShaking = false;
       }
     });
   }
 
-  /// Define the shake threshold
   bool _isShaking(AccelerometerEvent event) {
-    final double threshold = 12.0;
+    final double threshold =  70.0;
     return event.x.abs() > threshold ||
         event.y.abs() > threshold ||
         event.z.abs() > threshold;
   }
-
-  /// Cancel SOS and reset shake count
-  void cancelSOS() {
-    _timer?.cancel();
-    shakeCount = 0;
-    isSOSActive = false;
-    TLoaders.customToast(message: "SOS Help Deactivated");
-  }
 }
 
 class LiveLocation extends StatelessWidget {
-  final LiveLocationController _controller =
-  Get.put(LiveLocationController());
+  final LiveLocationController _controller = Get.put(LiveLocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -228,8 +241,7 @@ class LiveLocation extends StatelessWidget {
         onPressed: () {
           _controller.sendSOS();
         },
-        label: Text(_controller.isSOSActive ? "" : "",
-            style: Theme.of(context).textTheme.titleSmall),
+        label: Text(""),
         icon: CircleAvatar(
           backgroundImage: AssetImage("assets/images/sos.png"),
           radius: 40,
