@@ -17,6 +17,7 @@ class LiveLocationController extends GetxController {
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
   final _contactList = <TContact>[].obs;
   bool isSOSActive = false;
+  int shakeCount = 0;
   Timer? _timer;
 
   @override
@@ -160,7 +161,17 @@ class LiveLocationController extends GetxController {
   void _startListeningShakeDetector() {
     accelerometerEvents.listen((event) {
       if (_isShaking(event)) {
-        sendSOS();
+        // First shake triggers SOS
+        if (!isSOSActive) {
+          sendSOS();
+          isSOSActive = true;
+        }
+        // Increment shake count
+        shakeCount++;
+        // Second shake cancels SOS
+        if (shakeCount >= 2) {
+          cancelSOS();
+        }
       }
     });
   }
@@ -171,6 +182,14 @@ class LiveLocationController extends GetxController {
     return event.x.abs() > threshold ||
         event.y.abs() > threshold ||
         event.z.abs() > threshold;
+  }
+
+  /// Cancel SOS and reset shake count
+  void cancelSOS() {
+    _timer?.cancel();
+    shakeCount = 0;
+    isSOSActive = false;
+    TLoaders.customToast(message: "SOS Help Deactivated");
   }
 }
 

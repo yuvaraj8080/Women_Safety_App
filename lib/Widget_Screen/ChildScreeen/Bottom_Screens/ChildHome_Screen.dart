@@ -14,7 +14,7 @@ import '../../../DB/db_services.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
-import '../../SafeHome_Widget/SafeHome_Screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -173,12 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 const LiveSafe(),
                 SizedBox(height:4),
 
-                ///EMERGENCY HELPLINE
-                // EmergencyHelpline_Card(),
+                ///-----ADDING A NEW SCREEN I THE MAIN HOME SCREEN -----
 
-
-                ///----[SOS] BUTTON SAFE AND SOUL---------
-                // SafeHome(),
 
                 Container(
                   height:MediaQuery.of(context).size.height*0.4,
@@ -192,26 +188,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-          //       return LiveLocation();
-          //     }));
-          //   },
-          //   child: Card(
-          //     elevation: 3,
-          //     shadowColor: Colors.white,
-          //     child: Padding(
-          //       padding: const EdgeInsets.all(5.0),
-          //       child: Container(
-          //           height: 250,
-          //           width: double.infinity,
-          //           child: Center(child: LiveLocation())),
-          //     ),
-          //   ),
-          // ),
-
         ]),
       ),
     );
