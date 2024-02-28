@@ -1,22 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Constants/contactsm.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:background_sms/background_sms.dart';
+import '../../Constants/contactsm.dart';
 import '../../DB/db_services.dart';
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
-
-
 class LiveLocationController extends GetxController {
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
-  Rx<GoogleMapController?> googleMapController =
-  Rx<GoogleMapController?>(null);
+  Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
   final _contactList = <TContact>[].obs;
+  bool isSOSActive = false;
+  Timer? _timer;
 
   @override
   void onInit() {
@@ -26,11 +25,13 @@ class LiveLocationController extends GetxController {
     _loadContacts();
   }
 
+  /// GETTING PERMISSION FOR BACKGROUND SMS AND CONTACTS
   Future<void> _getPermission() async {
     await Permission.sms.request();
     await Permission.contacts.request();
   }
 
+  /// FETCHING THE USER CURRENT LIVE LOCATION
   Future<void> getCurrentLocation() async {
     bool locationPermissionGranted = await _handleLocationPermission();
     if (!locationPermissionGranted) {
@@ -41,16 +42,15 @@ class LiveLocationController extends GetxController {
     LocationData _locationData;
 
     _locationData = await location.getLocation();
-    initialLatLng.value =
-        LatLng(_locationData.latitude!, _locationData.longitude!);
+    initialLatLng.value = LatLng(_locationData.latitude!, _locationData.longitude!);
 
-    // Update the initial camera position to target the user's current location
     final GoogleMapController? controller = googleMapController.value;
     controller?.animateCamera(
-      CameraUpdate.newLatLngZoom(initialLatLng.value, 14.0), // Zoom level 14
+      CameraUpdate.newLatLngZoom(initialLatLng.value, 14.0),
     );
   }
 
+  /// HANDLE LOCATION PERMISSION
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -71,51 +71,55 @@ class LiveLocationController extends GetxController {
     }
     if (permission == LocationPermission.deniedForever) {
       TLoaders.warningSnackBar(
-          title:
-          'Location permissions are permanently Denied, we cannot request Permissions.');
+          title: 'Location permissions are permanently Denied, we cannot request Permissions.');
       return false;
     }
     return true;
   }
 
+  /// GETTING TRUSTED CONTACTS FROM DATABASE
   void _loadContacts() async {
     _contactList.assignAll((await DatabaseHelper().getContactList()));
   }
 
   Future<void> sendSOS() async {
-    if (_contactList.isEmpty) {
-      TLoaders.warningSnackBar(
-          title: "No trusted contacts available? Please Add Trusted Contact!");
-      return;
-    }
+    if (!isSOSActive) {
+      if (_contactList.isEmpty) {
+        TLoaders.warningSnackBar(
+            title: "No trusted contacts available? Please Add Trusted Contact!");
+        return;
+      }
 
-    // Request SMS and contact permissions
-    bool permissionsGranted = await _arePermissionsGranted();
-    if (permissionsGranted) {
-      // Get the user's current location
+      bool permissionsGranted = await _arePermissionsGranted();
+      if (permissionsGranted) {
+        _timer = Timer.periodic(Duration(seconds: 20), (timer) async {
+          LocationData? locationData = await _getCurrentLocation();
+          if (locationData != null) {
+            String message =
+                "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+
+            for (TContact contact in _contactList) {
+              await sendMessage(contact.number, message);
+            }
+          }
+        });
+
+        TLoaders.customToast(message: "SOS Help Activated");
+        isSOSActive = true;
+      }
+    } else {
+      _timer?.cancel();
       LocationData? locationData = await _getCurrentLocation();
       if (locationData != null) {
-        // Compose SOS message with live location
         String message =
-            "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+            "I am safe now! My current location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
-        // Send SOS message to all trusted contacts
         for (TContact contact in _contactList) {
           await sendMessage(contact.number, message);
         }
-
-        TLoaders.customToast(message: "SOS Help Successfully Sent");
-      } else {
-        // Show error message if unable to retrieve current location
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-          SnackBar(content: Text('Unable to retrieve current location')),
-        );
       }
-    } else {
-      // Show error message if permissions are denied
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(content: Text('SMS and Contacts permissions are required to send SOS messages')),
-      );
+      TLoaders.customToast(message: "SOS Help Deactivated");
+      isSOSActive = false;
     }
   }
 
@@ -145,8 +149,7 @@ class LiveLocationController extends GetxController {
 }
 
 class LiveLocation extends StatelessWidget {
-  final LiveLocationController _controller =
-  Get.put(LiveLocationController());
+  final LiveLocationController _controller = Get.put(LiveLocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -177,10 +180,10 @@ class LiveLocation extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          _controller.sendSOS(); // Call sendSOS when SOS button is pressed
+          _controller.sendSOS();
         },
-        label: Text("SOS"),
-        icon: Icon(Icons.warning),
+        label: Text(_controller.isSOSActive ? "I'm Safe" : "SOS"),
+        icon: Icon(_controller.isSOSActive ? Icons.thumb_up : Icons.warning),
       ),
     );
   }
