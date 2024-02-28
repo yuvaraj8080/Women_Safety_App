@@ -6,6 +6,7 @@ import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/Vertic
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
 import '../../../Constants/Utils.dart';
@@ -132,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
             children: [
               // ------ CUSTOM APPBAR ------
-              TAppBar(actions:[Icon(Icons.phone,size:25)],
+              TAppBar(actions:[IconButton(onPressed:(){}, icon:Icon(Icons.contacts_rounded,size:30))],
                   title: Row(
                     children: [
                       Text("IM Safe",
