@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
             children: [
               // ------ CUSTOM APPBAR ------
-              TAppBar(actions:[Icon(Icons.help_center,size:25)],
+              TAppBar(actions:[Icon(Icons.phone,size:25)],
                   title: Row(
                     children: [
                       Text("IM Safe",
@@ -166,7 +166,10 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ///-----EXPLORE LIVE SAFE OPEN MAP AND TEXT--------
-                Text("Explore LiveSafe",style:Theme.of(context).textTheme.headlineSmall),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Explore LiveSafe",style:Theme.of(context).textTheme.headlineSmall),
+                ),
                 const LiveSafe(),
                 SizedBox(height:4),
 

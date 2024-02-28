@@ -61,6 +61,9 @@ class SettingScreen extends StatelessWidget {
                 TSettingMenuTile(icon:Icons.dark_mode_outlined, title:"Dark Mode",
                   subTitle:"Set Dark mode",
                   trailing:Switch(value: false,onChanged:(value){}),
+                ),TSettingMenuTile(icon:Icons.voice_chat, title:"Voice Activation",
+                  subTitle:"Voice assistance",
+                  trailing:Switch(value: false,onChanged:(value){}),
                 ),
 
                 ///--------LOGOUT BUTTON---------
