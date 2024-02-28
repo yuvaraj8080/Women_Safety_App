@@ -8,6 +8,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:background_sms/background_sms.dart';
 import '../../Constants/contactsm.dart';
 import '../../DB/db_services.dart';
+import 'package:sensors/sensors.dart';
+
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
 class LiveLocationController extends GetxController {
@@ -23,6 +25,7 @@ class LiveLocationController extends GetxController {
     _getPermission();
     getCurrentLocation();
     _loadContacts();
+    _startListeningShakeDetector();
   }
 
   /// GETTING PERMISSION FOR BACKGROUND SMS AND CONTACTS
@@ -82,6 +85,7 @@ class LiveLocationController extends GetxController {
     _contactList.assignAll((await DatabaseHelper().getContactList()));
   }
 
+  /// Send SOS help SMS to all trusted contacts
   Future<void> sendSOS() async {
     if (!isSOSActive) {
       if (_contactList.isEmpty) {
@@ -92,7 +96,7 @@ class LiveLocationController extends GetxController {
 
       bool permissionsGranted = await _arePermissionsGranted();
       if (permissionsGranted) {
-        _timer = Timer.periodic(Duration(seconds: 20), (timer) async {
+        _timer = Timer.periodic(Duration(seconds:10), (timer) async {
           LocationData? locationData = await _getCurrentLocation();
           if (locationData != null) {
             String message =
@@ -100,6 +104,7 @@ class LiveLocationController extends GetxController {
 
             for (TContact contact in _contactList) {
               await sendMessage(contact.number, message);
+              TLoaders.customToast(message: "Sent SOS");
             }
           }
         });
@@ -123,10 +128,13 @@ class LiveLocationController extends GetxController {
     }
   }
 
+  /// Check if permissions for SMS and contacts are granted
   Future<bool> _arePermissionsGranted() async {
-    return await Permission.sms.isGranted && await Permission.contacts.isGranted;
+    return await Permission.sms.isGranted &&
+        await Permission.contacts.isGranted;
   }
 
+  /// Get current location
   Future<LocationData?> _getCurrentLocation() async {
     Location location = Location();
     LocationData? locationData;
@@ -139,6 +147,7 @@ class LiveLocationController extends GetxController {
     return locationData;
   }
 
+  /// Send SMS message
   Future<void> sendMessage(String phoneNumber, String message) async {
     await BackgroundSms.sendMessage(
       phoneNumber: phoneNumber,
@@ -146,10 +155,28 @@ class LiveLocationController extends GetxController {
       simSlot: 1,
     );
   }
+
+  /// Start listening for shake gesture
+  void _startListeningShakeDetector() {
+    accelerometerEvents.listen((event) {
+      if (_isShaking(event)) {
+        sendSOS();
+      }
+    });
+  }
+
+  /// Define the shake threshold
+  bool _isShaking(AccelerometerEvent event) {
+    final double threshold = 12.0;
+    return event.x.abs() > threshold ||
+        event.y.abs() > threshold ||
+        event.z.abs() > threshold;
+  }
 }
 
 class LiveLocation extends StatelessWidget {
-  final LiveLocationController _controller = Get.put(LiveLocationController());
+  final LiveLocationController _controller =
+  Get.put(LiveLocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +209,12 @@ class LiveLocation extends StatelessWidget {
         onPressed: () {
           _controller.sendSOS();
         },
-        label: Text(_controller.isSOSActive ? "I'm Safe" : "SOS"),
-        icon: Icon(_controller.isSOSActive ? Icons.thumb_up : Icons.warning),
+        label: Text(_controller.isSOSActive ? "" : "",
+            style: Theme.of(context).textTheme.titleSmall),
+        icon: CircleAvatar(
+          backgroundImage: AssetImage("assets/images/sos.png"),
+          radius: 40,
+        ),
       ),
     );
   }

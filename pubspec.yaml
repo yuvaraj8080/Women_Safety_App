@@ -55,6 +55,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   shared_preferences: ^2.2.2
   http: ^1.1.2
+  sensors:
   get_storage:
   http_multi_server: ^3.2.1
   permission_handler: ^11.1.0
