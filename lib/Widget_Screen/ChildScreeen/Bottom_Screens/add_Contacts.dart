@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_women_safety_app/utils/constants/sizes.dart';
 import 'package:flutter_women_safety_app/utils/halpers/helper_function.dart';
 
 import '../../../Constants/Utils.dart';
@@ -81,8 +82,10 @@ class _AddContactsPageState extends State<AddContactsPage> {
 
             Divider(height:2,color:THelperFunction.isDarkMode(context)?TColors.darkGrey:TColors.light),
             Text(
-              "Trusted Contact List...",style:Theme.of(context).textTheme.titleSmall),
-            Divider(height: 5, color: Colors.white54, thickness: 2),
+              "Trusted Contact List...",style:Theme.of(context).textTheme.bodyMedium),
+            SizedBox(height:TSizes.size4,),
+            Divider(height: 5, color: THelperFunction.isDarkMode(context)?Colors.white:Colors.black,thickness: 2),
+            SizedBox(height:TSizes.size4,),
             Expanded(
               child: ListView.builder(
                 itemCount: count,

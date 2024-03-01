@@ -1,10 +1,14 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_women_safety_app/common/widgets.Login_Signup/loaders/snackbar_loader.dart';
+import 'package:flutter_women_safety_app/utils/constants/sizes.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/halpers/helper_function.dart';
 
 
 class ContactsPage extends StatefulWidget {
@@ -80,9 +84,9 @@ class _ContactsPageState extends State<ContactsPage> {
 
   handInvaliedPermissions(PermissionStatus permissionStatus) {
     if (permissionStatus == PermissionStatus.denied) {
-      // Utils().showError("Access to the contacts denied by the user");
+      TLoaders.warningSnackBar(title:"Access to the contacts denied by the user");
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
-      // Utils().showError("May contact does exist in this device");
+      TLoaders.warningSnackBar(title:"May contact does exist in this device");
     }
   }
 
@@ -107,83 +111,77 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunction.isDarkMode(context);
     bool isSearchIng = searchController.text.isNotEmpty;
     bool listItemExit = (contactsFiltered.length > 0 || contacts.length > 0);
     return Scaffold(
       body: contacts.length == 0
           ? const Center(child: CircularProgressIndicator())
           : SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top:5),
-              child: Container(
-                color:Colors.white38,
-                height:70,width:double.infinity,
-                child: Card(
-                  elevation:3,shadowColor:Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:8,right:8),
-                    child: TextField(
-                      controller: searchController,
-                      decoration:  const InputDecoration(
-                          labelText: "Search Contact",
-                          prefixIcon: Icon(Icons.search,color:Colors.pinkAccent,)),
-                    ),
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              Card(
+                elevation:3,shadowColor:Colors.white,
+                child: TextFormField(
+                  controller: searchController,
+                  decoration:  const InputDecoration(
+                      labelText: "Search Contact",
+                      prefixIcon: Icon(Icons.search,color:TColors.primaryColor)),
                 ),
               ),
-            ),
-            listItemExit == true
-                ? Expanded(
-              child: ListView.builder(
+              SizedBox(height:TSizes.iconsize12),
+              listItemExit == true
+                  ? Expanded(
+                child: ListView.builder(
 
-                itemCount: isSearchIng == true
-                    ? contactsFiltered.length
-                    : contacts.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Contact contact = isSearchIng == true
-                      ? contactsFiltered[index]
-                      : contacts[index];
-                  return Card(
-                    color:Colors.black87,
-                    elevation:2,shadowColor: Colors.white,
-                    child: ListTile(
-                      title: Text(contact.displayName ?? 'No Name'),
-                      subtitle: Text(contact.phones!.isNotEmpty
-                          ? contact.phones!.elementAt(0).value ?? 'No Phone Number'
-                          : 'No Phone Number'),
-                      leading: contact.avatar != null &&
-                          contact.avatar!.length > 0
-                          ? CircleAvatar(
-                        backgroundColor:Colors.pinkAccent.shade200,
-                        backgroundImage:
-                        MemoryImage(contact.avatar!),
-                      )
-                          : CircleAvatar(
-                        backgroundColor: Colors.pinkAccent.shade200,
-                        child: Text(contact.initials()),
+                  itemCount: isSearchIng == true
+                      ? contactsFiltered.length
+                      : contacts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Contact contact = isSearchIng == true
+                        ? contactsFiltered[index]
+                        : contacts[index];
+                    return Card(
+                      elevation:2,shadowColor: Colors.white,
+                      child: ListTile(
+                        title: Text(contact.displayName ?? 'No Name',style:Theme.of(context).textTheme.headlineSmall,),
+                        subtitle: Text(contact.phones!.isNotEmpty
+                            ? contact.phones!.elementAt(0).value ?? 'No Phone Number'
+                            : 'No Phone Number',style:Theme.of(context).textTheme.titleSmall,),
+                        leading: contact.avatar != null &&
+                            contact.avatar!.length > 0
+                            ? CircleAvatar(
+                          backgroundColor:Colors.pinkAccent.shade200,
+                          backgroundImage:
+                          MemoryImage(contact.avatar!),
+                        )
+                            : CircleAvatar(
+                          backgroundColor: Colors.pinkAccent.shade200,
+                          child: Text(contact.initials()),
+                        ),
+                        onTap: () {
+                          if (contact.phones!.length > 0) {
+                            final String phoneNum =
+                            contact.phones!.elementAt(0).value!;
+                            final String name = contact.displayName!;
+                            _addContact(TContact(phoneNum, name));
+                          } else {
+                            // Utils().showError(
+                            //     "Oops! phone number of this contact does exist");
+                          }
+                        },
                       ),
-                      onTap: () {
-                        if (contact.phones!.length > 0) {
-                          final String phoneNum =
-                          contact.phones!.elementAt(0).value!;
-                          final String name = contact.displayName!;
-                          _addContact(TContact(phoneNum, name));
-                        } else {
-                          // Utils().showError(
-                          //     "Oops! phone number of this contact does exist");
-                        }
-                      },
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
+              )
+                  : Container(
+                child: const Text("searching"),
               ),
-            )
-                : Container(
-              child: const Text("searching"),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

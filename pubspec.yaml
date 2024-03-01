@@ -84,6 +84,7 @@ dependencies:
   iconsax: ^0.0.8
   logger:
   url_launcher:
+  consumer:
   vibration:
   intl:
   smooth_page_indicator:

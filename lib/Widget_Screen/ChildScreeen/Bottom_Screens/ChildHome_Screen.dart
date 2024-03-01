@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Screens/add_Contacts.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/appBar/appbar.dart';
-import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/VerticaleCard.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
 import '../../../Constants/Utils.dart';
@@ -135,10 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
             children: [
               // ------ CUSTOM APPBAR ------
-              TAppBar(actions:[IconButton(onPressed:()=>Get.to(()=>AddContactsPage()), icon:Icon(Icons.contacts_rounded,size:30))],
+              TAppBar(
                   title: Row(
                     children: [
-                      Text("IM Safe",
+                      Text("SheShield",
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall!
@@ -177,8 +175,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height:4),
 
                 ///-----ADDING A NEW SCREEN I THE MAIN HOME SCREEN -----
-
-
                 Container(
                   height:MediaQuery.of(context).size.height*0.4,
                   width:double.infinity,

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Screens/Community_TAb.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -26,7 +26,7 @@ class NavigationMenu extends StatelessWidget {
            NavigationDestination(icon:Icon(Iconsax.call), label:"Contact"),
            NavigationDestination(icon:Icon(Icons.health_and_safety_outlined), label:"Safety Tool"),
            NavigationDestination(icon:Icon(Icons.home_outlined), label:"Home"),
-           NavigationDestination(icon:Icon(Icons.map), label:"Sos"),
+           NavigationDestination(icon:Icon(Icons.group), label:"Community"),
            NavigationDestination(icon:Icon(Iconsax.profile_add), label:"Profile"),
           ]
         ),
@@ -40,6 +40,6 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends  GetxController{
   final Rx<int>  selectedIndex = 2.obs;
 
-  final screens = [AddContactsPage(),SafetyToolScreen(),HomeScreen(),LiveLocation(),const SettingScreen()];
+  final screens = [AddContactsPage(),SafetyToolScreen(),HomeScreen(),CommunityTabScreen(),const SettingScreen()];
 
 }

@@ -265,6 +265,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.4"
+  consumer:
+    dependency: "direct main"
+    description:
+      name: consumer
+      sha256: a12ccd84e7a41a46eaf4eddd2f94e0b2ad59efd19eed86d23656d20cb5894a88
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   contacts_service:
     dependency: "direct main"
     description:
