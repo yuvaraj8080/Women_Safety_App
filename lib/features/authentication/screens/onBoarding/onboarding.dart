@@ -28,8 +28,8 @@ class OnBoardingScreen extends StatelessWidget {
 
 
         onBordingPage(image:"assets/images/on_boarding_images/board4.png",
-            title: "Safety Advanced SOS Feature",subtitle:"1)Women with SOS features for instant help sms send every 20 second  your trusted contact"
-                "     2)Ensure safety with quick access to emergency contacts and services."),
+            title: "Safety Advanced SOS Feature",subtitle:"1) SOS features for instant help sms send every 10 second  all trusted contacts,  un till you stop"
+                "  2)In the SOS help message sent your current live location by background sms"),
 
         onBordingPage(image:"assets/images/on_boarding_images/onboard2.webp",
             title: "Hello Dear, Lets Go Your Dream App",subtitle:"Allow users to create trusted networks of friends and family who can be contacted in case of emergencies."

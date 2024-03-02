@@ -20,12 +20,12 @@ class ResetPasswordScreen extends StatelessWidget {
               IconButton(onPressed: ()=>Get.offAll(()=> const LoginScreen()), icon:const Icon(CupertinoIcons.clear)),
             ]),
         body: SingleChildScrollView(
-          child:Padding(padding: const EdgeInsets.only(top:100,right:32,left:32,bottom: 32),
+          child:Padding(padding: const EdgeInsets.only(top:50,right:32,left:32,bottom: 32),
               child:Column(
                   children:[
 
                     /// Asset Image  hare
-                    const Image(image: AssetImage("assets/images/animations/emailVerificatation1.png")),
+                    const Image(image: AssetImage("assets/images/images/img_8.png")),
                     const SizedBox(height:50),
 
                     ///Email, title ans subtitle

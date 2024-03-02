@@ -23,8 +23,8 @@ class TLoginHeader extends StatelessWidget {
         style: Theme.of(context).textTheme.headlineMedium,
       ),
       const SizedBox(height: 5),
-      Text("Discover Limitless Choices and UnMatched Convenience.",
-          style: Theme.of(context).textTheme.bodyMedium),
+      Text("It's more than just an app, It's security and peace mind in your pocket.",
+          style: Theme.of(context).textTheme.titleMedium),
     ]);
   }
 }

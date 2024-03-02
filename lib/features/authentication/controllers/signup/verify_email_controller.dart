@@ -55,7 +55,7 @@ class VerifyEmailController extends GetxController {
   // Show success screen after email verification
   void showSuccessScreen() {
     Get.offAll(() => SuccessScreen(
-          image: "assets/images/animations/emailVerificatation1.png",
+          image: "assets/images/images/img_8.png",
           title: "Congratulations!",
           subtitle: "Your Email Successfully Verified",
           onPressed: () => AuthenticationRepository.instance.screenRedirect(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Chat_Module/ChatBot.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/AdavancedSafety_Tool/widget/help_Center.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/HomeScreen_Widget/Emergency_Helpline/Emergency_Screen.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/VerticaleCard.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/container/TCircleAvatar.dart';
@@ -54,7 +55,7 @@ class SafetyToolScreen extends StatelessWidget {
 
               Padding(
                 padding: const EdgeInsets.only(left: 10,right:10,top:5),
-                child: EmergencyHelpline_Card(image:"assets/images/images/img_7.png", text1:"Support Us", text2:"Give your feedback hare", onPressed:(){}),
+                child: EmergencyHelpline_Card(image:"assets/images/images/img_7.png", text1:"Help", text2:"Help Center, contact us, privacy policy", onPressed:()=>Get.to(()=>HelpCenter())),
               )
     ])),
 

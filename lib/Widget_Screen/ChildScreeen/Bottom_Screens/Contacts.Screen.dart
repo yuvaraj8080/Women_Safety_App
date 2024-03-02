@@ -127,7 +127,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 child: TextFormField(
                   controller: searchController,
                   decoration:  const InputDecoration(
-                      labelText: "Search Contact",
+                      labelText: "Search Contact",labelStyle: TextStyle(color:TColors.primaryColor),
                       prefixIcon: Icon(Icons.search,color:TColors.primaryColor)),
                 ),
               ),
@@ -168,8 +168,7 @@ class _ContactsPageState extends State<ContactsPage> {
                             final String name = contact.displayName!;
                             _addContact(TContact(phoneNum, name));
                           } else {
-                            // Utils().showError(
-                            //     "Oops! phone number of this contact does exist");
+                                TLoaders.errorSnackBar(title:"Oops! phone number of this contact does exist");
                           }
                         },
                       ),
@@ -178,7 +177,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 ),
               )
                   : Container(
-                child: const Text("searching"),
+                child: const Text("searching",style:TextStyle(color:TColors.primaryColor),),
               ),
             ],
           ),
@@ -190,10 +189,10 @@ class _ContactsPageState extends State<ContactsPage> {
   void _addContact(TContact newContact) async {
     int result = await _databaseHelper.insertContact(newContact);
     if (result != 0) {
-      // Utils().showError("contact added successfully");
+     TLoaders.successSnackBar(title:"Contact added successfully");
     }
     else {
-      // Utils().showError("Failed to add contacts");
+      TLoaders.errorSnackBar(title:"Failed to add Contact");
     }
     Navigator.of(context).pop(true);
   }

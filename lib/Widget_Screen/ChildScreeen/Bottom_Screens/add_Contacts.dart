@@ -31,8 +31,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
         this.count = contactList?.length ?? 0;
       });
     } catch (error) {
-      print("Error fetching contacts: $error");
-      Utils().showError("Failed to load contacts");
+      TLoaders.errorSnackBar(title:"Failed to load contacts");
     }
   }
 
@@ -75,25 +74,32 @@ class _AddContactsPageState extends State<AddContactsPage> {
               },
               child:Card(
                 child: Container(
+                  height: 50,
                   width:double.infinity,
-                    child: Center(child: Text("Add Trusted contacts",style:Theme.of(context).textTheme.headlineMedium))),
+                    child: Row(
+                      mainAxisAlignment:MainAxisAlignment.spaceAround,
+                      children: [
+                        Text("Add Trusted contacts",style:Theme.of(context).textTheme.headlineMedium),
+                        Icon(Icons.add_call,size: 35,)
+                      ],
+                    )),
               ),
             ),
 
             Divider(height:2,color:THelperFunction.isDarkMode(context)?TColors.darkGrey:TColors.light),
             Text(
-              "Trusted Contact List...",style:Theme.of(context).textTheme.bodyMedium),
-            SizedBox(height:TSizes.size4,),
-            Divider(height: 5, color: THelperFunction.isDarkMode(context)?Colors.white:Colors.black,thickness: 2),
-            SizedBox(height:TSizes.size4,),
+              "Note: When you add contact then restart your app...",style:Theme.of(context).textTheme.bodyMedium),
+            SizedBox(height:TSizes.size8,),
+            Divider(height: 5, color: THelperFunction.isDarkMode(context)?Colors.white:Colors.black,thickness: 3),
+            SizedBox(height:TSizes.size8,),
             Expanded(
               child: ListView.builder(
                 itemCount: count,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
-                    color: THelperFunction.isDarkMode(context)?TColors.light:TColors.grey,
+                    color: THelperFunction.isDarkMode(context)?TColors.dark:TColors.light,
                     elevation: 2,
-                    shadowColor: THelperFunction.isDarkMode(context)?TColors.light:TColors.grey,
+                    shadowColor: THelperFunction.isDarkMode(context)?TColors.light:TColors.dark,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: ListTile(

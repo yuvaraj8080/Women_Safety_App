@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:background_sms/background_sms.dart';
@@ -12,7 +11,6 @@ import '../../DB/db_services.dart';
 import 'package:sensors/sensors.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../common/widgets.Login_Signup/appBar/appbar.dart';
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
 
@@ -23,29 +21,7 @@ class LiveLocationController extends GetxController {
   bool isSOSActive = false;
   Timer? _timer;
   int shakeCount = 0;
-  List<DangerZone> dangerZones = [];
 
-
-
-  // Method to fetch danger zones data
-  void fetchDangerZones() {
-    // You should implement logic to fetch danger zones from your data source
-    // For now, I'll just provide sample data
-    dangerZones = [
-      DangerZone(id: 'zone1', points: [
-        LatLng(37.77483, -122.41942),
-        LatLng(37.77483, -122.40942),
-        LatLng(37.76483, -122.40942),
-        LatLng(37.76483, -122.41942),
-      ]),
-      DangerZone(id: 'zone2', points: [
-        LatLng(37.75483, -122.42942),
-        LatLng(37.75483, -122.41942),
-        LatLng(37.74483, -122.41942),
-        LatLng(37.74483, -122.42942),
-      ]),
-    ];
-  }
 
 
 
@@ -56,7 +32,6 @@ class LiveLocationController extends GetxController {
     getCurrentLocation();
     _loadContacts();
     _startListeningShakeDetector();
-    fetchDangerZones();
   }
 
   Future<void> _getPermission() async {
@@ -153,7 +128,7 @@ class LiveLocationController extends GetxController {
           await sendMessage(contact.number, message);
         }
       }
-      TLoaders.customToast(message: "SOS Help Deactivated");
+      TLoaders.successSnackBar(title: "SOS Help Deactivated");
       isSOSActive = false;
     }
   }
@@ -249,7 +224,6 @@ class LiveLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Obx(
             () => GoogleMap(
           buildingsEnabled: true,
@@ -266,15 +240,6 @@ class LiveLocation extends StatelessWidget {
               position: _controller.initialLatLng.value,
             ),
           },
-          polygons: _controller.dangerZones.map((zone) {
-            return Polygon(
-              polygonId: PolygonId(zone.id),
-              points: zone.points,
-              strokeWidth: 4,
-              strokeColor: Colors.red, // You can adjust the color as needed
-              fillColor: Colors.red.withOpacity(0.2), // Adjust the opacity as needed
-            );
-          }).toSet(),
           myLocationButtonEnabled: true,
           myLocationEnabled: true,
           onMapCreated: (GoogleMapController controller) {
@@ -287,10 +252,10 @@ class LiveLocation extends StatelessWidget {
         onPressed: () {
           _controller.sendSOS();
         },
-        label:Text(""),
+        label: Text(""),
         icon: CircleAvatar(
           backgroundImage: AssetImage("assets/images/sos.png"),
-          radius: 45,
+          radius: 50,
         ),
       ),
     );

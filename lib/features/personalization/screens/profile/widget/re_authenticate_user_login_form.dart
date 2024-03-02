@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/utils/constants/sizes.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -21,6 +22,12 @@ class ReAuthLoginForm extends StatelessWidget {
             child:Column(
               crossAxisAlignment:CrossAxisAlignment.start,
                 children:[
+
+                  /// TEXT ///
+                  Text("Please Enter your Correct Email and Password to Re-Authenticate",style:Theme.of(context).textTheme.bodyMedium),
+
+                  SizedBox(height:TSizes.size16),
+
                   ///EMAIL A
                   TextFormField(
                     controller:controller.verifyEmail,
@@ -40,7 +47,7 @@ class ReAuthLoginForm extends StatelessWidget {
                       prefixIcon:const Icon(Iconsax.password_check),
                       suffixIcon:IconButton(
                         onPressed:()=>controller.hidePassword.value = !controller.hidePassword.value,
-                        icon:const Icon(Iconsax.eye_slash),
+                        icon:Icon(Iconsax.eye_slash),
                       )
                     )
                   )),

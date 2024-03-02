@@ -28,7 +28,7 @@ class VerifyEmailScreen extends StatelessWidget {
               children:[
 
                 /// Asset Image  hare
-            const Image(image: AssetImage("assets/images/animations/emailVerificatation1.png")),
+            const Image(image: AssetImage("assets/images/images/img_9.png")),
             const SizedBox(height:50),
 
             /// title ans subtitle
@@ -36,8 +36,8 @@ class VerifyEmailScreen extends StatelessWidget {
             const SizedBox(height:20),
             Text(email??'',style:Theme.of(context).textTheme.labelLarge,textAlign:TextAlign.center),
             const SizedBox(height:8),
-            Text("Congratulations! your Account Awaits: Verify Your Email to Start Shopping and Experience a world of Unrivaled Deals ans Personalized Offers",
-            style:Theme.of(context).textTheme.labelMedium,
+            Text("Congratulations! your Account Awaits: Verify Your Email to Start Your SheShield App,check your Email box and verify it.",
+            style:Theme.of(context).textTheme.bodyMedium,
             ),
                 const SizedBox(height:50),
 

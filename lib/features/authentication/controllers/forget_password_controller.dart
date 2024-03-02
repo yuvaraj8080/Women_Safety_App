@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../common/NetworkManager/network_manager.dart';
 import '../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../../data/repositories/authentication-repository.dart';
+import '../../../utils/constants/image_string.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 import '../screens/password_configuration/reset_password.dart';
 
@@ -20,7 +21,7 @@ class ForgetPasswordController extends GetxController{
  sendPasswordResetEmail() async{
    try{
      // START LOADING
-     TFullScreenLoader.openLoadingDialog("Processing your request...","assets/images/animations/emailVerificatation1.png");
+     TFullScreenLoader.openLoadingDialog("Processing your request...",TImages.loadingLottie);
 
      // CHECK INTERNET CONNECTIVITY
      final isConnected = await NetworkManager.instance.isConnected();
@@ -58,7 +59,7 @@ class ForgetPasswordController extends GetxController{
  resendPasswordResetEmail(String email) async{
    try{
      // START LOADING
-     TFullScreenLoader.openLoadingDialog("Processing your request...","assets/images/animations/emailVerificatation1.png");
+     TFullScreenLoader.openLoadingDialog("Processing your request...",TImages.loadingLottie);
 
      // CHECK INTERNET CONNECTIVITY
      final isConnected = await NetworkManager.instance.isConnected();
@@ -82,7 +83,7 @@ class ForgetPasswordController extends GetxController{
    }
    catch(e){
      TFullScreenLoader.stopLoading();
-     TLoaders.errorSnackBar(title:"Oh Snap",message:e.toString());
+     TLoaders.errorSnackBar(title:"Oh Snap",message:"Something went wrong please try again");
    }
  }
 
