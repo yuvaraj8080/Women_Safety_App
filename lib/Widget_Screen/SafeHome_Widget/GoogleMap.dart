@@ -23,8 +23,6 @@ class LiveLocationController extends GetxController {
   int shakeCount = 0;
 
 
-
-
   @override
   void onInit() {
     super.onInit();
@@ -226,8 +224,8 @@ class LiveLocation extends StatelessWidget {
     return Scaffold(
       body: Obx(
             () => GoogleMap(
-          buildingsEnabled: true,
-          trafficEnabled: true,
+          buildingsEnabled:true,
+          trafficEnabled:true,
           mapType: MapType.normal,
           initialCameraPosition: CameraPosition(
             target: _controller.initialLatLng.value,
@@ -249,13 +247,13 @@ class LiveLocation extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          _controller.sendSOS();
-        },
+        onPressed: () {},
         label: Text(""),
-        icon: CircleAvatar(
-          backgroundImage: AssetImage("assets/images/sos.png"),
-          radius: 50,
+        icon: Row(
+          children: [
+            InkWell(onTap:()=> _controller.sendSOS()  ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/sos.png"),radius: 45)),
+            InkWell(onTap:(){}   ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/images/img_11.png"),radius: 45)),
+          ],
         ),
       ),
     );

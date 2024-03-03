@@ -21,15 +21,18 @@ class HomeScreen extends StatelessWidget {
               TAppBar(
                   title: Row(
                     children: [
-                      Text("SheShield",
+                      Text("She Shield",
                           style: Theme.of(context)
                               .textTheme
-                              .headlineSmall!
+                              .headlineMedium!
                               .apply(color: TColors.white))
                     ],
                   )),
-              Text("Hey Dear! Now Your Safety is My Responsibility",
-                  style:Theme.of(context).textTheme.titleSmall!.apply(color:TColors.white)),
+              Column(
+                children: [
+                  Text("Hey Dear! Your Safety Now my Responsibility",style:Theme.of(context).textTheme.titleMedium!.apply(color:TColors.white)),
+                ],
+              ),
 
               ///------APP BAR HEIGHT-----------'
               SizedBox(height:TSizes.size32)

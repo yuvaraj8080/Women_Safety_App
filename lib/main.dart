@@ -27,7 +27,6 @@ void main() async{
   await FirebaseAppCheck.instance.activate(
     webProvider:ReCaptchaV3Provider("recaptcha-v3-site-key"),
     androidProvider: AndroidProvider.debug,
-
     // playintegrity
   );
 
@@ -36,14 +35,3 @@ void main() async{
   Get.put(SafeHomeController());
 }
 
-
-// this code for the calll send
-//
-// void _makeCall(String phoneNumber) async {
-//   try {
-//     const platform = MethodChannel('flutter.native/helper');
-//     await platform.invokeMethod('makeCall', {"phoneNumber": phoneNumber});
-//   } on PlatformException catch (e) {
-//     print("Failed to make call: '${e.message}'.");
-//   }
-// }

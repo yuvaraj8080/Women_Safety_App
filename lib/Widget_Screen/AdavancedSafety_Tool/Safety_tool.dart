@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/Chat_Module/ChatBot.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/AdavancedSafety_Tool/widget/help_Center.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/AdavancedSafety_Tool/widget/single_video.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/HomeScreen_Widget/Emergency_Helpline/Emergency_Screen.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/VerticaleCard.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/container/TCircleAvatar.dart';
@@ -36,7 +38,8 @@ class SafetyToolScreen extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                 ToolsCard(image:"assets/images/images/img_1.png", text:"Safety Tips", radius: 30),
-                ToolsCard(image:"assets/images/images/img_2.png", text:"Self Defence", radius: 30),
+                GestureDetector(onTap:()=>Get.to(()=>SingleVideo()),
+                    child: ToolsCard(image:"assets/images/images/img_2.png", text:"Self Defence", radius: 30)),
               ]),
               SizedBox(height:TSizes.size8),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
