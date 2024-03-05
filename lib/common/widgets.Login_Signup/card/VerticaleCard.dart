@@ -12,7 +12,7 @@ class EmergencyHelpline_Card extends StatelessWidget {
     return Card(
       elevation:3,shadowColor:THelperFunction.isDarkMode(context)?TColors.white:TColors.black,
       child:ListTile(
-        leading:CircleAvatar(radius:30,backgroundImage:AssetImage(image)),
+        leading:CircleAvatar(radius:25,backgroundImage:AssetImage(image)),
         title:Text(text1,style:Theme.of(context).textTheme.titleMedium),
         subtitle:Text(text2,style:Theme.of(context).textTheme.bodySmall),
         trailing:Icon(Icons.play_arrow),

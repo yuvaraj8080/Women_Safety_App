@@ -8,6 +8,7 @@ import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/Vertic
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/container/TCircleAvatar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/widgets.Login_Signup/appBar/appbar.dart';
 import '../../common/widgets.Login_Signup/card/Safety_Tool_Card.dart';
@@ -27,43 +28,44 @@ class SafetyToolScreen extends StatelessWidget {
       TPrimaryHeaderContainer(
           child: Column(children: [
         TAppBar(
-            title: Text("Safety Tools",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .apply(color: TColors.white))),
-            SizedBox(height:20),
+            title: Column(
+              crossAxisAlignment:CrossAxisAlignment.start,
+              children: [
+                SizedBox(height:TSizes.size12),
+                Text("Safety Tools", style: Theme.of(context).textTheme.headlineMedium!.apply(color: TColors.white)),
+                SizedBox(height:TSizes.size4),
+                Text("Safety first avoid the worst", style: Theme.of(context).textTheme.titleSmall!.apply(color: TColors.white)),
+                SizedBox(height:TSizes.size4)
+              ],
+            )),
+            SizedBox(height:TSizes.size32)
       ])),
               ///------ADDING HARE GRIDVIEW builder
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                ToolsCard(image:"assets/images/images/img_1.png", text:"Safety Tips", radius: 30),
-                GestureDetector(onTap:()=>Get.to(()=>SingleVideo()),
-                    child: ToolsCard(image:"assets/images/images/img_2.png", text:"Self Defence", radius: 30)),
-              ]),
+                ToolsCard(image:"assets/images/images/img_1.png", text:"Safety Tips", radius: 30, onTap: ()=> _launchURL("https://www.desotosheriff.com/community/tips_for_women_on_staying_safe!.php"),),
+                ToolsCard(image:"assets/images/images/img_2.png", text:"Self Defence", radius: 30, onTap:()=>Get.to(()=>SingleVideo()))]),
               SizedBox(height:TSizes.size8),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ToolsCard(image:"assets/images/images/img_3.png", text:"Defence tool", radius: 30),
-                    GestureDetector(
-                      onTap:()=> Get.to(()=>ChatBotScreen()),
-                        child: ToolsCard(image:"assets/images/images/img_4.png", text:"AI ChatBot", radius: 30)),
-                  ]),
+                    ToolsCard(image:"assets/images/images/img_3.png", text:"Defence tool", radius: 30, onTap: ()=>_launchURL("https://www.defenderring.com/blogs/news/10-best-self-defense-weapons-for-women-in-2023")),
+                    ToolsCard(image:"assets/images/images/img_4.png", text:"AI ChatBot", radius: 30,onTap:()=> Get.to(()=>ChatBotScreen()),)]),
 
               ///----Emergency Helpline SCreen-----
               Padding(
                 padding: const EdgeInsets.only(left: 10,right:10,top:5),
                 child: EmergencyHelpline_Card(onPressed: ()=> Get.to(()=>EmergencyScreen()), image: 'assets/images/images/img.png', text1: 'Emergency Helpline', text2: 'common Helpline Numbers of your Country',),
               ),
-
-              Padding(
-                padding: const EdgeInsets.only(left: 10,right:10,top:5),
-                child: EmergencyHelpline_Card(image:"assets/images/images/img_7.png", text1:"Help", text2:"Help Center, contact us, privacy policy", onPressed:()=>Get.to(()=>HelpCenter())),
-              )
     ])),
 
 
     );
+  }
+
+  void _launchURL(String _url) async {
+    if (!await launchUrl(Uri.parse(_url))) {
+      throw 'Could not launch $_url';
+    }
   }
 }
 

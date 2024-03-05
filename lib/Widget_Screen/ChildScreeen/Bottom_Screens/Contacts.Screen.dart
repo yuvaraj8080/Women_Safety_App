@@ -146,10 +146,10 @@ class _ContactsPageState extends State<ContactsPage> {
                     return Card(
                       elevation:2,shadowColor: Colors.white,
                       child: ListTile(
-                        title: Text(contact.displayName ?? 'No Name',style:Theme.of(context).textTheme.headlineSmall,),
+                        title: Text(contact.displayName ?? 'No Name',style:Theme.of(context).textTheme.titleMedium,),
                         subtitle: Text(contact.phones!.isNotEmpty
                             ? contact.phones!.elementAt(0).value ?? 'No Phone Number'
-                            : 'No Phone Number',style:Theme.of(context).textTheme.titleSmall,),
+                            : 'No Phone Number',style:Theme.of(context).textTheme.bodyMedium,),
                         leading: contact.avatar != null &&
                             contact.avatar!.length > 0
                             ? CircleAvatar(

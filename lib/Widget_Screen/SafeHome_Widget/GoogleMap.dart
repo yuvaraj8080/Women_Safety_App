@@ -32,11 +32,13 @@ class LiveLocationController extends GetxController {
     _startListeningShakeDetector();
   }
 
+  ///-----GIVE THE PERMITTION HARE--------
   Future<void> _getPermission() async {
     await Permission.sms.request();
     await Permission.contacts.request();
   }
 
+  // ---- GETTING USER CURRENT LOCATION HARE --------
   Future<void> getCurrentLocation() async {
     bool locationPermissionGranted = await _handleLocationPermission();
     if (!locationPermissionGranted) {
@@ -56,6 +58,7 @@ class LiveLocationController extends GetxController {
     );
   }
 
+  // ---- HANDLING PERMITTION HARE ------
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -131,11 +134,11 @@ class LiveLocationController extends GetxController {
     }
   }
 
+  // ----SHAKE FEATURE -------
   Future<void> sendShake() async {
       if (_contactList.isEmpty) {
         TLoaders.warningSnackBar(
-            title:
-            "No trusted contacts available? Please Add Trusted Contact!");
+            title: "No trusted contacts available? Please Add Trusted Contact!");
         return;
       }
 
@@ -143,8 +146,7 @@ class LiveLocationController extends GetxController {
       if (permissionsGranted) {
         LocationData? locationData = await _getCurrentLocation();
         if (locationData != null) {
-          String message =
-              "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+          String message ="I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
           for (TContact contact in _contactList) {
             await sendMessage(contact.number, message);
@@ -182,17 +184,23 @@ class LiveLocationController extends GetxController {
 
   void _startListeningShakeDetector() {
     bool isShaking = false;
+    int shakeCount = 0;
+
     accelerometerEvents.listen((event) async {
       if (_isShaking(event) && !isShaking) {
         isShaking = true;
         shakeCount++;
-        if (shakeCount == 5) {
+        if (shakeCount <= 5) {
           await sendShake();
-          shakeCount = 0;
-          isSOSActive = false; // Turn off SOS mode after sending 5 messages
+          if (await Vibration.hasVibrator() ?? false) {
+            Vibration.vibrate(duration:100); // Vibrate for feedback
+          }
         }
-        if (await Vibration.hasVibrator() ?? false) {
-          Vibration.vibrate(duration: 100); // Vibrate for feedback
+
+        if (shakeCount == 5) {
+          // Stop shake detection after sending 5 messages
+          shakeCount = 0;
+          isSOSActive = false;
         }
         isShaking = false;
       }
@@ -200,21 +208,13 @@ class LiveLocationController extends GetxController {
   }
 
   bool _isShaking(AccelerometerEvent event) {
-    final double threshold =  70.0;
+    final double threshold = 80.0;
     return event.x.abs() > threshold ||
         event.y.abs() > threshold ||
         event.z.abs() > threshold;
   }
+
 }
-
-// Define a model class for DangerZone
-class DangerZone {
-  final String id;
-  final List<LatLng> points;
-
-  DangerZone({required this.id, required this.points});
-}
-
 
 class LiveLocation extends StatelessWidget {
   final LiveLocationController _controller = Get.put(LiveLocationController());
@@ -252,7 +252,7 @@ class LiveLocation extends StatelessWidget {
         icon: Row(
           children: [
             InkWell(onTap:()=> _controller.sendSOS()  ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/sos.png"),radius: 45)),
-            InkWell(onTap:(){}   ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/images/img_11.png"),radius: 45)),
+            // InkWell(onTap:(){}   ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/images/img_11.png"),radius: 45)),
           ],
         ),
       ),

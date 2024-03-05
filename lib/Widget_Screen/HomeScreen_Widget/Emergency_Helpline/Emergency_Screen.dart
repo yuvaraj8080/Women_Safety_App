@@ -20,15 +20,15 @@ class EmergencyScreen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
                return Column(
                  children: [
-                   Card_Emergency_detail(title:"112",subtitle:"National Helpline",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"102",subtitle:"Pregnancy Helpline",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"108",subtitle:"Ambulance Helpline",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"100",subtitle:"Police Helpline",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"101",subtitle:"Fire Brigade Helpline",image:"assets/images/images/img.png"),
+                   Card_Emergency_detail(title:"112",subtitle:"National Helpline",image:"assets/images/images/img_10.png"),
+                   Card_Emergency_detail(title:"102",subtitle:"Pregnancy Helpline",image:"assets/images/images/img_13.png"),
+                   Card_Emergency_detail(title:"108",subtitle:"Ambulance Helpline",image:"assets/images/images/img_13.png"),
+                   Card_Emergency_detail(title:"100",subtitle:"Police Helpline",image:"assets/images/images/img_12.png"),
+                   Card_Emergency_detail(title:"101",subtitle:"Fire Brigade Helpline",image:"assets/images/images/img_12.png"),
                    Card_Emergency_detail(title:"1091",subtitle:"Women Helpline",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"1098",subtitle:"chile Helpline",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"1073",subtitle:"Road Accident ",image:"assets/images/images/img.png"),
-                   Card_Emergency_detail(title:"182",subtitle:"Railway Protection",image:"assets/images/images/img.png"),
+                   Card_Emergency_detail(title:"1098",subtitle:"child Helpline",image:"assets/images/images/img.png"),
+                   Card_Emergency_detail(title:"1073",subtitle:"Road Accident ",image:"assets/images/images/img_12.png"),
+                   Card_Emergency_detail(title:"182",subtitle:"Railway Protection",image:"assets/images/images/img_12.png"),
                  ],
                );
           },itemCount:1,padding:EdgeInsets.all(10),shrinkWrap: true,

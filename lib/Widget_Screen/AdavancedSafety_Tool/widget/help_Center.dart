@@ -6,12 +6,28 @@ class HelpCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:TAppBar(title:Text("Help"),showBackArrow:true,),
-      body:Column(
-        children: [
-          Help_Card(title: 'App Info',leading:Icon(Icons.info),subtitle:"About this app she Shield app", onPressed: (){}),
-          Help_Card(title: 'Terms and Privacy Policy',leading:Icon(Icons.file_copy),subtitle:"", onPressed: (){}),
-          Help_Card(title: 'Help Center Contact us',leading:Icon(Icons.help_center),subtitle:"8080737803, 9321759433", onPressed: (){}),
-        ],
+      body:Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Help_Card(title: 'App Info',leading:Icon(Icons.info),subtitle:"About this she Shield app", onPressed: (){}),
+            Help_Card(title: 'Terms and Privacy Policy',leading:Icon(Icons.file_copy),subtitle:"", onPressed: (){}),
+            // Help_Card(title: 'Contact us',leading:Icon(Icons.help_center),subtitle:"8080737803, 9321759433", onPressed: (){}),
+            Card(
+              child:ListTile(
+                title:Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Give your Feedback...",style:Theme.of(context).textTheme.titleMedium),
+                    SizedBox(height:4),
+                    Text("Yuvaraj Dekhane: 8080737803",style:Theme.of(context).textTheme.bodySmall),
+                    Text("Niraj Chalke: 9321759433",style:Theme.of(context).textTheme.bodySmall),
+                  ],
+                )
+              )
+            )
+          ],
+        ),
       ),
     );
   }
