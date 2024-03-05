@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_women_safety_app/utils/constants/sizes.dart';
 import 'package:flutter_women_safety_app/utils/halpers/helper_function.dart';
-
-import '../../../Constants/Utils.dart';
 import '../../../Constants/contactsm.dart';
 import '../../../DB/db_services.dart';
 import '../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';

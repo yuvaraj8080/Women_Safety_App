@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/Widget_Screen/ChildScreeen/Bottom_Screens/add_Contacts.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/SafeHome_Widget/GoogleMap.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/appBar/appbar.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../HomeScreen_Widget/LIvesafe_Screen.dart';
@@ -19,6 +22,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               // ------ CUSTOM APPBAR ------
               TAppBar(
+                actions: [IconButton(onPressed:()=>Get.to(()=>AddContactsPage()), icon:Icon(Icons.contact_page_outlined,color:Colors.white,size:35))],
                   title: Row(
                     children: [
                       Text("She Shield",
@@ -27,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                               .headlineMedium!
                               .apply(color: TColors.white))
                     ],
-                  )),
+                  ),),
               Column(
                 children: [
                   Text("Hey Dear! Your Safety Now my Responsibility",style:Theme.of(context).textTheme.titleMedium!.apply(color:TColors.white)),
@@ -47,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                 ///-----EXPLORE LIVE SAFE OPEN MAP AND TEXT--------
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Explore LiveSafe",style:Theme.of(context).textTheme.headlineSmall),
+                  child: Text("Emergency Service",style:Theme.of(context).textTheme.headlineSmall),
                 ),
                 const LiveSafe(),
                 SizedBox(height:4),

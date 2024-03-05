@@ -32,11 +32,13 @@ class LiveLocationController extends GetxController {
     _startListeningShakeDetector();
   }
 
+  ///-----GIVE THE PERMITTION HARE--------
   Future<void> _getPermission() async {
     await Permission.sms.request();
     await Permission.contacts.request();
   }
 
+  // ---- GETTING USER CURRENT LOCATION HARE --------
   Future<void> getCurrentLocation() async {
     bool locationPermissionGranted = await _handleLocationPermission();
     if (!locationPermissionGranted) {
@@ -56,6 +58,7 @@ class LiveLocationController extends GetxController {
     );
   }
 
+  // ---- HANDLING PERMITTION HARE ------
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -131,11 +134,11 @@ class LiveLocationController extends GetxController {
     }
   }
 
+  // ----SHAKE FEATURE -------
   Future<void> sendShake() async {
       if (_contactList.isEmpty) {
         TLoaders.warningSnackBar(
-            title:
-            "No trusted contacts available? Please Add Trusted Contact!");
+            title: "No trusted contacts available? Please Add Trusted Contact!");
         return;
       }
 
@@ -143,8 +146,7 @@ class LiveLocationController extends GetxController {
       if (permissionsGranted) {
         LocationData? locationData = await _getCurrentLocation();
         if (locationData != null) {
-          String message =
-              "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+          String message ="I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
           for (TContact contact in _contactList) {
             await sendMessage(contact.number, message);
@@ -252,7 +254,7 @@ class LiveLocation extends StatelessWidget {
         icon: Row(
           children: [
             InkWell(onTap:()=> _controller.sendSOS()  ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/sos.png"),radius: 45)),
-            InkWell(onTap:(){}   ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/images/img_11.png"),radius: 45)),
+            // InkWell(onTap:(){}   ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/images/img_11.png"),radius: 45)),
           ],
         ),
       ),

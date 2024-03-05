@@ -19,6 +19,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.put(UserController());
+    userController.fetchUserRecord();
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [
@@ -44,16 +45,11 @@ class SettingScreen extends StatelessWidget {
                 const SizedBox(height:8),
                // TSettingMenuTile(icon:Iconsax.safe_home, title:"My Address", subTitle:"Set shopping delivery address",onTap:()=> Get.to((const UserAddressScreen()))),
                 TSettingMenuTile(icon:Iconsax.notification, title:"Notification", subTitle:"Set any kind of notification messages",onTap:(){}),
-                TSettingMenuTile(icon:Iconsax.security_card, title:"Account Privacy", subTitle:"Manage data usage and connected accounts",onTap:(){}),
 
                 ///--------APP SETTING-------
                 const SizedBox(height:8),
                 const TSectionHeading(title:"App Setting",showActionButton:false),
                 const SizedBox(height:8),
-                TSettingMenuTile(icon:Iconsax.location, title:"Geolocation",
-                  subTitle:"Set recommendation based on location",
-                trailing:Switch(value: true,onChanged:(value){}),
-                ),
                 TSettingMenuTile(icon:Icons.mobile_screen_share_outlined, title:"Shake Mode",
                   subTitle:"Shake to mobile allow to user send Help SOS sms",
                   trailing:Switch(value: true,onChanged:(value){}),
@@ -61,13 +57,10 @@ class SettingScreen extends StatelessWidget {
                 TSettingMenuTile(icon:Icons.dark_mode_outlined, title:"Dark Mode",
                   subTitle:"Set Dark mode",
                   trailing:Switch(value: false,onChanged:(value){}),
-                ),TSettingMenuTile(icon:Icons.voice_chat, title:"Voice Activation",
-                  subTitle:"Voice assistance",
-                  trailing:Switch(value: true,onChanged:(value){}),
                 ),
 
                 ///--------LOGOUT BUTTON---------
-                const SizedBox(height:10),
+                const SizedBox(height:15),
                 SizedBox(
                   width: double.infinity,child:OutlinedButton(onPressed:()=>AuthenticationRepository.instance.logout(),child:const Text("Logout")),
                 ),
