@@ -102,7 +102,7 @@ class LiveLocationController extends GetxController {
 
       bool permissionsGranted = await _arePermissionsGranted();
       if (permissionsGranted) {
-        _timer = Timer.periodic(Duration(seconds:8), (timer) async {
+        _timer = Timer.periodic(Duration(seconds:10), (timer) async {
           LocationData? locationData = await _getCurrentLocation();
           if (locationData != null) {
             String message =
@@ -208,7 +208,7 @@ class LiveLocationController extends GetxController {
   }
 
   bool _isShaking(AccelerometerEvent event) {
-    final double threshold = 80.0;
+    final double threshold = 70.0;
     return event.x.abs() > threshold ||
         event.y.abs() > threshold ||
         event.z.abs() > threshold;
