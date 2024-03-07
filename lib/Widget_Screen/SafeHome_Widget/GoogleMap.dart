@@ -93,6 +93,7 @@ class LiveLocationController extends GetxController {
 
   /// Send SOS help SMS to all trusted contacts
   Future<void> sendSOS() async {
+    _loadContacts();
     if (!isSOSActive) {
       if (_contactList.isEmpty) {
         TLoaders.warningSnackBar(
@@ -136,6 +137,7 @@ class LiveLocationController extends GetxController {
 
   // ----SHAKE FEATURE -------
   Future<void> sendShake() async {
+    _loadContacts();
       if (_contactList.isEmpty) {
         TLoaders.warningSnackBar(
             title: "No trusted contacts available? Please Add Trusted Contact!");

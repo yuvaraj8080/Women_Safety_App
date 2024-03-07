@@ -54,10 +54,6 @@ class SettingScreen extends StatelessWidget {
                 const SizedBox(height:4),
                 TSettingMenuTile(icon:Icons.mobile_screen_share_outlined, title:"Shake Mode",
                   subTitle:"Shake to mobile allow to user send Help SOS sms",
-                  trailing:Switch(value: true,onChanged:(value){}),
-                ),
-                TSettingMenuTile(icon:Icons.dark_mode_outlined, title:"Dark Mode",
-                  subTitle:"Set Dark mode",
                   trailing:Switch(value: false,onChanged:(value){}),
                 ),
 
