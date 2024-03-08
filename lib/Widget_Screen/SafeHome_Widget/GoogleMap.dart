@@ -13,7 +13,6 @@ import 'package:vibration/vibration.dart';
 
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
-
 class LiveLocationController extends GetxController {
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
@@ -21,7 +20,6 @@ class LiveLocationController extends GetxController {
   bool isSOSActive = false;
   Timer? _timer;
   int shakeCount = 0;
-
 
   @override
   void onInit() {
@@ -73,15 +71,14 @@ class LiveLocationController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        TLoaders.warningSnackBar(
-            title: 'Location Permissions are Denied');
+        TLoaders.warningSnackBar(title: 'Location Permissions are Denied');
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       TLoaders.warningSnackBar(
           title:
-          'Location permissions are permanently Denied, we cannot request Permissions.');
+              'Location permissions are permanently Denied, we cannot request Permissions.');
       return false;
     }
     return true;
@@ -97,13 +94,14 @@ class LiveLocationController extends GetxController {
     if (!isSOSActive) {
       if (_contactList.isEmpty) {
         TLoaders.warningSnackBar(
-            title: "No trusted contacts available? Please Add Trusted Contact!");
+            title:
+                "No trusted contacts available? Please Add Trusted Contact!");
         return;
       }
 
       bool permissionsGranted = await _arePermissionsGranted();
       if (permissionsGranted) {
-        _timer = Timer.periodic(Duration(seconds:10), (timer) async {
+        _timer = Timer.periodic(Duration(seconds: 10), (timer) async {
           LocationData? locationData = await _getCurrentLocation();
           if (locationData != null) {
             String message =
@@ -138,25 +136,25 @@ class LiveLocationController extends GetxController {
   // ----SHAKE FEATURE -------
   Future<void> sendShake() async {
     _loadContacts();
-      if (_contactList.isEmpty) {
-        TLoaders.warningSnackBar(
-            title: "No trusted contacts available? Please Add Trusted Contact!");
-        return;
-      }
+    if (_contactList.isEmpty) {
+      TLoaders.warningSnackBar(
+          title: "No trusted contacts available? Please Add Trusted Contact!");
+      return;
+    }
 
-      bool permissionsGranted = await _arePermissionsGranted();
-      if (permissionsGranted) {
-        LocationData? locationData = await _getCurrentLocation();
-        if (locationData != null) {
-          String message ="I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+    bool permissionsGranted = await _arePermissionsGranted();
+    if (permissionsGranted) {
+      LocationData? locationData = await _getCurrentLocation();
+      if (locationData != null) {
+        String message =
+            "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
-          for (TContact contact in _contactList) {
-            await sendMessage(contact.number, message);
-            TLoaders.customToast(message: "Sent Shake SOS successfully");
-          }
+        for (TContact contact in _contactList) {
+          await sendMessage(contact.number, message);
+          TLoaders.customToast(message: "Sent Shake SOS successfully");
         }
       }
-
+    }
   }
 
   Future<bool> _arePermissionsGranted() async {
@@ -195,7 +193,7 @@ class LiveLocationController extends GetxController {
         if (shakeCount <= 5) {
           await sendShake();
           if (await Vibration.hasVibrator() ?? false) {
-            Vibration.vibrate(duration:100); // Vibrate for feedback
+            Vibration.vibrate(duration: 100); // Vibrate for feedback
           }
         }
 
@@ -215,7 +213,6 @@ class LiveLocationController extends GetxController {
         event.y.abs() > threshold ||
         event.z.abs() > threshold;
   }
-
 }
 
 class LiveLocation extends StatelessWidget {
@@ -225,9 +222,9 @@ class LiveLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-            () => GoogleMap(
-          buildingsEnabled:true,
-          trafficEnabled:true,
+        () => GoogleMap(
+          buildingsEnabled: true,
+          trafficEnabled: true,
           mapType: MapType.normal,
           initialCameraPosition: CameraPosition(
             target: _controller.initialLatLng.value,
@@ -249,12 +246,15 @@ class LiveLocation extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          _controller.sendSOS();
+        },
         label: Text(""),
         icon: Row(
           children: [
-            InkWell(onTap:()=> _controller.sendSOS()  ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/sos.png"),radius: 45)),
-            // InkWell(onTap:(){}   ,child: CircleAvatar(backgroundImage: AssetImage("assets/images/images/img_11.png"),radius: 45)),
+            CircleAvatar(
+                backgroundImage: AssetImage("assets/images/sos.png"),
+                radius: 45),
           ],
         ),
       ),
