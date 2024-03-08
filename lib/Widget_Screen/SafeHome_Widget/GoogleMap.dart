@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart'as stt;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:background_sms/background_sms.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 import '../../Constants/contactsm.dart';
 import '../../DB/db_services.dart';
 import 'package:sensors/sensors.dart';
@@ -34,6 +36,8 @@ class LiveLocationController extends GetxController {
   Future<void> _getPermission() async {
     await Permission.sms.request();
     await Permission.contacts.request();
+    await Permission.microphone.request();
+    await Permission.location.request();
   }
 
   // ---- GETTING USER CURRENT LOCATION HARE --------

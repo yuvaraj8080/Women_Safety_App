@@ -52,11 +52,6 @@ class SettingScreen extends StatelessWidget {
                 const SizedBox(height:4),
                 const TSectionHeading(title:"App Setting",showActionButton:false),
                 const SizedBox(height:4),
-                TSettingMenuTile(icon:Icons.mobile_screen_share_outlined, title:"Shake Mode",
-                  subTitle:"Shake to mobile allow to user send Help SOS sms",
-                  trailing:Switch(value: false,onChanged:(value){}),
-                ),
-
                 // ---HELPLINE SERVICES----
                 EmergencyHelpline_Card(image:"assets/images/images/img_7.png", text1:"Help", text2:"Help Center,privacy policy", onPressed:()=>Get.to(()=>HelpCenter())),
 

@@ -3,7 +3,6 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../features/personalization/controllers/user_controller.dart';
 import '../../../utils/constants/colors.dart';
-import '../images/t_circular_image.dart';
 
 class TUserProfileTile extends StatelessWidget {
   const TUserProfileTile({
@@ -20,7 +19,7 @@ class TUserProfileTile extends StatelessWidget {
 
     return ListTile(
       leading:  CircleAvatar(radius:25,
-        backgroundImage:NetworkImage(user.profilePicture,),// Placeholder icon
+        backgroundImage:NetworkImage(user.profilePicture),// Placeholder icon
       ),
       title: Text(
         user.fullName ?? '',

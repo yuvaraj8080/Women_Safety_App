@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/utils/constants/image_string.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -109,7 +110,7 @@ Future<void> saveUserRecord(UserCredential? userCredential) async{
   /// DELETE USER ACCOUNT
   void deleteUserAccount() async{
     try{
-      TFullScreenLoader.openLoadingDialog("Processing","assets/images/animations/doneEmail.webp");
+      TFullScreenLoader.openLoadingDialog("Processing",TImages.loadingLottie);
 
       /// FIRST RE-AUTHENTICATE USER
       final auth = AuthenticationRepository.instance;
