@@ -1,5 +1,6 @@
 import 'package:dialog_flowtter_plus/dialog_flowtter_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/utils/halpers/helper_function.dart';
 import '../utils/constants/colors.dart';
 import 'MyMessages.dart';
 
@@ -50,7 +51,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                   Expanded(
                       child:TextFormField(
                         controller: _controller,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color:THelperFunction.isDarkMode(context)?Colors.white:Colors.black),
                       )),
                   IconButton(
                     iconSize:30,

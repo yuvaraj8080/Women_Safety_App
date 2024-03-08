@@ -8,7 +8,6 @@ import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:background_sms/background_sms.dart';
 import 'package:sensors/sensors.dart';
-import 'package:speech_to_text/speech_to_text.dart'as stt;
 import '../../Constants/contactsm.dart';
 import '../../DB/db_services.dart';
 
@@ -16,7 +15,6 @@ import 'package:vibration/vibration.dart';
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
 class LiveLocationController extends GetxController {
-  final stt.SpeechToText _speech = stt.SpeechToText();
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
   final _contactList = <TContact>[].obs;
