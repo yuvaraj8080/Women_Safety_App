@@ -91,7 +91,6 @@ dependencies:
   intl:
   smooth_page_indicator:
   readmore: ^2.2.0
-  liquid_swipe:
   flutter_rating_bar:
   background_sms:
   lottie: ^3.0.0

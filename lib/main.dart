@@ -1,4 +1,3 @@
-
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'Widget_Screen/SafeHome_Widget/safehome_controller.dart';
 import 'app.dart';
 import 'data/repositories/authentication-repository.dart';
 import 'firebase_options.dart';
-
 
 void main() async{
   ///---WIDGET BINDING

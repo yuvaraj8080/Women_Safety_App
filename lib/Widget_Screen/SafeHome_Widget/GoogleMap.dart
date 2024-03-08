@@ -1,26 +1,28 @@
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geolocator/geolocator.dart'as stt;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:background_sms/background_sms.dart';
-import 'package:speech_to_text/speech_to_text.dart';
+import 'package:sensors/sensors.dart';
+import 'package:speech_to_text/speech_to_text.dart'as stt;
 import '../../Constants/contactsm.dart';
 import '../../DB/db_services.dart';
-import 'package:sensors/sensors.dart';
-import 'package:vibration/vibration.dart';
 
+import 'package:vibration/vibration.dart';
 import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 
 class LiveLocationController extends GetxController {
+  final stt.SpeechToText _speech = stt.SpeechToText();
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
   final _contactList = <TContact>[].obs;
   bool isSOSActive = false;
   Timer? _timer;
+
   int shakeCount = 0;
 
   @override
@@ -36,7 +38,6 @@ class LiveLocationController extends GetxController {
   Future<void> _getPermission() async {
     await Permission.sms.request();
     await Permission.contacts.request();
-    await Permission.microphone.request();
     await Permission.location.request();
   }
 
