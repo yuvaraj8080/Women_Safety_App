@@ -66,6 +66,7 @@ dependencies:
   cached_network_image: ^3.3.1
   date_format: ^2.0.7
   sqflite: ^2.3.0
+  rename_app: ^1.3.2
   provider: ^6.1.1
   geolocator: ^11.0.0
   geocoding: ^2.1.1
@@ -89,7 +90,6 @@ dependencies:
   youtube_player_flutter:
   intl:
   smooth_page_indicator:
-  readmore: ^2.2.0
   flutter_rating_bar:
   background_sms:
   lottie: ^3.0.0
@@ -108,15 +108,14 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/appLogo.webp"
+  image_path: "assets/images/on_boarding_images/onboard1.png"
 
 
 
 flutter_native_splash:
   color: "#42a5f5"
   branding_mode: bottom
-  #  branding_dark: assets/dart_dark.png
-  background_image: "assets/images/native.png"
+  background_image: "assets/images/on_boarding_images/onboard1.png"
 
 
 

@@ -28,7 +28,7 @@ class VerifyEmailScreen extends StatelessWidget {
               children:[
 
                 /// Asset Image  hare
-            const Image(image: AssetImage("assets/images/images/img_9.png")),
+            const Image(image: AssetImage("assets/images/img.png")),
             const SizedBox(height:50),
 
             /// title ans subtitle

@@ -16,10 +16,9 @@ class TUserProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     final user = controller.user.value;
-
     return ListTile(
       leading:  CircleAvatar(radius:25,
-        backgroundImage:NetworkImage(user.profilePicture),// Placeholder icon
+        backgroundImage:NetworkImage(user.profilePicture.isEmpty? "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" :user.profilePicture),// Placeholder icon
       ),
       title: Text(
         user.fullName ?? '',
@@ -29,9 +28,12 @@ class TUserProfileTile extends StatelessWidget {
         user.email ?? '',
         style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
       ),
-      trailing: IconButton(
-        onPressed: onPressed,
-        icon: const Icon(Iconsax.edit, color: Colors.white),
+      trailing: Card(
+        color:Colors.white,
+        child: IconButton(
+          onPressed: onPressed,
+          icon: const Icon(Iconsax.edit, color: Colors.blue,size:30),
+        ),
       ),
     );
   }

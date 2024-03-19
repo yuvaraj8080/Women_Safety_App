@@ -35,7 +35,7 @@ class VerifyEmailController extends GetxController {
       if (user?.emailVerified ?? false) {
         timer.cancel();
         Get.off(() => SuccessScreen(
-            image: "assets/images/animations/doneEmail.webp",
+            image: "assets/images/img_1.png",
             title: "Your Account Successfully Created!",
             subtitle: "Welcome to your Ultimate shopping Destination: your Account is Created, Unleash the jay of Seamless Online Shopping",
             onPressed: () =>

@@ -22,7 +22,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               // ------ CUSTOM APPBAR ------
               TAppBar(
-                actions: [IconButton(onPressed:()=>Get.to(()=>AddContactsPage()), icon:Icon(Icons.contact_page_outlined,color:Colors.white,size:35))],
+                actions: [Card(
+                  color:Colors.white,
+                    child: IconButton(onPressed:()=>Get.to(()=>AddContactsPage()), icon:Icon(Icons.contact_page_outlined,color:Colors.blue,size:35)))],
                   title: Row(
                     children: [
                       Text("She Shield",

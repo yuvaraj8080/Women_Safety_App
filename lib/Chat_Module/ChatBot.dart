@@ -30,7 +30,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       appBar:AppBar(elevation:3,shadowColor:Colors.blue,
           leading:Padding(
             padding: const EdgeInsets.only(left:10),
-            child: CircleAvatar(backgroundImage:AssetImage("assets/images/images/img_5.png")),
+            child: CircleAvatar(backgroundImage:AssetImage("assets/images/images/img_4.png")),
           ),
         title:Column(
           children: [

@@ -16,6 +16,8 @@ import '../../controllers/user_controller.dart';
 import '../profile/profile.dart';
 
 class SettingScreen extends StatelessWidget {
+
+
   const SettingScreen({super.key});
 
   @override
@@ -53,7 +55,7 @@ class SettingScreen extends StatelessWidget {
                 const TSectionHeading(title:"App Setting",showActionButton:false),
                 const SizedBox(height:4),
                 // ---HELPLINE SERVICES----
-                EmergencyHelpline_Card(image:"assets/images/images/img_7.png", text1:"Help", text2:"Help Center,privacy policy", onPressed:()=>Get.to(()=>HelpCenter())),
+                EmergencyHelpline_Card(image:"assets/images/img_2.png", text1:"Help", text2:"Help Center privacy policy", onPressed:()=>Get.to(()=>HelpCenter())),
 
                 ///--------LOGOUT BUTTON---------
                 const SizedBox(height:15),
