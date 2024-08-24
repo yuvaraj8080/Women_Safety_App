@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
                       Text("She Shield",style: Theme.of(context).textTheme.headlineMedium!.apply(color: TColors.white))
                     ],
                   ),),
-
               ///------APP BAR HEIGHT-----------'
               SizedBox(height:TSizes.size32)
             ],
