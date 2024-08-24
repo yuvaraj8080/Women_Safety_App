@@ -6,13 +6,8 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/validators/validator.dart';
 import '../controller/reportIncident_controller.dart';
 
-class IncidentReportBottomSheet extends StatefulWidget {
-  @override
-  _IncidentReportBottomSheetState createState() => _IncidentReportBottomSheetState();
-}
-
-class _IncidentReportBottomSheetState extends State<IncidentReportBottomSheet> {
-  final ReportIncidentController _reportIncidentController = Get.put(ReportIncidentController());
+class IncidentReportBottomSheet extends StatelessWidget {
+  final ReportIncidentController incidentController = Get.put(ReportIncidentController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +17,19 @@ class _IncidentReportBottomSheetState extends State<IncidentReportBottomSheet> {
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
           child: Form(
-            key:_reportIncidentController.reportKey,
+            key:incidentController.reportKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Incident Report", style: Theme.of(context).textTheme.headlineSmall),
                 SizedBox(height: TSizes.size24),
                 TextFormField(
-                  controller: _reportIncidentController.description,
+                  controller: incidentController.description,
                   expands: false,
                   maxLines: 2,
                   decoration: const InputDecoration(
                       labelText: "Incident description", prefixIcon: Icon(Iconsax.edit)),
-                  validator: (value) => TValidator.validateEmptyText("description", value),
+                  validator: (value) => TValidator.validateEmptyText("incident description", value),
                 ),
                 const SizedBox(height: TSizes.size16),
                 Row(
@@ -44,16 +39,14 @@ class _IncidentReportBottomSheetState extends State<IncidentReportBottomSheet> {
                       child: DropdownButtonFormField(
                         decoration: const InputDecoration(
                           labelText: "Type",),
-                        items: _reportIncidentController.types.map((type) {
+                        items: incidentController.types.map((type) {
                           return DropdownMenuItem(
                             child: Text(type),
                             value: type,
                           );
                         }).toList(),
                         onChanged: (value) {
-                          setState(() {
-                            _reportIncidentController.type.text = value as String;
-                          });
+                          incidentController.type.text = value as String;
                         },
                         validator: (value) => TValidator.validateEmptyText("Incident Type", value),
                       ),
@@ -64,16 +57,14 @@ class _IncidentReportBottomSheetState extends State<IncidentReportBottomSheet> {
                       child: DropdownButtonFormField(
                         decoration: InputDecoration(
                             labelText: "City", prefixIcon: Icon(Iconsax.building)),
-                        items: _reportIncidentController.cities.map((city) {
+                        items: incidentController.cities.map((city) {
                           return DropdownMenuItem(
                             child: Text(city),
                             value: city,
                           );
                         }).toList(),
                         onChanged: (value) {
-                          setState(() {
-                            _reportIncidentController.city.text = value as String;
-                          });
+                          incidentController.city.text = value as String;
                         },
                         validator: (value) => TValidator.validateEmptyText("Incident City", value),
                       ),
@@ -83,7 +74,7 @@ class _IncidentReportBottomSheetState extends State<IncidentReportBottomSheet> {
                 const SizedBox(height:30),
                 /// Sign Up Button Create Account button
                 SizedBox(width:double.infinity,
-                    child:ElevatedButton(onPressed:(){_reportIncidentController.createReportIncident();},
+                    child:ElevatedButton(onPressed:(){incidentController.createReportIncident();},
                         child:const Text("Submit Report")))
               ],
             ),
