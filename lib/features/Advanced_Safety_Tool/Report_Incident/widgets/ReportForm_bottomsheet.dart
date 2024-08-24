@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/data/notification_services/notification_service.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -83,7 +84,10 @@ class IncidentReportBottomSheet extends StatelessWidget {
                 const SizedBox(height:30),
                 /// Sign Up Button Create Account button
                 SizedBox(width:double.infinity,
-                    child:ElevatedButton(onPressed:(){incidentController.createReportIncident();},
+                    child:ElevatedButton(onPressed:(){
+                      showNotification(title:"She Shield", body:"Thanks for Safety");
+                      // incidentController.createReportIncident();
+                      },
                         child:const Text("Submit Report")))
               ],
             ),
