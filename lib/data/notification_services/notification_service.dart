@@ -20,7 +20,6 @@ Future<void> initializeNotification() async {
         onlyAlertOnce: true,
         playSound: true,
         criticalAlerts: true,
-          icon:TImages.appLogo,
       )
     ],
     channelGroups: [
