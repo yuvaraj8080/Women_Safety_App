@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 class CustomElevatedButton extends StatelessWidget {
   final String title;
   final Function onPressed;
@@ -21,7 +20,7 @@ class CustomElevatedButton extends StatelessWidget {
           overlayColor: MaterialStateProperty.all(Colors.white24),
 
         ),
-        child:Text(title,style:GoogleFonts.roboto(fontSize:18,fontWeight:FontWeight.bold),),onPressed: (){
+        child:Text(title,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),onPressed: (){
         onPressed();
       },)
     );

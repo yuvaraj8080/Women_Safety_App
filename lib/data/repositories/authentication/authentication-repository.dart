@@ -6,11 +6,14 @@ import 'package:flutter_women_safety_app/data/repositories/user/user_repository.
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../exception_handling/handle_exception_file.dart';
-import '../../features/authentication/screens/Login/login.dart';
-import '../../features/authentication/screens/onBoarding/onboarding.dart';
-import '../../features/authentication/screens/signup.widgets/verify_email.dart';
-import '../../navigation_menu.dart';
+import '../../../features/authentication/screens/Login/login.dart';
+import '../../../features/authentication/screens/onBoarding/onboarding.dart';
+import '../../../features/authentication/screens/signup.widgets/verify_email.dart';
+import '../../../navigation_menu.dart';
+import '../../../utils/exceptions/firebase_auth_exceptions.dart';
+import '../../../utils/exceptions/firebase_exceptions.dart';
+import '../../../utils/exceptions/format_exceptions.dart';
+import '../../../utils/exceptions/platform_exceptions.dart';
 
 class AuthenticationRepository extends GetxController{
   static AuthenticationRepository get instance => Get.find();
@@ -71,7 +74,7 @@ class AuthenticationRepository extends GetxController{
        throw TFirebaseException(e.code).message;
      }
      on FormatException catch (_){
-       throw TFormException();
+       throw TFormatException();
      }
      on PlatformException catch (e){
        throw TPlatformException(e.code).message;
@@ -94,7 +97,7 @@ class AuthenticationRepository extends GetxController{
        throw TFirebaseException(e.code).message;
      }
      on FormatException catch (_){
-       throw TFormException();
+       throw TFormatException();
      }
      on PlatformException catch (e){
        throw TPlatformException(e.code).message;
@@ -116,7 +119,7 @@ class AuthenticationRepository extends GetxController{
       throw TFirebaseException(e.code).message;
     }
     on FormatException catch (_){
-      throw TFormException();
+      throw TFormatException();
     }
     on PlatformException catch (e){
       throw TPlatformException(e.code).message;
@@ -139,7 +142,7 @@ class AuthenticationRepository extends GetxController{
       throw TFirebaseException(e.code).message;
     }
     on FormatException catch (_){
-      throw TFormException();
+      throw TFormatException();
     }
     on PlatformException catch (e){
       throw TPlatformException(e.code).message;
@@ -166,7 +169,7 @@ class AuthenticationRepository extends GetxController{
        throw TFirebaseException(e.code).message;
      }
      on FormatException catch (_){
-       throw TFormException();
+       throw TFormatException();
      }
      on PlatformException catch (e){
        throw TPlatformException(e.code).message;
@@ -207,7 +210,7 @@ class AuthenticationRepository extends GetxController{
        throw TFirebaseException(e.code).message;
      }
      on FormatException catch (_){
-       throw TFormException();
+       throw TFormatException();
      }
      on PlatformException catch (e){
        throw TPlatformException(e.code).message;
@@ -232,7 +235,7 @@ class AuthenticationRepository extends GetxController{
        throw TFirebaseException(e.code).message;
      }
      on FormatException catch (_){
-       throw TFormException();
+       throw TFormatException();
      }
      on PlatformException catch (e){
        throw TPlatformException(e.code).message;
@@ -256,7 +259,7 @@ class AuthenticationRepository extends GetxController{
        throw TFirebaseException(e.code).message;
      }
      on FormatException catch (_){
-       throw TFormException();
+       throw TFormatException();
      }
      on PlatformException catch (e){
        throw TPlatformException(e.code).message;

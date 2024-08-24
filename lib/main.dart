@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import 'Widget_Screen/SafeHome_Widget/safehome_controller.dart';
 import 'app.dart';
-import 'data/repositories/authentication-repository.dart';
+import 'data/notification_services/notification_service.dart';
+import 'data/repositories/authentication/authentication-repository.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -16,6 +16,9 @@ void main() async{
   ///----AWAIT SPLASH UNTIL ITEM LOAD----
   FlutterNativeSplash.preserve(widgetsBinding:widgetsBinding);
 
+  /// ASWOME NOTIFICATION
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeNotification();
 
   ///----INITIALIZATION FIREBASE AND AUTHENTICATION REPOSITORY----
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
@@ -27,9 +30,5 @@ void main() async{
     androidProvider: AndroidProvider.debug,
     // playintegrity
   );
-
-
   runApp(const App());
-  Get.put(SafeHomeController());
 }
-

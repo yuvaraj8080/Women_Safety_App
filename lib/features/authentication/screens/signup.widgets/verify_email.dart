@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/repositories/authentication-repository.dart';
+import '../../../../data/repositories/authentication/authentication-repository.dart';
 import '../../controllers/signup/verify_email_controller.dart';
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key, this.email});
