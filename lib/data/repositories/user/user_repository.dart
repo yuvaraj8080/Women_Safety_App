@@ -1,16 +1,14 @@
-
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../exception_handling/handle_exception_file.dart';
 import '../../../utils/User_Model/user_model.dart';
-import '../authentication-repository.dart';
+import '../../../utils/exceptions/firebase_exceptions.dart';
+import '../../../utils/exceptions/format_exceptions.dart';
+import '../../../utils/exceptions/platform_exceptions.dart';
+import '../authentication/authentication-repository.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -26,7 +24,7 @@ class UserRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormException();
+      throw TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -46,7 +44,7 @@ class UserRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormException();
+      throw TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -62,7 +60,7 @@ class UserRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormException();
+      throw TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -78,7 +76,7 @@ class UserRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormException();
+      throw TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -94,7 +92,7 @@ class UserRepository extends GetxController {
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormException();
+      throw TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
@@ -114,7 +112,7 @@ Future<String> uploadImage(String path, XFile image) async{
     on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw TFormException();
+      throw TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {

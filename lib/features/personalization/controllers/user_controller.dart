@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../common/NetworkManager/network_manager.dart';
 import '../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
-import '../../../data/repositories/authentication-repository.dart';
+import '../../../data/repositories/authentication/authentication-repository.dart';
 import '../../../data/repositories/user/user_repository.dart';
 import '../../../utils/User_Model/user_model.dart';
 import '../../../utils/popups/full_screen_loader.dart';

@@ -19,7 +19,6 @@ class LiveLocationController extends GetxController {
   final _contactList = <TContact>[].obs;
   bool isSOSActive = false;
   Timer? _timer;
-
   int shakeCount = 0;
 
   @override
@@ -217,7 +216,7 @@ class LiveLocationController extends GetxController {
   }
 }
 
-class LiveLocation extends StatelessWidget {
+class GoogleMap_View extends StatelessWidget {
   final LiveLocationController _controller = Get.put(LiveLocationController());
 
   @override

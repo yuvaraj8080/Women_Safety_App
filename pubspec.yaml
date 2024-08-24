@@ -54,7 +54,7 @@ dependencies:
   awesome_icons: ^1.1.0
   font_awesome_flutter: ^10.6.0
   shared_preferences: ^2.2.2
-  http: ^1.1.2
+  http:
   sensors:
   get_storage:
   http_multi_server: ^3.2.1
