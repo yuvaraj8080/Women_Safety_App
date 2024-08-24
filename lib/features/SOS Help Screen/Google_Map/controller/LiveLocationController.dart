@@ -30,23 +30,24 @@ class LiveLocationController extends GetxController {
     await Permission.location.request();
   }
 
-  Future<void> getCurrentLocation() async {
+  Future<LocationData?> getCurrentLocation() async {
     bool locationPermissionGranted = await _handleLocationPermission();
     if (!locationPermissionGranted) {
-      return;
+      return null;
     }
 
     Location location = Location();
-    LocationData _locationData;
+    LocationData? _locationData;
 
     _locationData = await location.getLocation();
-    initialLatLng.value =
-        LatLng(_locationData.latitude!, _locationData.longitude!);
+    initialLatLng.value = LatLng(_locationData.latitude!, _locationData.longitude!);
 
     final GoogleMapController? controller = googleMapController.value;
     controller?.animateCamera(
       CameraUpdate.newLatLngZoom(initialLatLng.value, 14.0),
     );
+
+    return _locationData;
   }
 
   Future<bool> _handleLocationPermission() async {

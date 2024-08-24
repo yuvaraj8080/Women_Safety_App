@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/features/SOS%20Help%20Screen/Google_Map/controller/SOS_Help_Controller.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
+import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../features/SOS Help Screen/Google_Map/controller/LiveLocationController.dart';
 
 class GoogleMap_View extends StatelessWidget {
@@ -37,10 +39,15 @@ class GoogleMap_View extends StatelessWidget {
         ),
       ),
       // Update the FAB based on SOS status
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Obx(() => FloatingActionButton.extended(
-        onPressed: () {
-          sosController.sendSOS(); // Trigger SOS send/stop
+        onPressed: () async {
+          LocationData? locationData = await locationController.getCurrentLocation();
+          if (locationData != null) {
+            sosController.sendSOS(locationData); // Trigger SOS send/stop
+          } else {
+            TLoaders.warningSnackBar(title: 'Failed to get current location');
+          }
         },
         // Show different labels depending on the SOS state
         label: Text(sosController.isSOSActive ? "Stop SOS" : "Start SOS"),
