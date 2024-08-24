@@ -15,6 +15,9 @@ void main() async{
   ///----AWAIT SPLASH UNTIL ITEM LOAD----
   FlutterNativeSplash.preserve(widgetsBinding:widgetsBinding);
 
+  /// ASWOME NOTIFICATION
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeNotification();
 
   ///----INITIALIZATION FIREBASE AND AUTHENTICATION REPOSITORY----
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
