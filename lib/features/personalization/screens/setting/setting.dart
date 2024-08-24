@@ -60,7 +60,7 @@ class SettingScreen extends StatelessWidget {
                 /// SWITCH BUTTON FOR SHAKE MODE
                 TSettingMenuTile(
                   icon: Iconsax.mobile,title: "Mobile Shake",
-                  subTitle: "Allow Shake features",
+                  subTitle: "Enable Shake features background services",
                   trailing: Obx(() => Switch(
                       value: livelocationController.isShakeModeEnabled.value,
                       onChanged: (value) {
