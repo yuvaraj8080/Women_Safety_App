@@ -22,7 +22,7 @@ class ReportIncidentController extends GetxController {
   final type = TextEditingController();
 
   final reportRepository = Get.put(ReportIncidentRepository());
-  final user = AuthenticationRepository()
+  final userController = Get.put(UserController());
 
 
   /// SAVE REPORT INCIDENT
@@ -45,15 +45,16 @@ class ReportIncidentController extends GetxController {
       }
 
       /// MAP DATA
+      final authUser = userController.user.value;
       final newReportIncident = ReportIncidentModel(
         description: description.text.trim(),
         city: city.text.trim(),
-        fullName: fullName.text.trim(),
+        fullName:authUser.fullName,
         liveLocation: liveLocation.text.trim(),
-        phoneNo: phoneNo.text.trim(),
+        phoneNo:authUser.phoneNumber,
         time:DateTime.now(),
-        id: '',
         type:type.text.trim(),
+        id:authUser.id,
       );
 
       /// SAVE REPORT INCIDENT IN FIRESTORE
@@ -77,10 +78,7 @@ class ReportIncidentController extends GetxController {
   void resetFields() {
     description.clear();
     city.clear();
-    fullName.clear();
     liveLocation.clear();
-    phoneNo.clear();
-    time.clear();
     loading(false);
   }
 }
