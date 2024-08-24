@@ -40,7 +40,7 @@ class GoogleMap_View extends StatelessWidget {
       ),
       // Update the FAB based on SOS status
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Obx(() => FloatingActionButton.extended(
+      floatingActionButton:FloatingActionButton.extended(
         onPressed: () async {
           LocationData? locationData = await locationController.getCurrentLocation();
           if (locationData != null) {
@@ -62,7 +62,6 @@ class GoogleMap_View extends StatelessWidget {
           ],
         ),
         backgroundColor: sosController.isSOSActive ? Colors.red : Colors.blue,
-      )),
-    );
+      ));
   }
 }
