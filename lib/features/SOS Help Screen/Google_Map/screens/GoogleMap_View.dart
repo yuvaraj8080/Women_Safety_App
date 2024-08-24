@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-import '../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
-import '../../features/SOS Help Screen/Google_Map/controller/LiveLocationController.dart';
+import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
+import '../controller/LiveLocationController.dart';
 
-class GoogleMap_View extends StatelessWidget {
+class GoogleMap_View_Screen extends StatelessWidget {
   // Use dependency injection for controller via Get
   final LiveLocationController locationController = Get.put(LiveLocationController());
   final SOSController sosController = Get.put(SOSController());
@@ -15,8 +15,7 @@ class GoogleMap_View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-            () => GoogleMap(
+      body: Obx(() => GoogleMap(
           buildingsEnabled: true,
           trafficEnabled: true,
           mapType: MapType.normal,
