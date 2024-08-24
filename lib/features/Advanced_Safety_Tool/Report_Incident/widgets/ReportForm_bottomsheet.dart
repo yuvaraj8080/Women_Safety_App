@@ -85,8 +85,7 @@ class IncidentReportBottomSheet extends StatelessWidget {
                 /// Sign Up Button Create Account button
                 SizedBox(width:double.infinity,
                     child:ElevatedButton(onPressed:(){
-                      showNotification(title:"She Shield", body:"Thanks for Safety");
-                      // incidentController.createReportIncident();
+                      incidentController.createReportIncident();
                       },
                         child:const Text("Submit Report")))
               ],
