@@ -30,6 +30,7 @@ class LiveLocationController extends GetxController {
     _startListeningShakeDetector();
   }
 
+
   Future<void> _getPermission() async {
     await Permission.location.request();
     await Permission.sms.request();
