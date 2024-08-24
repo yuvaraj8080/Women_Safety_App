@@ -7,7 +7,7 @@ import 'bindings/genral_bindinng.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
-
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/data/notification_services/notification_service.dart';
 import 'package:flutter_women_safety_app/features/SOS%20Help%20Screen/Google_Map/controller/LiveLocationController.dart';
 import 'package:flutter_women_safety_app/utils/constants/image_string.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,8 @@ class ReportIncidentController extends GetxController {
 
   final loading = false.obs;
   final reportKey = GlobalKey<FormState>();
-
   final description = TextEditingController();
+  final title = TextEditingController();
   final city = TextEditingController();
   final type = TextEditingController();
 
@@ -53,15 +54,22 @@ class ReportIncidentController extends GetxController {
       /// MAP DATA
       final authUser = userController.user.value;
 
+      if(locationData == null){
+        TLoaders.warningSnackBar(title:"Incident Report",message:"Turn on device location for report incident");
+        TFullScreenLoader.stopLoading();
+        return;
+      }
       final newReportIncident = ReportIncidentModel(
+        title:title.text.trim(),
         description: description.text.trim(),
         city: city.text.trim(),
         fullName:authUser.fullName,
-        liveLocation:"${locationData?.latitude}${locationData?.longitude}",
         phoneNo:authUser.phoneNumber,
         time:DateTime.now(),
         type:type.text.trim(),
         id:authUser.id,
+        latitude:"${locationData.latitude}",
+        longitude:"${locationData.longitude}",
       );
 
       /// SAVE REPORT INCIDENT IN FIRESTORE
@@ -74,8 +82,9 @@ class ReportIncidentController extends GetxController {
       /// REMOVE LOADER
       TFullScreenLoader.stopLoading();
 
-      /// SHOW SUCCESS MESSAGE
-      TLoaders.successSnackBar(title: "Success", message: "Report incident saved successfully");
+      /// SHOW NOTIFICATION APP
+      showNotification(title:"She Shield",body:"Thanks For report Section");
+      
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: "Error", message: "Failed to save report incident: $e");
@@ -84,6 +93,7 @@ class ReportIncidentController extends GetxController {
   }
 
   void resetFields() {
+    title.clear();
     description.clear();
     city.clear();
     loading(false);

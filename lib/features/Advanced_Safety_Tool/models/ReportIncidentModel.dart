@@ -3,21 +3,25 @@ import '../../../utils/formatters/formatter.dart';
 
 class ReportIncidentModel {
   final String id;
+  String title;
   String description;
   String type;
   String city;
   String fullName;
-  String liveLocation;
+  String latitude;
+  String longitude;
   String phoneNo;
   DateTime? time;
 
   ReportIncidentModel({
+    required this.title,
     required this.id,
     required this.description,
     required this.type,
     required this.city,
     required this.fullName,
-    required this.liveLocation,
+    required this.latitude,
+    required this.longitude,
     required this.phoneNo,
     this.time,
   });
@@ -25,23 +29,27 @@ class ReportIncidentModel {
   String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNo);
 
   static ReportIncidentModel empty() => ReportIncidentModel(
+    title:"",
     id: "",
     description: "",
     type: "",
     city: "",
     fullName: "",
-    liveLocation: "",
+    latitude:"",
+    longitude:"",
     phoneNo: "",
   );
 
   Map<String, dynamic> toJson() {
     return {
+      "Title":title,
       "Description": description,
       "Type": type,
       "City": city,
       "FullName": fullName,
-      "LiveLocation": liveLocation,
       "PhoneNo": phoneNo,
+      "Latitude": latitude,
+      "Longitude": longitude,
       "Time": time,
     };
   }
@@ -50,15 +58,16 @@ class ReportIncidentModel {
     if (document.data() != null) {
       final data = document.data()!;
       return ReportIncidentModel(
+        title:data["Title"]??'', // Add this line
         id: document.id,
         description: data["Description"] ?? '',
         type: data["Type"] ?? '',
         city: data["City"] ?? '',
         fullName: data["FullName"] ?? '',
-        liveLocation: data["LiveLocation"] ?? '',
         phoneNo: data["PhoneNo"] ?? '',
+        latitude: data["Latitude"] ?? 0.0,
+        longitude: data["Longitude"] ?? 0.0,
         time: data.containsKey('Time') ? data['Time']?.toDate() : null,
-
       );
     } else {
       return ReportIncidentModel.empty();

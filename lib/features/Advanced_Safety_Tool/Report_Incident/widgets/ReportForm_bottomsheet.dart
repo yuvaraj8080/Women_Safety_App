@@ -14,15 +14,24 @@ class IncidentReportBottomSheet extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.symmetric(horizontal:20),
         child: SingleChildScrollView(
           child: Form(
             key:incidentController.reportKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Incident Report", style: Theme.of(context).textTheme.headlineSmall),
-                SizedBox(height: TSizes.size24),
+                Text("Incident Report ⚠️",style: Theme.of(context).textTheme.headlineSmall),
+                SizedBox(height: TSizes.size16),
+                TextFormField(
+                  controller: incidentController.title,
+                  expands: false,
+                  decoration: const InputDecoration(
+                      labelText: "Incident Title", prefixIcon: Icon(Iconsax.edit)),
+                  validator: (value) => TValidator.validateEmptyText("title", value),
+                ),
+
+                const SizedBox(height: TSizes.size12),
                 TextFormField(
                   controller: incidentController.description,
                   expands: false,
@@ -31,7 +40,7 @@ class IncidentReportBottomSheet extends StatelessWidget {
                       labelText: "Incident description", prefixIcon: Icon(Iconsax.edit)),
                   validator: (value) => TValidator.validateEmptyText("incident description", value),
                 ),
-                const SizedBox(height: TSizes.size16),
+                const SizedBox(height: TSizes.size12),
                 Row(
                   children: [
                     ///  Type Dropdown
