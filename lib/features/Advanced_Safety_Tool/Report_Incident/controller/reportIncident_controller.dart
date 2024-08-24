@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_women_safety_app/utils/constants/image_string.dart';
 import 'package:get/get.dart';
-
 import '../../../../common/NetworkManager/network_manager.dart';
 import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../../../data/repositories/report_repository/report_repository.dart';
