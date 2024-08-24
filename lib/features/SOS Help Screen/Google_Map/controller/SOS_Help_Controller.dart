@@ -28,16 +28,14 @@ class SOSController extends GetxController {
     _loadContacts();
     if (!isSOSActive) {
       if (_contactList.isEmpty) {
-        TLoaders.warningSnackBar(
-            title: "No trusted contacts available? Please Add Trusted Contact!");
+        TLoaders.warningSnackBar(title: "No trusted contacts available? Please Add Trusted Contact!");
         return;
       }
 
       bool permissionsGranted = await _arePermissionsGranted();
       if (permissionsGranted) {
         _timer = Timer.periodic(Duration(seconds: 10), (timer) async {
-          String message =
-              "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+          String message = "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
           for (TContact contact in _contactList) {
             await sendMessage(contact.number, message);
@@ -50,8 +48,7 @@ class SOSController extends GetxController {
       }
     } else {
       _timer?.cancel();
-      String message =
-          "I am safe now! My current location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+      String message = "I am safe now! My current location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
       for (TContact contact in _contactList) {
         await sendMessage(contact.number, message);
@@ -64,15 +61,13 @@ class SOSController extends GetxController {
   Future<void> sendShakeSOS(LocationData locationData) async {
     _loadContacts();
     if (_contactList.isEmpty) {
-      TLoaders.warningSnackBar(
-          title: "No trusted contacts available? Please Add Trusted Contact!");
+      TLoaders.warningSnackBar(title: "No trusted contacts available? Please Add Trusted Contact!");
       return;
     }
 
     bool permissionsGranted = await _arePermissionsGranted();
     if (permissionsGranted) {
-      String message =
-          "I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
+      String message ="I am in trouble! Please reach me at my current live location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
       for (TContact contact in _contactList) {
         await sendMessage(contact.number, message);
@@ -82,14 +77,10 @@ class SOSController extends GetxController {
   }
 
   Future<bool> _arePermissionsGranted() async {
-    return await Permission.sms.isGranted && await Permission.contacts.isGranted;
+    return await Permission.sms.isGranted && await Permission.contacts.isGranted && await Permission.locationAlways.isGranted;
   }
 
   Future<void> sendMessage(String phoneNumber, String message) async {
-    await BackgroundSms.sendMessage(
-      phoneNumber: phoneNumber,
-      message: message,
-      simSlot: 1,
-    );
+    await BackgroundSms.sendMessage(phoneNumber: phoneNumber,message: message,simSlot: 1);
   }
 }

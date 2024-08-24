@@ -1,10 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/utils/constants/colors.dart';
 import 'package:flutter_women_safety_app/utils/theme/theme.dart';
 import 'package:get/get.dart';
 import 'bindings/genral_bindinng.dart';
-
 
 
 class App extends StatelessWidget {
@@ -18,9 +16,7 @@ class App extends StatelessWidget {
       theme:TAppTheme.lightTheme,
       darkTheme:TAppTheme.darkTheme,
       initialBinding:GeneralBinding(),
-      home:const Scaffold(backgroundColor:TColors.primaryColor,
-          body:Center(child:CircularProgressIndicator(
-              color:Colors.white))),
+      home:const Scaffold(body:Center(child:CircularProgressIndicator(color:Colors.blue))),
     );
   }
 }

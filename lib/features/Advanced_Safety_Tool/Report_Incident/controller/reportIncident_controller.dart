@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_women_safety_app/features/SOS%20Help%20Screen/Google_Map/controller/LiveLocationController.dart';
 import 'package:flutter_women_safety_app/utils/constants/image_string.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
 import '../../../../common/NetworkManager/network_manager.dart';
 import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../../../data/repositories/report_repository/report_repository.dart';
@@ -21,12 +23,17 @@ class ReportIncidentController extends GetxController {
   final reportRepository = Get.put(ReportIncidentRepository());
   final userController = Get.put(UserController());
 
+  /// GETTING CURRENT LIVE LOCATION FROM THE MAP
+   final locationController = Get.put(LiveLocationController());
+
   List<String> types = ['Harassment', 'Rape', 'Abuse', "Others"];
   List<String> cities = ['Mumbai', 'Pune', 'Delhi', 'Nashik'];
 
   /// SAVE REPORT INCIDENT
   Future<void> createReportIncident() async {
     try {
+     LocationData?  locationData = await locationController.getCurrentLocation();
+
       /// START LOADING
       TFullScreenLoader.openLoadingDialog("Wait for reporting",TImages.loadingLottie);
 
@@ -45,11 +52,12 @@ class ReportIncidentController extends GetxController {
 
       /// MAP DATA
       final authUser = userController.user.value;
+
       final newReportIncident = ReportIncidentModel(
         description: description.text.trim(),
         city: city.text.trim(),
         fullName:authUser.fullName,
-        liveLocation:"",
+        liveLocation:"${locationData?.latitude}${locationData?.longitude}",
         phoneNo:authUser.phoneNumber,
         time:DateTime.now(),
         type:type.text.trim(),

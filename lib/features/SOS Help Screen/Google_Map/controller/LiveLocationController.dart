@@ -10,10 +10,13 @@ import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import 'SOS_Help_Controller.dart';
 
 class LiveLocationController extends GetxController {
+  static LiveLocationController get instance => Get.find();
+
+
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
   final SOSController _sosController = Get.put(SOSController());
-  Timer? _timer;
+  // Timer? _timer;
   int shakeCount = 0;
 
   @override
@@ -30,34 +33,13 @@ class LiveLocationController extends GetxController {
     await Permission.location.request();
   }
 
-  Future<LocationData?> getCurrentLocation() async {
-    bool locationPermissionGranted = await _handleLocationPermission();
-    if (!locationPermissionGranted) {
-      return null;
-    }
-
-    Location location = Location();
-    LocationData? _locationData;
-
-    _locationData = await location.getLocation();
-    initialLatLng.value = LatLng(_locationData.latitude!, _locationData.longitude!);
-
-    final GoogleMapController? controller = googleMapController.value;
-    controller?.animateCamera(
-      CameraUpdate.newLatLngZoom(initialLatLng.value, 14.0),
-    );
-
-    return _locationData;
-  }
-
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      TLoaders.warningSnackBar(
-          title: 'Location services are disabled. Please Enable Location');
+      TLoaders.warningSnackBar(title: 'Location services are disabled. Please Enable Location');
       return false;
     }
     permission = await Geolocator.checkPermission();
@@ -70,11 +52,30 @@ class LiveLocationController extends GetxController {
     }
     if (permission == LocationPermission.deniedForever) {
       TLoaders.warningSnackBar(
-          title:
-          'Location permissions are permanently Denied, we cannot request Permissions.');
+          title:'Location permissions are permanently Denied, we cannot request Permissions.');
       return false;
     }
     return true;
+  }
+
+
+  Future<LocationData?> getCurrentLocation() async {
+    bool locationPermissionGranted = await _handleLocationPermission();
+    if (!locationPermissionGranted) {
+      print("Hare No permission your give so no locations");
+      return null;
+    }
+
+    Location location = Location();
+    LocationData? _locationData;
+
+    _locationData = await location.getLocation();
+    initialLatLng.value = LatLng(_locationData.latitude!, _locationData.longitude!);
+    final GoogleMapController? controller = googleMapController.value;
+    controller?.animateCamera(
+      CameraUpdate.newLatLngZoom(initialLatLng.value, 14.0),
+    );
+    return _locationData;
   }
 
   void _startListeningShakeDetector() {
