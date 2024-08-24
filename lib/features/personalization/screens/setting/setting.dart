@@ -12,6 +12,7 @@ import '../../../../common/widgets.Login_Signup/list_Tile/user_profile.dart';
 import '../../../../common/widgets.Login_Signup/texts/section_heading.dart';
 import '../../../../data/repositories/authentication/authentication-repository.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../SOS Help Screen/Google_Map/controller/LiveLocationController.dart';
 import '../../controllers/user_controller.dart';
 import '../profile/profile.dart';
 
@@ -23,6 +24,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.put(UserController());
+    final LiveLocationController livelocationController = Get.put(LiveLocationController());
     userController.fetchUserRecord();
     return Scaffold(
         body: SingleChildScrollView(
@@ -54,6 +56,20 @@ class SettingScreen extends StatelessWidget {
                 const SizedBox(height:4),
                 const TSectionHeading(title:"App Setting",showActionButton:false),
                 const SizedBox(height:4),
+
+                /// SWITCH BUTTON FOR SHAKE MODE
+                TSettingMenuTile(
+                  icon: Iconsax.mobile,title: "Mobile Shake",
+                  subTitle: "Allow Shake features",
+                  trailing: Obx(() => Switch(
+                      value: livelocationController.isShakeModeEnabled.value,
+                      onChanged: (value) {
+                        livelocationController.isShakeModeEnabled.value = value;
+                      },
+                    ),
+                  ),
+                ),
+
                 // ---HELPLINE SERVICES----
                 EmergencyHelpline_Card(image:"assets/images/img_2.png", text1:"Help", text2:"Help Center privacy policy", onPressed:()=>Get.to(()=>HelpCenter())),
 

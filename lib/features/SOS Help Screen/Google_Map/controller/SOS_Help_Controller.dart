@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_women_safety_app/data/notification_services/notification_service.dart';
 import 'package:location/location.dart';
 import 'package:get/get.dart';
 import 'package:background_sms/background_sms.dart';
@@ -19,13 +20,18 @@ class SOSController extends GetxController {
     _loadContacts();
   }
 
+  /// Reloads contact list whenever contacts are added or changed
+  Future<void> refreshContacts() async {
+    _contactList.assignAll(await DatabaseHelper().getContactList());
+  }
+
   void _loadContacts() async {
-    _contactList.assignAll((await DatabaseHelper().getContactList()));
+    await refreshContacts();
   }
 
   /// Send SOS help SMS to all trusted contacts
   Future<void> sendSOS(LocationData locationData) async {
-    _loadContacts();
+    await refreshContacts();  // Ensure we have the latest contacts
     if (!isSOSActive) {
       if (_contactList.isEmpty) {
         TLoaders.warningSnackBar(title: "No trusted contacts available? Please Add Trusted Contact!");
@@ -39,7 +45,7 @@ class SOSController extends GetxController {
 
           for (TContact contact in _contactList) {
             await sendMessage(contact.number, message);
-            TLoaders.customToast(message: "Sent SOS message Successfully");
+            TLoaders.customToast(message: "Sent SOS message successfully");
           }
         });
 
@@ -59,7 +65,7 @@ class SOSController extends GetxController {
   }
 
   Future<void> sendShakeSOS(LocationData locationData) async {
-    _loadContacts();
+    await refreshContacts();  // Ensure we have the latest contacts
     if (_contactList.isEmpty) {
       TLoaders.warningSnackBar(title: "No trusted contacts available? Please Add Trusted Contact!");
       return;
@@ -71,16 +77,16 @@ class SOSController extends GetxController {
 
       for (TContact contact in _contactList) {
         await sendMessage(contact.number, message);
-        TLoaders.customToast(message: "Sent Shake SOS successfully");
+        showNotification(title:"She Shield", body:"Emergency help sent successfully to trusted contacts And Police");
       }
     }
   }
 
   Future<bool> _arePermissionsGranted() async {
-    return await Permission.sms.isGranted && await Permission.contacts.isGranted && await Permission.locationAlways.isGranted;
+    return await Permission.sms.isGranted && await Permission.contacts.isGranted;
   }
 
   Future<void> sendMessage(String phoneNumber, String message) async {
-    await BackgroundSms.sendMessage(phoneNumber: phoneNumber,message: message,simSlot: 1);
+    await BackgroundSms.sendMessage(phoneNumber: phoneNumber, message: message, simSlot: 1);
   }
 }

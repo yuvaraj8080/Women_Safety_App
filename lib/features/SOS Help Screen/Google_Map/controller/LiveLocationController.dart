@@ -12,6 +12,9 @@ import 'SOS_Help_Controller.dart';
 class LiveLocationController extends GetxController {
   static LiveLocationController get instance => Get.find();
 
+  /// SHAKE MODE IS DISABLE
+  RxBool isShakeModeEnabled = false.obs;
+
 
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
@@ -28,9 +31,9 @@ class LiveLocationController extends GetxController {
   }
 
   Future<void> _getPermission() async {
+    await Permission.location.request();
     await Permission.sms.request();
     await Permission.contacts.request();
-    await Permission.location.request();
   }
 
   Future<bool> _handleLocationPermission() async {
@@ -38,9 +41,11 @@ class LiveLocationController extends GetxController {
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
+    while (!serviceEnabled) {
       TLoaders.warningSnackBar(title: 'Location services are disabled. Please Enable Location');
-      return false;
+      await Geolocator.openLocationSettings();
+      await Future.delayed(Duration(seconds: 2)); // wait for 2 seconds
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -62,7 +67,6 @@ class LiveLocationController extends GetxController {
   Future<LocationData?> getCurrentLocation() async {
     bool locationPermissionGranted = await _handleLocationPermission();
     if (!locationPermissionGranted) {
-      print("Hare No permission your give so no locations");
       return null;
     }
 
@@ -78,30 +82,6 @@ class LiveLocationController extends GetxController {
     return _locationData;
   }
 
-  void _startListeningShakeDetector() {
-    bool isShaking = false;
-    int shakeCount = 0;
-
-    accelerometerEvents.listen((event) async {
-      if (_isShaking(event) && !isShaking) {
-        isShaking = true;
-        shakeCount++;
-        LocationData? locationData = await _getCurrentLocation();
-        if (shakeCount <= 5 && locationData != null) {
-          await _sosController.sendShakeSOS(locationData);
-          if (await Vibration.hasVibrator() ?? false) {
-            Vibration.vibrate(duration: 100);
-          }
-        }
-
-        if (shakeCount == 5) {
-          shakeCount = 0;
-        }
-        isShaking = false;
-      }
-    });
-  }
-
   Future<LocationData?> _getCurrentLocation() async {
     Location location = Location();
     LocationData? locationData;
@@ -112,6 +92,27 @@ class LiveLocationController extends GetxController {
     }
 
     return locationData;
+  }
+
+
+  /// SHAKE FEATURE IS HARE [SEND SOS HELP]
+  void _startListeningShakeDetector() {
+    int shakeCount = 0;
+    accelerometerEvents.listen((event) async {
+      if (isShakeModeEnabled.value && _isShaking(event)) {
+        shakeCount++;
+        if (shakeCount == 3) {
+          LocationData? locationData = await _getCurrentLocation();
+          if (locationData != null) {
+            await _sosController.sendShakeSOS(locationData);
+            if (await Vibration.hasVibrator() ?? false) {
+              Vibration.vibrate(duration: 100);
+            }
+          }
+          shakeCount = 0; // reset shake count
+        }
+      }
+    });
   }
 
   bool _isShaking(AccelerometerEvent event) {

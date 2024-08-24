@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 class customTextButton extends StatelessWidget {
   final String title;
   final Function onPressed;
@@ -23,10 +22,7 @@ class customTextButton extends StatelessWidget {
         child: Card(elevation: 3, shadowColor: Colors.white,
           child: Padding(
             padding: const EdgeInsets.only(left: 60, top: 6),
-            child: Text(title,style: GoogleFonts.roboto(
-                 fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.pinkAccent,
+            child: Text(title, style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.pinkAccent,
               ),
             ),
           ),

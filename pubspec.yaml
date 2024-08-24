@@ -38,8 +38,7 @@ dependencies:
   get:
   shimmer:
   date_time_formatter:
-  google_fonts: ^6.1.0
-  carousel_slider: ^5.0.0
+#  carousel_slider: ^5.0.0
   webview_flutter: ^4.4.2
   webview_flutter_web: ^0.2.2+3
   webview_flutter_android: ^3.13.1

@@ -2,7 +2,6 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class AmbulanceEmergency extends StatelessWidget {
@@ -48,8 +47,7 @@ class AmbulanceEmergency extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left:5),
-                      child: Text("Ambulance Helpline",style:GoogleFonts.roboto(fontSize:20,
-                          fontWeight:FontWeight.bold,color:Colors.black)),
+                      child: Text("Ambulance Helpline",style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:Colors.black)),
                     )
                   ],
                 ),
