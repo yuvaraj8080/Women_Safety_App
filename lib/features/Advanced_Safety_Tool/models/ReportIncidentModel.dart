@@ -75,4 +75,5 @@ class ReportIncidentModel {
       return ReportIncidentModel.empty();
     }
   }
+
 }
