@@ -60,6 +60,7 @@ class _NewsTabViewState extends State<NewsTabView> {
             ),
             // Second Tab: Firebase Reports
             StreamBuilder<QuerySnapshot>(
+
               stream: FirebaseFirestore.instance.collection('ReportIncidents').snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,6 +81,7 @@ class _NewsTabViewState extends State<NewsTabView> {
                         fullName: report['FullName'],
                       
                         phoneNo: report['PhoneNo'],
+
                         time: report['Time'].toDate(),
                         type: report['Type'],
                       );

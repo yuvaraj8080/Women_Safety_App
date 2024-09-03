@@ -27,6 +27,8 @@ class ReportIncidentModel {
   });
 
   String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNo);
+  String get formattedDateTime => TFormatter.formatDate(time);
+
 
   static ReportIncidentModel empty() => ReportIncidentModel(
     title:"",

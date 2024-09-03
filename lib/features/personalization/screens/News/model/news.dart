@@ -1,3 +1,5 @@
+import '../../../../../utils/formatters/formatter.dart';
+
 class Article {
   final String sourceName;
   final String? author;
@@ -18,6 +20,9 @@ class Article {
     required this.publishedAt,
     this.content,
   });
+
+
+
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
