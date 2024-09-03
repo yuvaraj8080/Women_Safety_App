@@ -4,6 +4,7 @@ import 'package:flutter_women_safety_app/Chat_Module/ChatBot.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/AdavancedSafety_Tool/widget/single_video.dart';
 import 'package:flutter_women_safety_app/Widget_Screen/HomeScreen_Widget/Emergency_Helpline/Emergency_Screen.dart';
 import 'package:flutter_women_safety_app/common/widgets.Login_Signup/card/VerticaleCard.dart';
+import 'package:flutter_women_safety_app/features/personalization/screens/News/news_page.dart';
 import 'package:flutter_women_safety_app/utils/halpers/helper_function.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -68,6 +69,10 @@ class SafetyToolScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 10,right:10,top:5),
             child: EmergencyHelpline_Card(onPressed: ()=> Get.to(()=>EmergencyScreen()), image: 'assets/images/images/img.png', text1: 'Emergency Helpline', text2: 'common Helpline Numbers of your Country',),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10,right:10,top:5),
+            child: EmergencyHelpline_Card(onPressed: ()=> Get.to(()=>NewsTabView()), image: 'assets/images/images/report.jpg', text1: 'News and Reports', text2: 'News related to women growth in our society',),
           ),
         ]),
       ),
