@@ -86,7 +86,6 @@ class LiveLocationController extends GetxController {
   Future<LocationData?> _getCurrentLocation() async {
     Location location = Location();
     LocationData? locationData;
-
     bool _serviceEnabled = await location.serviceEnabled();
     if (_serviceEnabled) {
       locationData = await location.getLocation();
