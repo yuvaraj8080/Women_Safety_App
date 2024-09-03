@@ -52,7 +52,8 @@ class SOSController extends GetxController {
         TLoaders.successSnackBar(title: "SOS Help Activated");
         isSOSActive = true;
       }
-    } else {
+    }
+    else {
       _timer?.cancel();
       String message = "I am safe now! My current location: https://www.google.com/maps/search/?api=1&query=${locationData.latitude},${locationData.longitude}";
 
