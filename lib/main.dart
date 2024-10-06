@@ -20,6 +20,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await initializeNotification();
 
+
   ///----INITIALIZATION FIREBASE AND AUTHENTICATION REPOSITORY----
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
       (FirebaseApp value) => Get.put(AuthenticationRepository()),
