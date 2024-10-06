@@ -10,14 +10,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../common/widgets.Login_Signup/appBar/appbar.dart';
 import '../../common/widgets.Login_Signup/card/Safety_Tool_Card.dart';
 import '../../common/widgets.Login_Signup/custom_shapes/curved_edges.dart/primary_header_controller.dart';
 import '../../features/Advanced_Safety_Tool/Report_Incident/widgets/ReportForm_bottomsheet.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/sizes.dart';
-import '../../utils/validators/validator.dart';
 
 class SafetyToolScreen extends StatelessWidget {
   const SafetyToolScreen({super.key});
