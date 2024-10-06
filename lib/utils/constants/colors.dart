@@ -45,5 +45,6 @@ static const Color black = Color(0xFF232323);
 static const Color darkGrey = Color(0xFF4F4F4F);
 static const Color warning = Color(0xFF939393);
 static const Color grey = Color(0xFFE0E0E0);
+static const Color lightGrey = Color(0xFFE0E0E0);
 
 }

@@ -34,7 +34,7 @@ class OnBoardingScreen extends StatelessWidget {
                 , subtitle2:"3) Stay vigilant with our built-in shake feature. Simply shake your device in case of emergency, and our app will discreetly send out alerts to your chosen contacts, ensuring your safety anytime, anywhere."),
 
         onBordingPage(image:"assets/images/on_boarding_images/onboard2.webp",
-            title: "Hello Dear, Lets Go Your Dream App",subtitle1:"Allow users to create trusted networks of friends and family who can be contacted in case of emergencies."
+            title: "Hello Dear, Take your first step towards your safe world",subtitle1:"Allow users to create trusted networks of friends and family who can be contacted in case of emergencies."
                 " Enable users to report incidents of harassment or unsafe behavior within the community while maintaining anonymity, fostering a safe environment for sharing concerns.",
           subtitle2: '',),
 
