@@ -38,6 +38,7 @@ class ReportIncidentController extends GetxController {
       /// START LOADING
       TFullScreenLoader.openLoadingDialog("Wait for reporting",TImages.loadingLottie);
 
+
       /// CHECK INTERNET CONNECTIVITY
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
@@ -86,7 +87,8 @@ class ReportIncidentController extends GetxController {
       showNotification(title:"She Shield",
         body:"Thanks for report, Every incident reported is a step closer to creating a world where every woman feels safe and empowered",
       );
-      
+
+
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: "Error", message: "Failed to save report incident: $e");
