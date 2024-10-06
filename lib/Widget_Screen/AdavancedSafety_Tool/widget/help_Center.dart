@@ -22,8 +22,6 @@ class HelpCenter extends StatelessWidget {
                     Text("Give your feedback to regarding app and share your Safety App Experience.",style:Theme.of(context).textTheme.bodyMedium),
                     SizedBox(height:4),
                     Text("Yuvaraj Dekhane: 8080737803",style:Theme.of(context).textTheme.bodySmall),
-                    Text("Niraj Chalke : 9321759433",style:Theme.of(context).textTheme.bodySmall),
-                    Text("Pallavi Bandarkar : 9867740565",style:Theme.of(context).textTheme.bodySmall),
                   ],
                 )
               )
