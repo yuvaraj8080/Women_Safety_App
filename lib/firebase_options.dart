@@ -56,7 +56,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBh8A-Pqdd6m2-h70dSBArjMANcAJnB5Co',
-    appId: '1:1029361731735:android:af351e29c796171b7f41d2',
+    appId: '1:1029361731735:android:173f67b28b26b3a97f41d2',
     messagingSenderId: '1029361731735',
     projectId: 'women-safety-app-67951',
     databaseURL: 'https://women-safety-app-67951-default-rtdb.firebaseio.com',

@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.SheShield.app">
     <uses-feature android:name="android.hardware.telephony" android:required="false"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
-    <application android:label="She Shield" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
+    <application android:label="SheShield" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBLIxyG1L9vZQI4Ifkn-XPB1SEPZFQ7vRk"/>
 

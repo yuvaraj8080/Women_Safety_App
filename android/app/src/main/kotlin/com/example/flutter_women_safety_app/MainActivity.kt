@@ -1,4 +1,4 @@
-package com.example.flutter_women_safety_app
+package com.SheShield.app;
 
 import android.content.Intent
 import android.net.Uri

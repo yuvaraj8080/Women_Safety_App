@@ -8,12 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1029361731735:android:af351e29c796171b7f41d2",
+        "mobilesdk_app_id": "1:1029361731735:android:173f67b28b26b3a97f41d2",
         "android_client_info": {
-          "package_name": "com.example.flutter_women_safety_app"
+          "package_name": "com.SheShield.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1029361731735-50ldcn0hek6fcqgs1626qdmcbmravnjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBh8A-Pqdd6m2-h70dSBArjMANcAJnB5Co"
@@ -21,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029361731735-50ldcn0hek6fcqgs1626qdmcbmravnjf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1029361731735-aq31mnose5422tl06aqsd6ppkbbihbj0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterWomenSafetyApp.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }
