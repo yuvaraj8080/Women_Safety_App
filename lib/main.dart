@@ -13,7 +13,7 @@ void main() async{
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
 
-  ///----AWAIT SPLASH UNTIL ITEM LOAD----
+  ///---- AWAIT SPLASH UNTIL ITEM LOAD ----
   FlutterNativeSplash.preserve(widgetsBinding:widgetsBinding);
 
 
