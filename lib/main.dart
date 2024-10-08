@@ -16,6 +16,7 @@ void main() async{
   ///----AWAIT SPLASH UNTIL ITEM LOAD----
   FlutterNativeSplash.preserve(widgetsBinding:widgetsBinding);
 
+
   /// ASWOME NOTIFICATION
   WidgetsFlutterBinding.ensureInitialized();
   await initializeNotification();
