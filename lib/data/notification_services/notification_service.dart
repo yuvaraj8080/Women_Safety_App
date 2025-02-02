@@ -9,7 +9,7 @@ Future<void> initializeNotification() async {
     null,
     [
       NotificationChannel(
-        channelGroupKey: 'high_importance_channel',
+        channelGroupKey: 'high_importance_channel_group',
         channelKey: 'high_importance_channel',
         channelName: 'Basic Notification',
         channelDescription: 'Notification channel for basic task',
@@ -24,7 +24,7 @@ Future<void> initializeNotification() async {
     ],
     channelGroups: [
       NotificationChannelGroup(
-        channelGroupKey: 'high_importance_channel_group',
+        channelGroupkey: 'high_importance_channel_group',
         channelGroupName: "Group 1",
       )
     ],
@@ -37,16 +37,16 @@ Future<void> initializeNotification() async {
     }
   });
 
-  await AwesomeNotifications().setListeners(
-    onActionReceivedMethod: onActionReceivedMethod,
-    onNotificationCreatedMethod: onNotificationCreatedMethod,
-    onNotificationDisplayedMethod: onNotificationDisplayedMethod,
-    onDismissActionReceivedMethod: onDismissActionReceivedMethod,
-  );
+  // AwesomeNotifications().setListeners(
+  //   onActionReceivedMethod: onActionReceivedMethod,
+  //   onNotificationCreatedMethod: onNotificationCreatedMethod,
+  //   onNotificationDisplayedMethod: onNotificationDisplayedMethod,
+  //   onDismissActionReceivedMethod: onDismissActionReceivedMethod,
+  // );
 }
 
-Future<void> onActionReceivedMethod(ReceivedAction recivedAction) async {
-  final payload = recivedAction.payload ?? {};
+Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
+  final payload = receivedAction.payload ?? {};
   if (payload['TestResult'] == 'true') {
     App.navigatorKey.currentState?.push(MaterialPageRoute(
       builder: (_) => HomeScreen(),
@@ -60,21 +60,19 @@ Future<void> onNotificationCreatedMethod(
 }
 
 Future<void> onNotificationDisplayedMethod(
-    ReceivedNotification recivedAction) async {
+    ReceivedNotification receivedNotification) async {
   debugPrint("On Notification Displayed");
 }
 
-Future<void> onDismissActionReceivedMethod(ReceivedAction recivedAction) async {
-  debugPrint("On Notification Received");
+Future<void> onDismissActionReceivedMethod(ReceivedAction receivedAction) async {
+  debugPrint("On Notification Dismissed");
 }
 
 Future<void> showNotification({
-
   required final String title,
   required final String body,
   final String? summary,
   final Map<String, String>? payload,
-  final ActionType actionType = ActionType.Default,
   final NotificationLayout notificationLayout = NotificationLayout.Default,
   final NotificationCategory? category,
   final String? bigPicture,
@@ -89,11 +87,10 @@ Future<void> showNotification({
       channelKey: 'high_importance_channel',
       title: title,
       body: body,
-      actionType: actionType,
       notificationLayout: notificationLayout,
       summary: summary,
       category: category,
-      payload: payload ?? {'TestResult': 'true'}, // Pass your custom payload here
+      payload: payload ?? {'TestResult': 'true'},
       bigPicture: bigPicture,
     ),
     actionButtons: actionButtons ??
@@ -106,7 +103,7 @@ Future<void> showNotification({
         ],
     schedule: scheduled
         ? NotificationInterval(
-      interval: interval,
+      interval: interval!,
       timeZone: await AwesomeNotifications.localTimeZoneIdentifier,
       preciseAlarm: true,
     )
