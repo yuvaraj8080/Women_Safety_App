@@ -21,7 +21,7 @@ class LiveLocationController extends GetxController {
   //// STORE ALL THE INCIDENTS REPORTS DATA ////
   var reports = <ReportIncidentModel>[].obs;
   //// STORE ALL THE MARKES DATA IN THE VARIABLE ////
-  // var markers = <Marker>[].obs;
+  var markers = <Marker>[].obs;
   var polygons = <Polygon>[].obs;
 
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
@@ -39,50 +39,48 @@ class LiveLocationController extends GetxController {
     _startListeningShakeDetector();
   }
 
-  /// FUNCTION TO FETCH THE REPORTS INCIDENTS DATA FROM THE FIREBASE ////
   Future<void> fetchReports() async {
     try {
       final QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection("ReportIncidents").get();
       final List<ReportIncidentModel> fetchedReports = querySnapshot.docs.map((doc) => ReportIncidentModel.fromSnapshot(doc)).toList();
       reports.assignAll(fetchedReports);
-      _loadPolygons();
-      // _loadMarkers();
+      _loadPolygonsAndMarkers();
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch reports: $e');
     }
   }
 
-  // /// FUNCTION TO LOAD MARKERS BASED ON REPORTS DATA
-  // void _loadMarkers() {
-  //   final List<Marker> reportMarkers = reports.map((report) {
-  //     return Marker(
-  //
-  //       markerId: MarkerId(report.id),
-  //       position: LatLng(double.parse(report.latitude),
-  //           double.parse(report.longitude)),
-  //       infoWindow: InfoWindow(title: report.title,
-  //           snippet: report.description,
-  //       ),
-  //     );
-  //   }).toList();
-  //   markers.assignAll(reportMarkers);
-  // }
-
-
-  void _loadPolygons() {
-    final List<List<LatLng>> clusters = _clusterReports(reports,200);
+  void _loadPolygonsAndMarkers() {
+    final List<List<LatLng>> clusters = _clusterReports(reports, 100);
     final List<Polygon> reportPolygons = clusters.map((cluster) {
       final String id = cluster.map((e) => e.toString()).join();
       return Polygon(
         polygonId: PolygonId(id),
         points: cluster,
         strokeColor: Colors.redAccent,
-        visible: true,
         strokeWidth: 2,
         fillColor: Colors.red.withOpacity(0.15),
       );
     }).toList();
+
+    final List<Marker> reportMarkers = [];
+    for (var report in reports) {
+      LatLng point = LatLng(double.parse(report.latitude), double.parse(report.longitude));
+      reportMarkers.add(
+        Marker(
+          markerId: MarkerId(report.id),
+          position: point,
+          infoWindow: InfoWindow(
+            title: report.title,
+            snippet: report.description,
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        ),
+      );
+    }
+
     polygons.assignAll(reportPolygons);
+    markers.assignAll(reportMarkers);
   }
 
   List<List<LatLng>> _clusterReports(List<ReportIncidentModel> reports, double distanceInMeters) {
@@ -104,7 +102,6 @@ class LiveLocationController extends GetxController {
     return clusters;
   }
 
-
   bool _isPointInCluster(LatLng point, List<LatLng> cluster, double distanceInMeters) {
     for (LatLng clusterPoint in cluster) {
       double distance = Geolocator.distanceBetween(
@@ -119,8 +116,6 @@ class LiveLocationController extends GetxController {
     }
     return false;
   }
-
-
 
   Future<void> _getPermission() async {
     await Permission.location.request();

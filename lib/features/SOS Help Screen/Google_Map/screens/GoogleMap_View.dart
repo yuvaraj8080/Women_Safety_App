@@ -23,7 +23,7 @@ class GoogleMap_View_Screen extends StatelessWidget {
             target: locationController.initialLatLng.value,
             zoom: 14.0,
           ),
-        // markers: Set<Marker>.of(locationController.markers),
+        markers: Set<Marker>.of(locationController.markers),
         polygons: Set<Polygon>.of(locationController.polygons),
         myLocationButtonEnabled: true,
           myLocationEnabled: true,
