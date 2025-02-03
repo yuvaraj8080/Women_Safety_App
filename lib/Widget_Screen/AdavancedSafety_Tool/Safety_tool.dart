@@ -60,7 +60,7 @@ class SafetyToolScreen extends StatelessWidget {
           SizedBox(height:TSizes.size8),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ToolsCard(image:"assets/images/images/img_3.png", text:"Defence tool", radius: 30, onTap: ()=>_launchURL("https://www.defenderring.com/blogs/news/10-best-self-defense-weapons-for-women-in-2023")),
+                ToolsCard(image:"assets/images/images/AlertLocationIcon.png", text:"Defence tool", radius: 30, onTap: ()=>_launchURL("https://www.defenderring.com/blogs/news/10-best-self-defense-weapons-for-women-in-2023")),
                 ToolsCard(image:"assets/images/images/img_4.png", text:"AI ChatBot", radius: 30,onTap:()=> Get.to(()=>ChatBotScreen()),)]),
 
           ///----Emergency Helpline SCreen-----

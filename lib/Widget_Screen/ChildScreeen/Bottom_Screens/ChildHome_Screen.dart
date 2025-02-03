@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text("Emergency Service",style:Theme.of(context).textTheme.headlineSmall),
                 ),
                 const LiveSafe(),
-                SizedBox(height:4),
+                SizedBox(height:12),
 
                 ///-----ADDING A NEW SCREEN I THE MAIN HOME SCREEN -----
                 Container(

@@ -21,7 +21,7 @@ class LiveLocationController extends GetxController {
   //// STORE ALL THE INCIDENTS REPORTS DATA ////
   var reports = <ReportIncidentModel>[].obs;
   //// STORE ALL THE MARKES DATA IN THE VARIABLE ////
-  var markers = <Marker>[].obs;
+  // var markers = <Marker>[].obs;
   var polygons = <Polygon>[].obs;
 
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
@@ -46,6 +46,7 @@ class LiveLocationController extends GetxController {
       final List<ReportIncidentModel> fetchedReports = querySnapshot.docs.map((doc) => ReportIncidentModel.fromSnapshot(doc)).toList();
       reports.assignAll(fetchedReports);
       _loadPolygons();
+      // _loadMarkers();
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch reports: $e');
     }
@@ -55,10 +56,12 @@ class LiveLocationController extends GetxController {
   // void _loadMarkers() {
   //   final List<Marker> reportMarkers = reports.map((report) {
   //     return Marker(
+  //
   //       markerId: MarkerId(report.id),
-  //       position: LatLng(double.parse(report.latitude), double.parse(report.longitude)),
+  //       position: LatLng(double.parse(report.latitude),
+  //           double.parse(report.longitude)),
   //       infoWindow: InfoWindow(title: report.title,
-  //           snippet: report.description
+  //           snippet: report.description,
   //       ),
   //     );
   //   }).toList();
@@ -67,15 +70,16 @@ class LiveLocationController extends GetxController {
 
 
   void _loadPolygons() {
-    final List<List<LatLng>> clusters = _clusterReports(reports,50000);
+    final List<List<LatLng>> clusters = _clusterReports(reports,200);
     final List<Polygon> reportPolygons = clusters.map((cluster) {
       final String id = cluster.map((e) => e.toString()).join();
       return Polygon(
         polygonId: PolygonId(id),
         points: cluster,
-        strokeColor: Colors.blue,
+        strokeColor: Colors.redAccent,
+        visible: true,
         strokeWidth: 2,
-        fillColor: Colors.red,
+        fillColor: Colors.red.withOpacity(0.15),
       );
     }).toList();
     polygons.assignAll(reportPolygons);
