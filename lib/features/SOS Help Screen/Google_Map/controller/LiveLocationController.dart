@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,6 +22,7 @@ class LiveLocationController extends GetxController {
   var reports = <ReportIncidentModel>[].obs;
   //// STORE ALL THE MARKES DATA IN THE VARIABLE ////
   var markers = <Marker>[].obs;
+  var polygons = <Polygon>[].obs;
 
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
@@ -43,26 +45,77 @@ class LiveLocationController extends GetxController {
       final QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection("ReportIncidents").get();
       final List<ReportIncidentModel> fetchedReports = querySnapshot.docs.map((doc) => ReportIncidentModel.fromSnapshot(doc)).toList();
       reports.assignAll(fetchedReports);
-      _loadMarkers();
+      _loadPolygons();
     } catch (e) {
-      // Handle errors
       Get.snackbar('Error', 'Failed to fetch reports: $e');
     }
   }
 
-  /// FUNCTION TO LOAD MARKERS BASED ON REPORTS DATA
-  void _loadMarkers() {
-    final List<Marker> reportMarkers = reports.map((report) {
-      return Marker(
-        markerId: MarkerId(report.id),
-        position: LatLng(double.parse(report.latitude), double.parse(report.longitude)),
-        infoWindow: InfoWindow(title: report.title,
-            snippet: report.description
-        ),
+  // /// FUNCTION TO LOAD MARKERS BASED ON REPORTS DATA
+  // void _loadMarkers() {
+  //   final List<Marker> reportMarkers = reports.map((report) {
+  //     return Marker(
+  //       markerId: MarkerId(report.id),
+  //       position: LatLng(double.parse(report.latitude), double.parse(report.longitude)),
+  //       infoWindow: InfoWindow(title: report.title,
+  //           snippet: report.description
+  //       ),
+  //     );
+  //   }).toList();
+  //   markers.assignAll(reportMarkers);
+  // }
+
+
+  void _loadPolygons() {
+    final List<List<LatLng>> clusters = _clusterReports(reports,50000);
+    final List<Polygon> reportPolygons = clusters.map((cluster) {
+      final String id = cluster.map((e) => e.toString()).join();
+      return Polygon(
+        polygonId: PolygonId(id),
+        points: cluster,
+        strokeColor: Colors.blue,
+        strokeWidth: 2,
+        fillColor: Colors.red,
       );
     }).toList();
-    markers.assignAll(reportMarkers);
+    polygons.assignAll(reportPolygons);
   }
+
+  List<List<LatLng>> _clusterReports(List<ReportIncidentModel> reports, double distanceInMeters) {
+    List<List<LatLng>> clusters = [];
+    for (ReportIncidentModel report in reports) {
+      LatLng point = LatLng(double.parse(report.latitude), double.parse(report.longitude));
+      bool addedToCluster = false;
+      for (List<LatLng> cluster in clusters) {
+        if (_isPointInCluster(point, cluster, distanceInMeters)) {
+          cluster.add(point);
+          addedToCluster = true;
+          break;
+        }
+      }
+      if (!addedToCluster) {
+        clusters.add([point]);
+      }
+    }
+    return clusters;
+  }
+
+
+  bool _isPointInCluster(LatLng point, List<LatLng> cluster, double distanceInMeters) {
+    for (LatLng clusterPoint in cluster) {
+      double distance = Geolocator.distanceBetween(
+        point.latitude,
+        point.longitude,
+        clusterPoint.latitude,
+        clusterPoint.longitude,
+      );
+      if (distance <= distanceInMeters) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
 
   Future<void> _getPermission() async {
