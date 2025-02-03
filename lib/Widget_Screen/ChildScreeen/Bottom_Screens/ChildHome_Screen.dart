@@ -34,7 +34,6 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height:TSizes.size32)
             ],
           )),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal:TSizes.size12),
             child: Column(
