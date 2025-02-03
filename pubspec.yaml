@@ -95,7 +95,7 @@ dependencies:
   connectivity_plus: ^6.0.5
   network_manager:
   firebase_app_check:
-  awesome_notifications:
+#  awesome_notifications:
 
 
 

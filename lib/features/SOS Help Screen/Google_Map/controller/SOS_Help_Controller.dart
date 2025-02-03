@@ -78,7 +78,7 @@ class SOSController extends GetxController {
 
       for (TContact contact in _contactList) {
         await sendMessage(contact.number, message);
-        showNotification(title:"She Shield", body:"Emergency help sent successfully to trusted contacts And Police");
+        // showNotification(title:"She Shield", body:"Emergency help sent successfully to trusted contacts And Police");
       }
     }
   }

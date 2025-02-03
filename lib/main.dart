@@ -19,7 +19,7 @@ void main() async{
 
   /// ASWOME NOTIFICATION
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeNotification();
+  // await initializeNotification();
 
 
   ///----INITIALIZATION FIREBASE AND AUTHENTICATION REPOSITORY----

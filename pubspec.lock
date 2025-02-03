@@ -70,14 +70,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  awesome_notifications:
-    dependency: "direct main"
-    description:
-      name: awesome_notifications
-      sha256: "86b524299d2bec2b0df66ae4d8e337a8ba29542a5e2382bc1023978bc75f41b6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.19"
   background_sms:
     dependency: "direct main"
     description:
@@ -659,6 +651,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.1"
+  flutter_datetime_picker:
+    dependency: transitive
+    description:
+      name: flutter_datetime_picker
+      sha256: "8e695c63c769350e541951227c2775190ec73ceda774a315b1dc9a99d5facfe5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.1"
   flutter_floating_bottom_bar:
     dependency: "direct main"
     description:
@@ -779,6 +779,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  flutter_picker:
+    dependency: transitive
+    description:
+      name: flutter_picker
+      sha256: "2f94c6eefba8697b07e3cd008b75f06b4ba7053cb26d23ae0fcd5932b7dc75af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -812,10 +820,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_vector_icons
-      sha256: "0eaf906404dae0023aedd6d7f19bbf8a471505595b818303d2696856b072a849"
+      sha256: "20a77e282f8cb438c8edcee4eec85d8497d5f4cbeb07d116e9d2d01c9edfc5e2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -1061,14 +1069,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
-  handy_ui_kit:
-    dependency: transitive
-    description:
-      name: handy_ui_kit
-      sha256: "0f1569e58b7bb8fedead9c89634b13f173d7b345cc5b31f5530a4909d73a3faa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.46"
   html:
     dependency: transitive
     description:
@@ -1185,10 +1185,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.20.2"
+    version: "0.18.1"
   io:
     dependency: transitive
     description:
@@ -1345,10 +1345,10 @@ packages:
     dependency: "direct main"
     description:
       name: network_manager
-      sha256: "0167a52a2e7c3fc6263720a0079ac4b21bd7b51db0b42412e0be710f887d51dd"
+      sha256: bdfab38d268a967297324247174667549257e38b9e4c28b0f52b1a2b677df77a
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.11"
   nm:
     dependency: transitive
     description:

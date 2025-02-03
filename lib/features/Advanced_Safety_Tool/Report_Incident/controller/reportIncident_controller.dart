@@ -83,10 +83,10 @@ class ReportIncidentController extends GetxController {
       /// REMOVE LOADER
       TFullScreenLoader.stopLoading();
 
-      /// SHOW NOTIFICATION APP
-      showNotification(title:"She Shield",
-        body:"Thanks for report, Every incident reported is a step closer to creating a world where every woman feels safe and empowered",
-      );
+      // /// SHOW NOTIFICATION APP
+      // showNotification(title:"She Shield",
+      //   body:"Thanks for report, Every incident reported is a step closer to creating a world where every woman feels safe and empowered",
+      // );
 
 
     } catch (e) {
