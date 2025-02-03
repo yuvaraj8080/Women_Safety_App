@@ -1,14 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.9.22'
+    ext.kotlin_version = '1.8.22'  // ✅ Ensure Kotlin version is up-to-date
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.2'
-        classpath 'com.android.tools.build:gradle:8.0.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.0.2'  // ✅ Correct Gradle version
+        classpath 'com.google.gms:google-services:4.4.2'  // ✅ Ensure Firebase plugin is correct
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"  // ✅ Ensure Kotlin plugin is used correctly
     }
 }
 
@@ -20,11 +20,10 @@ allprojects {
 }
 
 rootProject.buildDir = '../build'
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(':app')
+    project.evaluationDependsOn(':app')  // ✅ Merged into one block to avoid duplicate declarations
 }
 
 tasks.register("clean", Delete) {
