@@ -23,14 +23,8 @@ class GoogleMap_View_Screen extends StatelessWidget {
             target: locationController.initialLatLng.value,
             zoom: 14.0,
           ),
-          markers: <Marker>{
-            Marker(
-              markerId: MarkerId("marker_1"),
-              icon: BitmapDescriptor.defaultMarker,
-              position: locationController.initialLatLng.value,
-            ),
-          },
-          myLocationButtonEnabled: true,
+        markers: Set<Marker>.of(locationController.markers),
+        myLocationButtonEnabled: true,
           myLocationEnabled: true,
           onMapCreated: (GoogleMapController controller) {
             locationController.googleMapController.value = controller;

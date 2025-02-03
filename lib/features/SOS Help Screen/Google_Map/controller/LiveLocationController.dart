@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sensors/sensors.dart';
 import 'package:vibration/vibration.dart';
 import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
+import '../../../Advanced_Safety_Tool/models/ReportIncidentModel.dart';
 import 'SOS_Help_Controller.dart';
 
 class LiveLocationController extends GetxController {
@@ -15,6 +17,10 @@ class LiveLocationController extends GetxController {
   /// SHAKE MODE IS DISABLE
   RxBool isShakeModeEnabled = false.obs;
 
+  //// STORE ALL THE INCIDENTS REPORTS DATA ////
+  var reports = <ReportIncidentModel>[].obs;
+  //// STORE ALL THE MARKES DATA IN THE VARIABLE ////
+  var markers = <Marker>[].obs;
 
   Rx<LatLng> initialLatLng = LatLng(28.6472799, 76.8130638).obs;
   Rx<GoogleMapController?> googleMapController = Rx<GoogleMapController?>(null);
@@ -27,7 +33,35 @@ class LiveLocationController extends GetxController {
     super.onInit();
     _getPermission();
     getCurrentLocation();
+    fetchReports();
     _startListeningShakeDetector();
+  }
+
+  /// FUNCTION TO FETCH THE REPORTS INCIDENTS DATA FROM THE FIREBASE ////
+  Future<void> fetchReports() async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection("ReportIncidents").get();
+      final List<ReportIncidentModel> fetchedReports = querySnapshot.docs.map((doc) => ReportIncidentModel.fromSnapshot(doc)).toList();
+      reports.assignAll(fetchedReports);
+      _loadMarkers();
+    } catch (e) {
+      // Handle errors
+      Get.snackbar('Error', 'Failed to fetch reports: $e');
+    }
+  }
+
+  /// FUNCTION TO LOAD MARKERS BASED ON REPORTS DATA
+  void _loadMarkers() {
+    final List<Marker> reportMarkers = reports.map((report) {
+      return Marker(
+        markerId: MarkerId(report.id),
+        position: LatLng(double.parse(report.latitude), double.parse(report.longitude)),
+        infoWindow: InfoWindow(title: report.title,
+            snippet: report.description
+        ),
+      );
+    }).toList();
+    markers.assignAll(reportMarkers);
   }
 
 

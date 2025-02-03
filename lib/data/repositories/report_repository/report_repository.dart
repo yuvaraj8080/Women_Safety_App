@@ -25,4 +25,23 @@ class ReportIncidentRepository extends GetxController {
       throw "Something went wrong, Please try again";
     }
   }
+
+  //// FETCH INCIDENTS REPORT DATA FROM THE FIREBASE ////
+  Future<List<ReportIncidentModel>> fetchReportIncidents() async {
+    try {
+      // Fetch data from the "ReportIncidents" collection
+      final QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection("ReportIncidents").get();
+
+      // Convert each document into a ReportIncidentModel object
+      return querySnapshot.docs.map((doc) => ReportIncidentModel.fromSnapshot(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong, Please try again";
+    }
+  }
 }

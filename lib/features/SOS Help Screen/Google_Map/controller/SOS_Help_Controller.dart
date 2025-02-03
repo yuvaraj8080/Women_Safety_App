@@ -20,6 +20,9 @@ class SOSController extends GetxController {
     _loadContacts();
   }
 
+
+
+
   /// Reloads contact list whenever contacts are added or changed
   Future<void> refreshContacts() async {
     _contactList.assignAll(await DatabaseHelper().getContactList());
