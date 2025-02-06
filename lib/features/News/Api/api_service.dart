@@ -1,6 +1,8 @@
 import 'dart:convert';
-import 'package:flutter_women_safety_app/features/personalization/screens/News/model/news.dart';
+
 import 'package:http/http.dart' as http;
+
+import '../model/news.dart';
 
 Future<List<Article>> fetchNews() async {
   final response = await http.get(
