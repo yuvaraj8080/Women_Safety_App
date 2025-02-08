@@ -22,7 +22,7 @@ class ReportCrimeIncidentScreen extends StatelessWidget {
       context: context,
     );
     if (controller.picked != null) {
-      controller.reportDate.text = "${controller.picked!.day}/${controller.picked!.month}/${controller.picked!.year}";
+      controller.incidentDate.text = "${controller.picked!.day}/${controller.picked!.month}/${controller.picked!.year}";
       controller.deadlineDeadTimeStamp = Timestamp.fromMillisecondsSinceEpoch(controller.picked!.millisecondsSinceEpoch);
     }
   }
@@ -77,7 +77,7 @@ class ReportCrimeIncidentScreen extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (value) {
-                      // Handle specific incident selection if needed
+                      incidentController.updateSubcategoryIncident(value as String);
                     },
                     validator: (value) => TValidator.validateEmptyText("Specific Incident", value),
                   );
@@ -89,14 +89,14 @@ class ReportCrimeIncidentScreen extends StatelessWidget {
                 DropdownButtonFormField(
                   decoration: InputDecoration(
                       labelText: "City", prefixIcon: Icon(Iconsax.building)),
-                  items: incidentController.IncidentCity.map((city) {
+                  items: incidentController.incidentCities.map((city) {
                     return DropdownMenuItem(
                       child: Text(city),
                       value: city,
                     );
                   }).toList(),
                   onChanged: (value) {
-                    incidentController.city.text = value as String;
+                    incidentController.incidentCity.text = value as String;
                   },
                   validator: (value) => TValidator.validateEmptyText("Incident City", value),
                 ),
@@ -120,7 +120,7 @@ class ReportCrimeIncidentScreen extends StatelessWidget {
                     Expanded(
                       child: TextFormField(
                         validator: (value) => TValidator.validateEmptyText("Purchased", value),
-                        controller: incidentController.reportDate,
+                        controller: incidentController.incidentDate,
                         decoration: InputDecoration(
                           hintText: "Incident Date",
                           prefixIcon: IconButton(onPressed:()=>pickPurchaseDate(context), icon:const Icon(Icons.calendar_month,color:Colors.blue)),

@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 ///-----EXPLORE LIVE SAFE OPEN MAP AND TEXT--------
                 Padding(
                   padding:  EdgeInsets.all(TSizes.size4),
-                  child: Text("Emergency Service",style:Theme.of(context).textTheme.headlineSmall),
+                  child: Text("Emergency api_service",style:Theme.of(context).textTheme.headlineSmall),
                 ),
                 const LiveSafe(),
                 SizedBox(height:12),

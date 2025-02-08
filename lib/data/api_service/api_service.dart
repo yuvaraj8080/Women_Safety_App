@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-import '../model/news.dart';
+import '../../features/News/model/news.dart';
 
-Future<List<Article>> fetchNews() async {
+Future<List<NewArticleModel>> fetchNews() async {
   final response = await http.get(
     Uri.parse('https://newsapi.org/v2/everything?q=bitcoin'),
-    headers: {'X-Api-Key': 'fcdbf060cc944959afda76a67c6d21ca'},
+    headers: {'X-api_service-Key': 'fcdbf060cc944959afda76a67c6d21ca'},
   );
 
   print('Response status: ${response.statusCode}');
@@ -17,7 +16,7 @@ Future<List<Article>> fetchNews() async {
     final jsonResponse = json.decode(response.body);
     final List<dynamic> articlesJson = jsonResponse['articles'];
 
-    return articlesJson.map((json) => Article.fromJson(json)).toList();
+    return articlesJson.map((json) => NewArticleModel.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load news');
   }
