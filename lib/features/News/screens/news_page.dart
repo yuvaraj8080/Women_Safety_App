@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/Api/api_service.dart';
-import 'package:flutter_women_safety_app/features/personalization/screens/News/Widgets/news_widget.dart';
-import 'package:flutter_women_safety_app/features/personalization/screens/News/Widgets/report_widget.dart';
-import 'package:flutter_women_safety_app/features/personalization/screens/News/model/news.dart';
+import 'package:flutter_women_safety_app/features/News/Api/api_service.dart';
+import 'package:flutter_women_safety_app/features/News/Widgets/news_widget.dart';
+import 'package:flutter_women_safety_app/features/News/Widgets/report_widget.dart';
+import 'package:flutter_women_safety_app/features/News/model/news.dart';
+
+
 
 
 class NewsTabView extends StatefulWidget {
