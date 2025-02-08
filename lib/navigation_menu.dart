@@ -21,8 +21,8 @@ class NavigationMenu extends StatelessWidget {
           height:60, elevation:0, selectedIndex:controller.selectedIndex.value,
           onDestinationSelected:(index)=>controller.selectedIndex.value = index,
           destinations:const[
+            NavigationDestination(icon:Icon(Icons.newspaper), label:"News"),
            NavigationDestination(icon:Icon(Icons.health_and_safety_outlined), label:"Safety Tool"),
-           NavigationDestination(icon:Icon(Icons.newspaper), label:"News"),
            NavigationDestination(icon:Icon(Icons.home_outlined), label:"Home"),
            NavigationDestination(icon:Icon(Iconsax.profile_add), label:"Profile"),
           ]
@@ -35,8 +35,8 @@ class NavigationMenu extends StatelessWidget {
 
 
 class NavigationController extends  GetxController{
-  final Rx<int>  selectedIndex = 1.obs;
+  final Rx<int>  selectedIndex = 2.obs;
 
-  final screens = [SafetyToolScreen(),NewsTabView(),HomeScreen(),const SettingScreen()];
+  final screens = [NewsTabView(),SafetyToolScreen(),HomeScreen(),const SettingScreen()];
 
 }
