@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                     child: IconButton(onPressed:()=>Get.to(()=>AddContactsPage()), icon:Icon(Icons.contact_page_outlined,color:Colors.blue,size:35)))],
                   title: Row(
                     children: [
-                      Text("She Shield",style: Theme.of(context).textTheme.headlineMedium!.apply(color: TColors.white))
+                      Text("SheShield",style: Theme.of(context).textTheme.headlineMedium!.apply(color: TColors.white))
                     ],
                   ),),
               ///------APP BAR HEIGHT-----------'
