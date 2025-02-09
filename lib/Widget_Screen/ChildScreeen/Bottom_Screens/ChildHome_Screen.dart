@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                     child: IconButton(onPressed:()=>Get.to(()=>AddContactsPage()), icon:Icon(Icons.contact_page_outlined,color:Colors.blue,size:35)))],
                   title: Row(
                     children: [
-                      Text("She Shield",style: Theme.of(context).textTheme.headlineMedium!.apply(color: TColors.white))
+                      Text("SheShield",style: Theme.of(context).textTheme.headlineMedium!.apply(color: TColors.white))
                     ],
                   ),),
               ///------APP BAR HEIGHT-----------'
@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 ///-----EXPLORE LIVE SAFE OPEN MAP AND TEXT--------
                 Padding(
                   padding:  EdgeInsets.all(TSizes.size4),
-                  child: Text("Emergency Service",style:Theme.of(context).textTheme.headlineSmall),
+                  child: Text("Emergency api_service",style:Theme.of(context).textTheme.headlineSmall),
                 ),
                 const LiveSafe(),
                 SizedBox(height:12),

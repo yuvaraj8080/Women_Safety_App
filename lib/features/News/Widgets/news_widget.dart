@@ -4,7 +4,7 @@ import 'package:flutter_women_safety_app/features/News/model/news.dart';
 import 'package:intl/intl.dart'; // For formatting the published date
 
 class NewsWidget extends StatelessWidget {
-  final Article article;
+  final NewArticleModel article;
 
   NewsWidget({required this.article});
 

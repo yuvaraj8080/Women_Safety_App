@@ -24,15 +24,6 @@ class SafetyToolScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.bottomSheet(
-            IncidentReportBottomSheet(),
-            backgroundColor: THelperFunction.isDarkMode(context) ? TColors.dark : TColors.light,
-          );
-        },
-        child: Icon(Iconsax.note),
-      ),
       body: SingleChildScrollView(
         child: Column(children: [
           ///-------HEADER--------
@@ -64,10 +55,17 @@ class SafetyToolScreen extends StatelessWidget {
                 ToolsCard(image:"assets/images/images/pepper_spray.png", text:"Defence tool", radius: 30, onTap: ()=>_launchURL("https://www.defenderring.com/blogs/news/10-best-self-defense-weapons-for-women-in-2023")),
                 ToolsCard(image:"assets/images/images/img_4.png", text:"AI ChatBot", radius: 30,onTap:()=> Get.to(()=>ChatBotScreen()),)]),
 
-          ///----Emergency Helpline SCreen-----
+          ///// REPORT CRIME INCIDENT /////
           Padding(
             padding: const EdgeInsets.only(left: 10,right:10,top:5),
-            child: EmergencyHelpline_Card(onPressed: ()=> Get.to(()=>EmergencyScreen()), image: 'assets/images/images/img.png', text1: 'Emergency Helpline', text2: 'common Helpline Numbers of your Country',),
+            child: EmergencyHelpline_Card(onPressed: ()=> Get.to(()=>ReportCrimeIncidentScreen()), image: 'assets/images/images/CrimeReport.png', text1: 'Report Crime Incident', text2: 'Stay Alert, Report Fast.',),
+          ),
+
+
+          ///----Emergency Helpline SCREEN -----
+          Padding(
+            padding: const EdgeInsets.only(left: 10,right:10,top:5),
+            child: EmergencyHelpline_Card(onPressed: ()=> Get.to(()=>EmergencyScreen()), image: 'assets/images/images/img.png', text1: 'Emergency Helpline', text2: 'Quick Access to Emergency Contacts for Assistance',),
           ),
           
         ]),

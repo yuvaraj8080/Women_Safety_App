@@ -71,8 +71,8 @@ class LiveLocationController extends GetxController {
           markerId: MarkerId(report.id),
           position: point,
           infoWindow: InfoWindow(
-            title: report.title,
-            snippet: report.description,
+            title: report.titleIncident,
+            snippet: report.incidentDescription,
           ),
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         ),

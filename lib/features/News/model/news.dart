@@ -1,6 +1,6 @@
 
 
-class Article {
+class NewArticleModel {
   final String sourceName;
   final String? author;
   final String title;
@@ -10,7 +10,7 @@ class Article {
   final DateTime publishedAt;
   final String? content;
 
-  Article({
+  NewArticleModel({
     required this.sourceName,
     this.author,
     required this.title,
@@ -24,8 +24,8 @@ class Article {
 
 
 
-  factory Article.fromJson(Map<String, dynamic> json) {
-    return Article(
+  factory NewArticleModel.fromJson(Map<String, dynamic> json) {
+    return NewArticleModel(
       sourceName: json['source']['name'] ?? 'Unknown Source',
       author: json['author'],
       title: json['title'] ?? 'No Title',

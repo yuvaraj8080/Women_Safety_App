@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_women_safety_app/features/News/Api/api_service.dart';
 import 'package:flutter_women_safety_app/features/News/Widgets/news_widget.dart';
 import 'package:flutter_women_safety_app/features/News/Widgets/report_widget.dart';
 import 'package:flutter_women_safety_app/features/News/model/news.dart';
+import '../../../data/api_service/api_service.dart';
 
 
 
@@ -14,12 +14,12 @@ class NewsTabView extends StatefulWidget {
 }
 
 class _NewsTabViewState extends State<NewsTabView> {
-  late Future<List<Article>> futureArticles;
+  late Future<List<NewArticleModel>> futureArticles;
 
   @override
   void initState() {
-    super.initState();
     futureArticles = fetchNews();
+    super.initState();
   }
 
   @override
@@ -39,7 +39,7 @@ class _NewsTabViewState extends State<NewsTabView> {
         body: TabBarView(
           children: [
             // First Tab: News Articles
-            FutureBuilder<List<Article>>(
+            FutureBuilder<List<NewArticleModel>>(
               future: futureArticles,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -77,13 +77,12 @@ class _NewsTabViewState extends State<NewsTabView> {
                     itemBuilder: (context, index) {
                       final report = reports[index];
                       return ReportWidget(
-                        city: report['City'],
-                        description: report['Description'],
+                        city: report['IncidentCity'],
+                        description: report['IncidentDescription'],
                         fullName: report['FullName'],
-                      
                         phoneNo: report['PhoneNo'],
-                        time: report['Time'].toDate(),
-                        type: report['Type'],
+                        time: report['IncidentDate'].toDate(),
+                        type: report['TitleIncident'],
                       );
                     },
                   );
