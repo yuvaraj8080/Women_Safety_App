@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_women_safety_app/data/repositories/user/user_repository.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../features/authentication/screens/Login/login.dart';
 import '../../../features/authentication/screens/onBoarding/onboarding.dart';

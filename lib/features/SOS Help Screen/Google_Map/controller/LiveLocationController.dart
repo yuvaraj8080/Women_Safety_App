@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sensors/sensors.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 import 'package:vibration/vibration.dart';
 import '../../../../common/widgets.Login_Signup/loaders/snackbar_loader.dart';
 import '../../../Advanced_Safety_Tool/models/ReportIncidentModel.dart';
