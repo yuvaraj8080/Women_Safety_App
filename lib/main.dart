@@ -2,6 +2,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_women_safety_app/utils/Storage/hive_storage.dart';
 import 'package:get/get.dart';
 import 'app.dart';
 import 'data/notification_services/notification_service.dart';
@@ -11,6 +12,9 @@ import 'firebase_options.dart';
 void main() async{
   ///---WIDGET BINDING
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+
+  await THiveStorage.init('UserBox');
 
 
   ///---- AWAIT SPLASH UNTIL ITEM LOAD ----

@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../../utils/Storage/hive_storage.dart';
 import '../../screens/Login/login.dart';
 class onBordingController extends GetxController{
   static onBordingController get instance => Get.find();
+
+  final storage = THiveStorage.instance();
 
 
   //    variables
@@ -26,8 +29,7 @@ void dotNavigationClick(index) {
   //   Update current index jump to the next page
 void nextPage() {
   if(currentPageIndex.value == 2){
-    final storage = GetStorage();
-    storage.write("IsFirstTime",false);
+    storage.saveData("IsFirstTime",false);
     Get.offAll(const LoginScreen());
   }
   else{

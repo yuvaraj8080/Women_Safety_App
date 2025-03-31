@@ -10,6 +10,7 @@ import '../../../features/authentication/screens/Login/login.dart';
 import '../../../features/authentication/screens/onBoarding/onboarding.dart';
 import '../../../features/authentication/screens/signup.widgets/verify_email.dart';
 import '../../../navigation_menu.dart';
+import '../../../utils/Storage/hive_storage.dart';
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/format_exceptions.dart';
@@ -19,7 +20,7 @@ class AuthenticationRepository extends GetxController{
   static AuthenticationRepository get instance => Get.find();
 
   ///---VARIABLES----
-  final deviceStorage = GetStorage();
+  final storage = THiveStorage.instance();
   final _auth = FirebaseAuth.instance;
 
 
@@ -50,10 +51,10 @@ class AuthenticationRepository extends GetxController{
       }
     } else {
       // No user is signed in
-      deviceStorage.writeIfNull("IsFirstTime", true);
+      storage.saveData("IsFirstTime", true);
 
       // Check if it's the first time launching the app
-      deviceStorage.read("IsFirstTime") != true
+      storage.readData("IsFirstTime") != true
           ? Get.offAll(() => const LoginScreen())
           : Get.offAll(const OnBoardingScreen());
     }

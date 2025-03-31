@@ -44,15 +44,15 @@ dependencies:
   firebase_core: ^3.10.1
   firebase_auth: ^5.4.1
   cloud_firestore: ^5.6.2
-  firebase_storage: ^12.4.1
+#  firebase_storage: ^12.4.1
   firebase_database: ^11.3.1
   image_picker: ^1.0.4
   awesome_icons: ^1.1.0
   font_awesome_flutter: ^10.6.0
   shared_preferences: ^2.2.2
   http:
-  sensors:
-  get_storage:
+  sensors_plus:
+#  get_storage:
   http_multi_server: ^3.2.1
   permission_handler: ^11.1.0
   contacts_service: ^0.6.3
@@ -87,6 +87,9 @@ dependencies:
   connectivity_plus: ^6.0.5
   network_manager:
   firebase_app_check:
+  hive:
+#  hive_flutter:
+  path_provider:
 #  awesome_notifications:
 
 
