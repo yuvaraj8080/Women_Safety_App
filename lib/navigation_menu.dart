@@ -24,8 +24,6 @@ class NavigationMenu extends StatelessWidget {
             NavigationDestination(icon:Icon(Icons.newspaper), label:"News"),
            NavigationDestination(icon:Icon(Icons.health_and_safety_outlined), label:"Safety Tool"),
            NavigationDestination(icon:Icon(Icons.home_outlined), label:"Home"),
-           NavigationDestination(icon:Icon(Icons.newspaper), label:"News"),
-          
            NavigationDestination(icon:Icon(Iconsax.profile_add), label:"Profile"),
           ]
         ),

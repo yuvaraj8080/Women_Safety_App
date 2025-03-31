@@ -41,6 +41,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029361731735:android:26d3f4b99d5754157f41d2",
+        "android_client_info": {
+          "package_name": "com.example.women_safety_dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029361731735-50ldcn0hek6fcqgs1626qdmcbmravnjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh8A-Pqdd6m2-h70dSBArjMANcAJnB5Co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029361731735-50ldcn0hek6fcqgs1626qdmcbmravnjf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1029361731735-aq31mnose5422tl06aqsd6ppkbbihbj0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterWomenSafetyApp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

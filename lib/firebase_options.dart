@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,14 +41,14 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyASTAdEEBxSiZmjdVrsHFn5qSaxicjOGU4',
-    appId: '1:1029361731735:web:e0fe6d656ba177227f41d2',
+    apiKey: 'AIzaSyCy0q9DhMt6PFuYHpLaELKmXbUC0lUdgZc',
+    appId: '1:1029361731735:web:9fbbb18b8374f8f57f41d2',
     messagingSenderId: '1029361731735',
     projectId: 'women-safety-app-67951',
     authDomain: 'women-safety-app-67951.firebaseapp.com',
     databaseURL: 'https://women-safety-app-67951-default-rtdb.firebaseio.com',
     storageBucket: 'women-safety-app-67951.appspot.com',
-    measurementId: 'G-FSXGQEVGMN',
+    measurementId: 'G-4SW6R729GX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -65,21 +62,37 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDM_ffMStWf4m6w5bM5zvM02K09-2MhqA0',
-    appId: '1:1029361731735:ios:a071559cef3e7ee77f41d2',
+    appId: '1:1029361731735:ios:b74cf94fc4909dfc7f41d2',
     messagingSenderId: '1029361731735',
     projectId: 'women-safety-app-67951',
     databaseURL: 'https://women-safety-app-67951-default-rtdb.firebaseio.com',
     storageBucket: 'women-safety-app-67951.appspot.com',
+    androidClientId: '1029361731735-0ucrsmm6ru4lpv198ka9h7klgl0mmt61.apps.googleusercontent.com',
+    iosClientId: '1029361731735-g2nud83ddjdan8m3p36m0o8h9p2ofi58.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterWomenSafetyApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDM_ffMStWf4m6w5bM5zvM02K09-2MhqA0',
-    appId: '1:1029361731735:ios:e379f82a7eee5e677f41d2',
+    appId: '1:1029361731735:ios:b74cf94fc4909dfc7f41d2',
     messagingSenderId: '1029361731735',
     projectId: 'women-safety-app-67951',
     databaseURL: 'https://women-safety-app-67951-default-rtdb.firebaseio.com',
     storageBucket: 'women-safety-app-67951.appspot.com',
-    iosBundleId: 'com.example.flutterWomenSafetyApp.RunnerTests',
+    androidClientId: '1029361731735-0ucrsmm6ru4lpv198ka9h7klgl0mmt61.apps.googleusercontent.com',
+    iosClientId: '1029361731735-g2nud83ddjdan8m3p36m0o8h9p2ofi58.apps.googleusercontent.com',
+    iosBundleId: 'com.example.flutterWomenSafetyApp',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyCy0q9DhMt6PFuYHpLaELKmXbUC0lUdgZc',
+    appId: '1:1029361731735:web:e6ae494203f886307f41d2',
+    messagingSenderId: '1029361731735',
+    projectId: 'women-safety-app-67951',
+    authDomain: 'women-safety-app-67951.firebaseapp.com',
+    databaseURL: 'https://women-safety-app-67951-default-rtdb.firebaseio.com',
+    storageBucket: 'women-safety-app-67951.appspot.com',
+    measurementId: 'G-6KSM2LPQRM',
+  );
+
 }
